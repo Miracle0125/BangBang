@@ -24,9 +24,9 @@ public class SpUtil {
         app_context = context.getApplicationContext();
     }
 
-    public static void putRefreshFlag(Context context) {
-        util.putInt(util.DATA_OBSERVER, util.DATA_CHANGED, context);
-    }
+//    public static void putRefreshFlag(Context context) {
+//        util.putInt(util.DATA_OBSERVER, util.DATA_CHANGED, context);
+//    }
 
     public static void putString(String db, String key, String value) {
         app_context.getSharedPreferences(db, Activity.MODE_PRIVATE).edit().putString(key, value).apply();
@@ -38,8 +38,8 @@ public class SpUtil {
 
 
     //user  integer
-    public static void putString(String db, int key, String value) {
-        app_context.getSharedPreferences(db, Activity.MODE_PRIVATE).edit().putString(String.valueOf(key), value).apply();
+    public static void putString(int key, String value) {
+        app_context.getSharedPreferences(DEFAULT, Activity.MODE_PRIVATE).edit().putString(String.valueOf(key), value).apply();
     }
 
     public static String getString(String db, int key) {
@@ -50,8 +50,12 @@ public class SpUtil {
         return app_context.getSharedPreferences(DEFAULT, Activity.MODE_PRIVATE).getString(String.valueOf(key), null);
     }
 
-    public static Object getObject(int cls1) {
-        return new Gson().fromJson(getString(cls1), cls[cls1]);
+    public static Object getObject(int _cls) {
+        return new Gson().fromJson(getString(_cls), cls[_cls]);
+    }
+
+    public static void putObject(Object o, int key) {
+        putString(key, new Gson().toJson(o));
     }
 
     public static void putInt(String db, String key, int value, Context context) {

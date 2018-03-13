@@ -32,7 +32,6 @@ public class AdLayout extends RelativeLayout {
         else {
             drawBitmap(canvas);
         }
-
     }
 
     public void drawBitmap(Canvas canvas) {
@@ -47,9 +46,5 @@ public class AdLayout extends RelativeLayout {
         });
         p.setColorFilter(new ColorMatrixColorFilter(colorMatrix));
         canvas.drawBitmap(src, 0, 0, p);
-    }
-
-    public void setSrc(Bitmap bitmap) {
-        src = bitmap;
     }
 }

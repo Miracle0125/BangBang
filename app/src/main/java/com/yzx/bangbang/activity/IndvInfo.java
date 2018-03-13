@@ -55,13 +55,13 @@ public class IndvInfo extends AppCompatActivity implements View.OnClickListener 
         fm = new FrMetro(getFragmentManager(), R.id.fragment_container);
         downloader = new UniversalImageDownloader(this);
         Gson gson = new Gson();
-        User user = gson.fromJson(SpUtil.getString(Params.DATABASE, "user", this), User.class);
+        User user= (User) SpUtil.getObject(SpUtil.USER);
         Bundle data = getIntent().getExtras();
         if (user == null) return;
         if (data != null) {
             info = (SimpleIndividualInfo) data.getSerializable("info");
             if (info == null)
-                info = gson.fromJson(SpUtil.getString(SpUtil.SAVED_INFO, String.valueOf(ActivityManager.getLayer()), this), SimpleIndividualInfo.class);
+                info = gson.fromJson(SpUtil.getString(SpUtil.SAVED_INFO, String.valueOf(ActivityManager.getLayer())), SimpleIndividualInfo.class);
             if (info == null) return;
         }
         indv_id = info.id;
@@ -76,7 +76,7 @@ public class IndvInfo extends AppCompatActivity implements View.OnClickListener 
         new Thread(this::getIndvInfo).start();
         if (!isUser)
             checkIfHasConcerned();
-        SpUtil.putString(SpUtil.SAVED_INFO, String.valueOf(ActivityManager.getLayer()), gson.toJson(info), this);
+        SpUtil.putString(SpUtil.SAVED_INFO, String.valueOf(ActivityManager.getLayer()), gson.toJson(info));
     }
 
     private void initView() {

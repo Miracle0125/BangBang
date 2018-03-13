@@ -7,30 +7,36 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="38dp">
+
         <Spinner
-            android:layout_centerVertical="true"
-            android:layout_marginStart="60dp"
             android:id="@+id/fr_main_spinner_sort"
             android:layout_width="120dp"
             android:layout_height="wrap_content"
-            android:entries="@array/sort"
-            />
-        <Spinner
-            android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
-            android:layout_marginEnd="60dp"
+            android:layout_marginStart="60dp"
+            android:entries="@array/sort" />
+
+        <Spinner
             android:id="@+id/fr_main_spinner_distance"
             android:layout_width="120dp"
             android:layout_height="wrap_content"
-            android:entries="@array/distances"
-            />
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="60dp"
+            android:entries="@array/distances" />
     </RelativeLayout>
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/main_list"
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swipe_refresh"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:overScrollMode="never">
-    </android.support.v7.widget.RecyclerView>
+        android:layout_height="wrap_content">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/main_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:overScrollMode="never" />
+    </android.support.v4.widget.SwipeRefreshLayout>
+
 
 </LinearLayout>

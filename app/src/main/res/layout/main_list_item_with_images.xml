@@ -10,7 +10,7 @@
         android:layout_height="wrap_content">
 
         <com.facebook.drawee.view.SimpleDraweeView
-            android:id="@+id/item_portrait"
+            android:id="@+id/portrait"
             android:layout_width="45dp"
             android:layout_height="45dp"
             android:layout_alignParentLeft="true"
@@ -25,9 +25,9 @@
             android:id="@+id/item_username"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignTop="@+id/item_portrait"
+            android:layout_alignTop="@+id/portrait"
             android:layout_marginLeft="10dp"
-            android:layout_toRightOf="@+id/item_portrait"
+            android:layout_toRightOf="@+id/portrait"
             android:text="UserName"
             android:textColor="@color/minor"
             android:textSize="14sp"
@@ -37,21 +37,21 @@
             android:id="@+id/item_title"
             android:layout_width="280dp"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/item_portrait"
-            android:layout_below="@+id/item_portrait"
+            android:layout_alignLeft="@+id/portrait"
+            android:layout_below="@+id/portrait"
             android:layout_marginTop="8dp"
             android:text="AssignmentTitle"
             android:textColor="#242424"
             android:textSize="17sp" />
 
         <RelativeLayout
-            android:id="@+id/main_image_container"
+            android:id="@+id/image_container"
             android:layout_width="match_parent"
             android:layout_height="120dp"
             android:layout_below="@+id/item_title">
 
             <com.facebook.drawee.view.SimpleDraweeView
-                android:id="@+id/main_item_image0"
+                android:id="@+id/image0"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:layout_marginLeft="10dp"
@@ -60,22 +60,22 @@
                 fresco:placeholderImage="@color/light_blue" />
 
             <com.facebook.drawee.view.SimpleDraweeView
-                android:id="@+id/main_item_image1"
+                android:id="@+id/image1"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="10dp"
-                android:layout_toRightOf="@+id/main_item_image0"
+                android:layout_toRightOf="@+id/image0"
                 android:visibility="gone"
                 fresco:placeholderImage="@color/light_blue" />
 
             <com.facebook.drawee.view.SimpleDraweeView
-                android:id="@+id/main_item_image2"
+                android:id="@+id/image2"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="10dp"
-                android:layout_toRightOf="@+id/main_item_image1"
+                android:layout_toRightOf="@+id/image1"
                 android:visibility="gone"
                 fresco:placeholderImage="@color/light_blue" />
         </RelativeLayout>
@@ -97,7 +97,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:layout_alignTop="@+id/item_portrait"
+            android:layout_alignTop="@+id/portrait"
             android:layout_marginRight="20dp"
             android:text="30"
             android:textColor="#006000"
@@ -121,7 +121,7 @@
             android:id="@+id/main_fr_reply_bar"
             android:layout_width="match_parent"
             android:layout_height="35dp"
-            android:layout_below="@+id/main_image_container"
+            android:layout_below="@+id/image_container"
             android:layout_marginTop="10dp">
             <LinearLayout
                 android:id="@+id/item_divide_line"
@@ -130,7 +130,7 @@
                 android:background="#DCDCDC"
                 android:orientation="vertical" />
             <TextView
-                android:id="@+id/main_item_distance"
+                android:id="@+id/distance"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"

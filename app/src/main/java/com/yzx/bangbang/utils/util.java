@@ -7,6 +7,7 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Matrix;
 import android.graphics.Rect;
+import android.net.Uri;
 import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v4.view.ViewCompat;
@@ -253,38 +254,6 @@ public class util {
         void onFinish();
     }
 
-    public static void putInt(String key, int value, Context context) {
-        context.getApplicationContext().getSharedPreferences(Params.DATABASE, Activity.MODE_PRIVATE).edit().putInt(key, value).commit();
-    }
-
-    public static int getInt(String key, Context context) {
-        return context.getApplicationContext().getSharedPreferences(Params.DATABASE, Activity.MODE_PRIVATE).getInt(key, -1);
-    }
-
-    public static void putString(int key, String value, Context context) {
-        context.getApplicationContext().getSharedPreferences(Params.DATABASE, Activity.MODE_PRIVATE).edit().putString(context.getResources().getString(key), value).commit();
-    }
-
-    public static String getString(int key, Context context) {
-        return context.getApplicationContext().getSharedPreferences(Params.DATABASE, Activity.MODE_PRIVATE).getString(context.getResources().getString(key), null);
-    }
-
-    public static void putBoolean(String key, boolean value, Context context) {
-        context.getApplicationContext().getSharedPreferences(Params.DATABASE, Activity.MODE_PRIVATE).edit().putBoolean(key, value).commit();
-    }
-
-    public static boolean getBoolean(String key, Context context) {
-        return context.getApplicationContext().getSharedPreferences(Params.DATABASE, Activity.MODE_PRIVATE).getBoolean(key, false);
-    }
-
-    public static void deleteSpData(String db, String key, Context context) {
-        context.getApplicationContext().getSharedPreferences(db, Activity.MODE_PRIVATE).edit().remove(key).commit();
-    }
-
-    public static String resStr(int id) {
-        return BangBangApp.r.getString(id);
-    }
-
     //将日期变成几天前或者几小时前
     public static String CustomDate(String raw_date) {
         if (format0 == null || format1 == null) {
@@ -322,6 +291,10 @@ public class util {
         msg.what = what;
         msg.obj = o;
         return msg;
+    }
+
+    public static Uri get_image_uri(String name) {
+        return Uri.parse("http://" + Params.ip + ":8080/server/image/" + name + ".jpg");
     }
 
     public static void AppExit() {

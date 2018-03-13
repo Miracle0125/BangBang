@@ -3,10 +3,11 @@ package com.yzx.bangbang.Fragment.Main;
 import android.app.Fragment;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.support.annotation.Nullable;
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,11 +20,8 @@ import com.yzx.bangbang.adapter.main.MainAdapter;
 import com.yzx.bangbang.adapter.main.MainDistanceSpinnerAdapter;
 import com.yzx.bangbang.adapter.main.MainSortSpinnerAdapter;
 import com.yzx.bangbang.R;
-import com.yzx.bangbang.utils.NetWork.UniversalImageDownloader;
-import com.yzx.bangbang.view.mainView.ListItem;
 
 import java.io.File;
-import java.lang.ref.WeakReference;
 import java.util.Map;
 
 import butterknife.BindView;
@@ -33,13 +31,13 @@ import butterknife.ButterKnife;
 /**
  * 我既讨厌写注释，又讨厌看别人不写注释的代码。好了我现在开始看一年前的代码了。
  */
-public class FrMain extends Fragment implements View.OnClickListener, ListItem.Listener {
+public class FrMain extends Fragment {
     public static final int IMAGE_DOWNLOAD_COMPLETE = 10;
     public static final int MODE_DEFAULT = 0;
     public static final int MODE_PRICE_ASC = 1;
     public static final int MODE_PRICE_DESC = 2;
 
-    int sort_type = 0;
+    int sort_type = MODE_DEFAULT;
     public static int distance = 0;
 
     @BindView(R.id.main_list)
@@ -48,11 +46,11 @@ public class FrMain extends Fragment implements View.OnClickListener, ListItem.L
     Spinner spinner_distance;
     @BindView(R.id.fr_main_spinner_sort)
     Spinner spinner_sort;
-    UniversalImageDownloader downloader;
+    @BindView(R.id.swipe_refresh)
+    SwipeRefreshLayout swipeRefreshLayout;
     private View v;
-    Map<Integer, View> Id_View;
-    public static boolean hasScrollToTop;
-    MainAdapter adapter;
+    //Map<Integer, View> Id_View;
+    MainAdapter adapter = new MainAdapter(getActivity());
 
     @Nullable
     @Override
@@ -65,14 +63,19 @@ public class FrMain extends Fragment implements View.OnClickListener, ListItem.L
 
     public void init() {
         ButterKnife.bind(this, v);
-        adapter = new MainAdapter(getActivity());
-        downloader = new UniversalImageDownloader(getActivity());
         initSpinner();
-        //DownloadAssignmentText();
-        context().getListener().getAssignment((r) -> {
+        swipeRefreshLayout.setOnRefreshListener(() -> context().listener.getAssignment((r) -> {
             adapter.setData(r);
-            recyclerView.setAdapter(adapter);
-        }, MODE_DEFAULT);
+            if (recyclerView.getLayoutManager() == null)
+                recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+            if (recyclerView.getAdapter() == null)
+                recyclerView.setAdapter(adapter);
+            swipeRefreshLayout.setRefreshing(false);
+        }, sort_type));
+        recyclerView.setOnClickListener(v -> {
+            Log.d("test","item click");
+        });
+        refresh();
     }
 
     private void initSpinner() {
@@ -82,7 +85,7 @@ public class FrMain extends Fragment implements View.OnClickListener, ListItem.L
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 if (distance == i) return;
                 distance = i;
-                Refresh();
+                refresh();
             }
 
             @Override
@@ -96,7 +99,7 @@ public class FrMain extends Fragment implements View.OnClickListener, ListItem.L
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 if (sort_type == i) return;
                 sort_type = i;
-                Refresh();
+                refresh();
             }
 
             @Override
@@ -108,83 +111,21 @@ public class FrMain extends Fragment implements View.OnClickListener, ListItem.L
 
     float[][] dis_scope = {{0, 1000f}, {1000f, 2000f}, {2000f, 5000f}, {5000f, 200000f}};
 
-    public void Refresh() {
-//        if (sort_type == 0) DownloadAssignmentText();//默认
-//        if (sort_type == 1) DownloadAssignmentTextOrderByPriceAsc();
-//        if (sort_type == 2) DownloadAssignmentTextOrderByPriceDesc();
-        //adapter.downloader.onRefresh();
-        //usingPtr = true;
+    public void refresh() {
+        swipeRefreshLayout.setRefreshing(true);
     }
 
-    public void onClick(View v) {
-        switch (v.getId()) {
-        }
-    }
-
-    @Override
-    public void onDestroy() {
-        clear();
-        super.onDestroy();
-    }
-
-    public FrMain inst() {
-        return FrMain.this;
-    }
-
-    private void clear() {
-        if (Id_View != null)
-            Id_View.clear();
-        Id_View = null;
-    }
-
-    public FrMainHandler frMainHandler = new FrMainHandler(this);
-
-    public static class FrMainHandler extends Handler {
-        private WeakReference<FrMain> ref;
-
-        public FrMainHandler(FrMain fragment) {
-            ref = new WeakReference<>(fragment);
-        }
-
-        @Override
-        public void handleMessage(Message msg) {
-            super.handleMessage(msg);
-            FrMain inst = ref.get();
-            if (inst != null)
-                inst.handleMsg(msg);
-        }
-    }
-
-    private void handleMsg(Message msg) {
-        switch (msg.what) {
-            case 1:
-                //processInputStream();
-                break;
-            case IMAGE_DOWNLOAD_COMPLETE:
-                LoadImage(msg.getData());
-                break;
-            default:
-                break;
-        }
-    }
-
-
-    private void LoadImage(Bundle data) {
-        int[] imageId = {R.id.main_item_image0, R.id.main_item_image1, R.id.main_item_image2};
-        SimpleDraweeView draweeView;
-        View parent = Id_View.get(data.getInt("asm_id"));
-        if (parent == null)
-            return;
-        draweeView = parent.findViewById(imageId[data.getInt("pos")]);
-        if (draweeView == null)
-            return;
-        draweeView.setImageURI(Uri.fromFile(new File(data.getString("path"))));
-    }
-
-    @Override
-    public void onItemTouched(int position) {
-        //Main inst = mainRef.get();
-    }
+//    private void LoadImage(Bundle data) {
+//        int[] imageId = {R.id.image0, R.id.image1, R.id.image2};
+//        SimpleDraweeView draweeView;
+//        View parent = Id_View.get(data.getInt("asm_id"));
+//        if (parent == null)
+//            return;
+//        draweeView = parent.findViewById(imageId[data.getInt("pos")]);
+//        if (draweeView == null)
+//            return;
+//        draweeView.setImageURI(Uri.fromFile(new File(data.getString("path"))));
+//    }
 
     public Main context() {
         return (Main) super.getActivity();

@@ -77,6 +77,7 @@ public class AssignmentDetail extends Activity implements View.OnClickListener, 
         setContentView(R.layout.ad_layout);
         //ActivityManager.getManager().addActivity(this);
         int asm_id;
+
         assignment = (Assignment) getIntent().getSerializableExtra("assignment");
         if (assignment == null) {
             asm_id = getIntent().getExtras().getInt("asm_id");
@@ -90,7 +91,7 @@ public class AssignmentDetail extends Activity implements View.OnClickListener, 
     private void init() {
         downloader = new UniversalImageDownloader(this);
         fm = new FrMetro(getFragmentManager(), R.id.ad_fragment_container);
-        if (assignment.employer_id == Main.user.getId()) isOwner = true;
+        if (assignment.getEmployer_id() == Main.user.getId()) isOwner = true;
         initView();
         initEdit();
         initDialog();
@@ -124,13 +125,13 @@ public class AssignmentDetail extends Activity implements View.OnClickListener, 
         replier_info_bar = findViewById(R.id.replier_info_bar);
         replier_info_bar.setOnClickListener(this);
         replier_info_text = (TextView) findViewById(R.id.replier_info_text);
-        ((TextView) findViewById(R.id.ad_title)).setText(assignment.title);
-        ((TextView) findViewById(R.id.ad_content)).setText(assignment.content);
-        ((TextView) findViewById(R.id.ad_posterName)).setText(assignment.employer_name);
-        ((TextView) findViewById(R.id.ad_price)).setText(util.s(assignment.price));
-        ((TextView) findViewById(R.id.ad_price)).setTextColor(util.CustomColor(assignment.price));
-        downloader.downLoadPortrait(assignment.employer_id, (SimpleDraweeView) findViewById(R.id.ad_portrait));
-        if (assignment.employer_id == Main.user.getId()) {
+        ((TextView) findViewById(R.id.ad_title)).setText(assignment.getTitle());
+        ((TextView) findViewById(R.id.ad_content)).setText(assignment.getContent());
+        ((TextView) findViewById(R.id.ad_posterName)).setText(assignment.getEmployer_name());
+        ((TextView) findViewById(R.id.ad_price)).setText(util.s(assignment.getPrice()));
+        ((TextView) findViewById(R.id.ad_price)).setTextColor(util.CustomColor(assignment.getPrice()));
+        downloader.downLoadPortrait(assignment.getEmployer_id(), (SimpleDraweeView) findViewById(R.id.ad_portrait));
+        if (assignment.getEmployer_id() == Main.user.getId()) {
             View v = findViewById(R.id.ad_btn_delete);
             v.setVisibility(View.VISIBLE);
             v.setOnClickListener(this);
@@ -203,28 +204,28 @@ public class AssignmentDetail extends Activity implements View.OnClickListener, 
             comments = gson.fromJson(s, Comments.class);
             runOnUiThread(() -> processInputStream(comments.list, comments.floors));
         });
-        okHttp.addPart("comment", String.valueOf(assignment.id));
+        okHttp.addPart("comment", String.valueOf(assignment.getId()));
         okHttp.post("query_comment");
     }
 
     private void downloadImages() {
-        for (int i = 0; i < assignment.images; i++) {
+        for (int i = 0; i < assignment.getImages(); i++) {
             SimpleDraweeView view;
             switch (i) {
                 case 0:
                     view = (SimpleDraweeView) findViewById(R.id.ad_image0);
                     view.setVisibility(View.VISIBLE);
-                    downloader.downloadAssignmentImages(assignment.id, i, view);
+                    downloader.downloadAssignmentImages(assignment.getId(), i, view);
                     break;
                 case 1:
                     view = (SimpleDraweeView) findViewById(R.id.ad_image1);
                     view.setVisibility(View.VISIBLE);
-                    downloader.downloadAssignmentImages(assignment.id, i, view);
+                    downloader.downloadAssignmentImages(assignment.getId(), i, view);
                     break;
                 case 2:
                     view = (SimpleDraweeView) findViewById(R.id.ad_image2);
                     view.setVisibility(View.VISIBLE);
-                    downloader.downloadAssignmentImages(assignment.id, i, view);
+                    downloader.downloadAssignmentImages(assignment.getId(), i, view);
                     break;
             }
         }
@@ -246,7 +247,7 @@ public class AssignmentDetail extends Activity implements View.OnClickListener, 
                 inst().replierInfoList = temp.list;
             }
         });
-        okhttp.addPart("asm_id", String.valueOf(assignment.id));
+        okhttp.addPart("asm_id", String.valueOf(assignment.getId()));
         okhttp.post("query_replier_info");
     }
 
@@ -259,7 +260,7 @@ public class AssignmentDetail extends Activity implements View.OnClickListener, 
                 runOnUiThread(() -> findViewById(R.id.ad_icon_success_block).setVisibility(View.VISIBLE));
             }
         });
-        okhttp.addPart("sql", "select count(*) from `event` where `asm_id` = '" + assignment.id + "' and `success` = '1'");
+        okhttp.addPart("sql", "select count(*) from `event` where `asm_id` = '" + assignment.getId() + "' and `success` = '1'");
         okhttp.post("query_data_common");
     }
 
@@ -272,7 +273,7 @@ public class AssignmentDetail extends Activity implements View.OnClickListener, 
                 runOnUiThread(() -> ((TextView) findViewById(R.id.ad_state_text)).setText("需求完结"));
             }
         });
-        okhttp.addPart("sql", "select count(*) from `event` where `asm_id` = '" + assignment.id + "' and `fulfill` = '1'");
+        okhttp.addPart("sql", "select count(*) from `event` where `asm_id` = '" + assignment.getId() + "' and `fulfill` = '1'");
         okhttp.post("query_data_common");
     }
 
@@ -491,7 +492,7 @@ public class AssignmentDetail extends Activity implements View.OnClickListener, 
                 already_collected = true;
             }
         });
-        okHttp.addPart("sql", null, "select count(*) from event where user_id = " + Main.user.getId() + " and type = 3 and asm_id = " + assignment.id, OkHttpUtil.MEDIA_TYPE_JSON);
+        okHttp.addPart("sql", null, "select count(*) from event where user_id = " + Main.user.getId() + " and type = 3 and asm_id = " + assignment.getId(), OkHttpUtil.MEDIA_TYPE_JSON);
         okHttp.post("query_data_common");
     }
 
@@ -522,7 +523,7 @@ public class AssignmentDetail extends Activity implements View.OnClickListener, 
             if (s.equals("success"))
                 updateNumCollection(true);
         });
-        okHttp.addPart("sql", null, "insert into event (`user_id`, `user_name`, `date`, `type`, `asm_id`, `asm_title`, `price`) values ('" + Main.user.getId() + "','" + Main.user.getName() + "','" + util.getDate() + "','" + String.valueOf(Params.EVENT_TYPE_COLLECT_ASSIGNMENT) + "','" + assignment.id + "','" + assignment.title + "','" + assignment.price + "')", OkHttpUtil.MEDIA_TYPE_JSON);
+        okHttp.addPart("sql", null, "insert into event (`user_id`, `user_name`, `date`, `type`, `asm_id`, `asm_title`, `price`) values ('" + Main.user.getId() + "','" + Main.user.getName() + "','" + util.getDate() + "','" + String.valueOf(Params.EVENT_TYPE_COLLECT_ASSIGNMENT) + "','" + assignment.getId() + "','" + assignment.getTitle() + "','" + assignment.getPrice() + "')", OkHttpUtil.MEDIA_TYPE_JSON);
         okHttp.post("update_data_common");
     }
 
@@ -531,7 +532,7 @@ public class AssignmentDetail extends Activity implements View.OnClickListener, 
             if (s.equals("success"))
                 updateNumCollection(false);
         });
-        okHttp.addPart("sql", "delete from event where user_id = '" + Main.user.getId() + "' and asm_id = '" + assignment.id + "' and type = '" + Params.EVENT_TYPE_COLLECT_ASSIGNMENT + "'");
+        okHttp.addPart("sql", "delete from event where user_id = '" + Main.user.getId() + "' and asm_id = '" + assignment.getId() + "' and type = '" + Params.EVENT_TYPE_COLLECT_ASSIGNMENT + "'");
         okHttp.post("update_data_common");
     }
 
@@ -555,12 +556,12 @@ public class AssignmentDetail extends Activity implements View.OnClickListener, 
             if (s.equals("success")) {
                 runOnUiThread(() -> Toast.makeText(AssignmentDetail.this, "删除成功", Toast.LENGTH_SHORT).show());
                 finish();
-                SpUtil.putRefreshFlag(AssignmentDetail.this);
+                //SpUtil.putRefreshFlag(AssignmentDetail.this);
             } else if (s.equals("failed")) {
                 runOnUiThread(() -> Toast.makeText(AssignmentDetail.this, "删除失败", Toast.LENGTH_SHORT).show());
             }
         });
-        okHttp.addPart("delete_assignment", null, String.valueOf(assignment.id), OkHttpUtil.MEDIA_TYPE_JSON);
+        okHttp.addPart("delete_assignment", null, String.valueOf(assignment.getId()), OkHttpUtil.MEDIA_TYPE_JSON);
         okHttp.post("delete_asm");
     }
 
@@ -653,9 +654,9 @@ public class AssignmentDetail extends Activity implements View.OnClickListener, 
         String s = edit.getText().toString();
         Comment comment;
         if (saveFlag) {
-            comment = new Comment(user.getName(), poster_name, util.getDate(), -1, assignment.id, user.getId(), poster_id, inst().parent_id, -1, -1, edit.getText().toString());
+            comment = new Comment(user.getName(), poster_name, util.getDate(), -1, assignment.getId(), user.getId(), poster_id, inst().parent_id, -1, -1, edit.getText().toString());
         } else {
-            comment = new Comment(user.getName(), assignment.getEmployer_name(), util.getDate(), -1, assignment.id, user.getId(), assignment.employer_id, 0, -1, -1, edit.getText().toString());
+            comment = new Comment(user.getName(), assignment.getEmployer_name(), util.getDate(), -1, assignment.getId(), user.getId(), assignment.getEmployer_id(), 0, -1, -1, edit.getText().toString());
         }
         startPost(gson.toJson(comment));
     }
@@ -697,12 +698,12 @@ public class AssignmentDetail extends Activity implements View.OnClickListener, 
         });*/
         if (already_accepted) return;
         if (isOwner) {
-            Toast.makeText(AssignmentDetail.this, "你是发布人啊(。・`ω´・)", Toast.LENGTH_SHORT).show();
+            Toast.makeText(AssignmentDetail.this, "你是发布人啊(。?`ω′?)", Toast.LENGTH_SHORT).show();
             return;
         }
         new Thread(() -> {
-            Msg msg = new Msg(assignment.employer_name, Main.user.getName(), assignment.title, util.getDate(), assignment.employer_id, assignment.employer_id, Main.user.getId(), assignment.id, 0);
-            ReplierInfo info = new ReplierInfo(Main.user.getName(), assignment.title, null, util.getDate(), Main.user.getId(), assignment.id, assignment.price);
+            Msg msg = new Msg(assignment.getEmployer_name(), Main.user.getName(), assignment.getTitle(), util.getDate(), assignment.getEmployer_id(), assignment.getEmployer_id(), Main.user.getId(), assignment.getId(), 0);
+            ReplierInfo info = new ReplierInfo(Main.user.getName(), assignment.getTitle(), null, util.getDate(), Main.user.getId(), assignment.getId(), assignment.getPrice());
             OkHttpUtil okhttp = OkHttpUtil.inst(s -> {
                 if (s.equals("update_success"))
                     inst().handler.sendEmptyMessage(NetworkService.KEY_INSERT_MSG);
@@ -770,7 +771,8 @@ public class AssignmentDetail extends Activity implements View.OnClickListener, 
             public double latitude, longitude;
 
             public Assignment toAssignment() {
-                return new Assignment(employer_name, title, content, date, id, repliers, employer_id, images, price);
+               // return new Assignment(employer_name, title, content, date, id, repliers, employer_id, images, price);
+                return null;
             }
         }
     }

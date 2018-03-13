@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.google.gson.Gson;
+import com.trello.rxlifecycle2.android.ActivityEvent;
 import com.yzx.bangbang.activity.IndvInfo;
 import com.yzx.bangbang.activity.Main;
 import com.yzx.bangbang.model.SimpleIndividualInfo;
@@ -22,6 +23,7 @@ import com.yzx.bangbang.R;
 import com.yzx.bangbang.Service.NetworkService;
 import com.yzx.bangbang.utils.NetWork.OkHttpUtil;
 import com.yzx.bangbang.utils.Params;
+import com.yzx.bangbang.utils.SpUtil;
 import com.yzx.bangbang.utils.util;
 
 import java.io.File;
@@ -29,6 +31,7 @@ import java.lang.ref.WeakReference;
 import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Flowable;
+import io.reactivex.functions.Consumer;
 
 public class FrUser extends Fragment implements View.OnClickListener {
     View view;
@@ -36,7 +39,6 @@ public class FrUser extends Fragment implements View.OnClickListener {
     User user;
     SimpleDraweeView draweeView;
     private static final int DOWNLOAD_COMPLETE = 1;
-    Main main;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         frUser = this;
@@ -53,9 +55,8 @@ public class FrUser extends Fragment implements View.OnClickListener {
     }
 
     private void init() {
-        main = (Main) getActivity();
-        Gson gson = new Gson();
-        user = gson.fromJson(util.getString(R.string.key_user, getActivity()), User.class);
+        //user = gson.fromJson(util.getString(R.string.key_user, getActivity()), User.class);
+        user= (User) SpUtil.getObject(SpUtil.USER);
         TextView v = (TextView) view.findViewById(R.id.main_fr_user_name);
         v.setText(user.getName());
         //downloadUserRecord();
@@ -67,12 +68,15 @@ public class FrUser extends Fragment implements View.OnClickListener {
         switch (v.getId()) {
             case R.id.main_fr_user_exit:
                 //NetworkService.inst.close();
-               Flowable.just(util.obtain_message(Main.ACTION_EXIT_LOG_IN)).delay(500, TimeUnit.MILLISECONDS).subscribe(((Main) getActivity()).consumer);
+                Flowable.just(util.obtain_message(Main.ACTION_EXIT_LOG_IN))
+                        .delay(500, TimeUnit.MILLISECONDS)
+                        .compose(context().<Message>bindUntilEvent(ActivityEvent.DESTROY))
+                        .subscribe(getConsumer());
                 break;
             case R.id.main_fr_user_portrait_bar:
-                Intent intent = new Intent(main, IndvInfo.class);
-                SimpleIndividualInfo info = new SimpleIndividualInfo(user.getId(),user.getName());
-                intent.putExtra("info",info);
+                Intent intent = new Intent(context(), IndvInfo.class);
+                SimpleIndividualInfo info = new SimpleIndividualInfo(user.getId(), user.getName());
+                intent.putExtra("info", info);
 /*                if (image_path != null)
                     intent.putExtra("path", image_path);*/
                 startActivity(intent);
@@ -84,27 +88,28 @@ public class FrUser extends Fragment implements View.OnClickListener {
     String image_path;
     static int code;
 
-    private void downloadUserRecord(){
+    private void downloadUserRecord() {
         OkHttpUtil okHttpUtil = OkHttpUtil.inst(new OkHttpUtil.simpleOkHttpCallback() {
             @Override
             public void onResponse(String s) {
-                if (s.charAt(0)=='<')
+                if (s.charAt(0) == '<')
                     return;
                 Gson gson = new Gson();
-                final UserRecord userRecord = gson.fromJson(s,UserRecord.class);
-                    getActivity().runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            //loadUserRecord(userRecord);
-                        }
-                    });
+                final UserRecord userRecord = gson.fromJson(s, UserRecord.class);
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        //loadUserRecord(userRecord);
+                    }
+                });
             }
         });
-        okHttpUtil.addPart("user_id",String.valueOf(user.getId()));
+        okHttpUtil.addPart("user_id", String.valueOf(user.getId()));
         okHttpUtil.post("user_record");
     }
-    private void loadUserRecord(UserRecord userRecord){
-        if (userRecord==null)
+
+    private void loadUserRecord(UserRecord userRecord) {
+        if (userRecord == null)
             return;
 /*        TextView v= (TextView) view.findViewById(R.id.main_fr_user_num_asm);
         v.setText(String.valueOf(userRecord.num_asm));
@@ -184,7 +189,7 @@ public class FrUser extends Fragment implements View.OnClickListener {
     }
 
     private class UserRecord {
-      public  int user_id, num_asm, num_accept, num_concern, num_coll;
+        public int user_id, num_asm, num_accept, num_concern, num_coll;
 
         public UserRecord(int user_id, int num_asm, int num_accept, int num_concern, int num_coll) {
             this.user_id = user_id;
@@ -195,4 +200,11 @@ public class FrUser extends Fragment implements View.OnClickListener {
         }
     }
 
+    private Consumer<Message> getConsumer() {
+        return ((Main) getActivity()).consumer;
+    }
+
+    private Main context(){
+        return (Main) getActivity();
+    }
 }
