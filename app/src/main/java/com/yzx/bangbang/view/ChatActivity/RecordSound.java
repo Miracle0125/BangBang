@@ -8,7 +8,7 @@ import android.view.MotionEvent;
 import android.widget.FrameLayout;
 import android.widget.Toast;
 
-import com.yzx.bangbang.Activity.ChatActivity;
+import com.yzx.bangbang.activity.ChatActivity;
 import com.yzx.bangbang.utils.Params;
 import com.yzx.bangbang.utils.util;
 

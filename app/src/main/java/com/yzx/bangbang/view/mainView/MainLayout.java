@@ -8,7 +8,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import com.yzx.bangbang.Activity.NewAssign;
+import com.yzx.bangbang.activity.NewAssignment;
 import com.yzx.bangbang.Fragment.Main.FrMain;
 import com.yzx.bangbang.Fragment.Main.FrMessage;
 import com.yzx.bangbang.Fragment.Main.FrNews;
@@ -47,7 +47,7 @@ public class MainLayout extends RelativeLayout {
             , R.id.main_select_client
             , R.id.main_new_assign);
     String[] fragment_name = {"主页", "消息", "私信", "用户", ""};
-    Class[] target_class = {FrMain.class, FrNews.class, FrMessage.class, FrUser.class, NewAssign.class};
+    Class[] target_class = {FrMain.class, FrNews.class, FrMessage.class, FrUser.class, NewAssignment.class};
     ImageView[] selector = new ImageView[button_id.size()];
     @BindView(R.id.toolbar)
     TextView toolbar;
@@ -66,7 +66,7 @@ public class MainLayout extends RelativeLayout {
             , R.id.main_new_assign})
     public void onClick(View v) {
         if (v.getId() == R.id.main_new_assign) {
-            Intent intent = new Intent(context, NewAssign.class);
+            Intent intent = new Intent(context, NewAssignment.class);
             //intent.putExtra("user", user);!!
             context.startActivity(intent);
         } else {

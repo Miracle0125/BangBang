@@ -1,13 +1,13 @@
-package com.yzx.bangbang.Activity.Common;
+package com.yzx.bangbang.activity.common;
 
 
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
 import com.yzx.bangbang.R;
 import com.yzx.bangbang.utils.util;
-import com.yzx.bangbang.view.Common.PtrLayout;
 import com.yzx.bangbang.Widget.Ptr.MaterialHeader;
 import com.yzx.bangbang.Widget.PtrUIListener;
 /**
@@ -24,7 +24,7 @@ public abstract class PtrActivity extends RxAppCompatActivity {
     }
 
     public void prepare(View v, RelativeLayout.LayoutParams rl) {
-        PtrLayout ptrLayout = (PtrLayout) View.inflate(this, R.layout.common_ptr, null);
+        ViewGroup ptrLayout = (ViewGroup) View.inflate(this, R.layout.common_ptr, null);
         header = ptrLayout.findViewById(R.id.ptr_header);
         header.setColorSchemeColors(getResources().getIntArray(R.array.ptr_colors));
         header.setPadding(0, util.px(15), 0, util.px(10));

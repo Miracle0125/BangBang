@@ -10,8 +10,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
-import com.yzx.bangbang.Activity.AssignDetail;
-import com.yzx.bangbang.Activity.Main;
+import com.yzx.bangbang.activity.AssignmentDetail;
+import com.yzx.bangbang.activity.Main;
 import com.yzx.bangbang.model.Mysql.AssignmentModule;
 import com.yzx.bangbang.R;
 import com.yzx.bangbang.Service.NetworkService;
@@ -116,7 +116,7 @@ public class FrNews extends Fragment implements View.OnClickListener {
                 NetworkService.checkIfHasRecord(asm_id, NetworkService.id_count.get(asm_id) + NetworkService.id_diff.get(asm_id));
               /*  NetworkService.inst.queryMessage(new ArrayList<Integer>(asm_id));*/
                 updateNtfCircle();
-                Intent i = new Intent(getActivity(), AssignDetail.class);
+                Intent i = new Intent(getActivity(), AssignmentDetail.class);
                 i.putExtra("asm_id", asm_id);
                 getActivity().startActivity(i);
                 break;

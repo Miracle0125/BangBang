@@ -1,4 +1,4 @@
-package com.yzx.bangbang.Activity;
+package com.yzx.bangbang.activity;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -12,8 +12,8 @@ import com.google.gson.Gson;
 import com.trello.rxlifecycle2.android.ActivityEvent;
 import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
 import com.yzx.bangbang.Fragment.Common.FormFragment;
-import com.yzx.bangbang.Interface.Network.SignIn.ISignIn;
-import com.yzx.bangbang.Interface.Network.SignIn.ISignUp;
+import com.yzx.bangbang.Interface.network.ISignIn;
+import com.yzx.bangbang.Interface.network.ISignUp;
 import com.yzx.bangbang.model.receiver.RSignIn;
 import com.yzx.bangbang.model.User;
 import com.yzx.bangbang.R;

@@ -1,4 +1,4 @@
-package com.yzx.bangbang.Activity;
+package com.yzx.bangbang.activity;
 
 import android.content.ComponentName;
 import android.content.Intent;
@@ -13,10 +13,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.amap.api.maps.model.LatLng;
-import com.yzx.bangbang.Activity.Common.PtrActivity;
+import com.yzx.bangbang.activity.common.PtrActivity;
 import com.yzx.bangbang.Fragment.Main.FrMain;
 import com.yzx.bangbang.model.SimpleIndividualInfo;
-import com.yzx.bangbang.model.User;
 import com.yzx.bangbang.R;
 import com.yzx.bangbang.Service.NetworkService;
 import com.yzx.bangbang.utils.FrMetro;
@@ -44,6 +43,7 @@ public class Main extends PtrActivity implements NetworkService.Listener {
     public static final int ACTION_EXIT_LOG_IN = 3;
     public static final int STATE_REFRESH_FINISH = 4;
     public static final int ACTION_CLICK_PORTRAIT = 5;
+    public static final int RESULT_UPLOAD_SUCCESS = 6;
     public static NetworkService networkService;
     public FrMetro fm;
     MainServiceConn conn;
@@ -72,7 +72,7 @@ public class Main extends PtrActivity implements NetworkService.Listener {
                 ntf_news.setVisibility(View.VISIBLE);
             }
         };
-        user = (User) getIntent().getSerializableExtra("user");
+        //user = (User) getIntent().getSerializableExtra("user");
         if (NetworkService.inst == null) {
             conn = new MainServiceConn();
             bindService(new Intent(this, NetworkService.class), conn, BIND_AUTO_CREATE);
@@ -123,8 +123,9 @@ public class Main extends PtrActivity implements NetworkService.Listener {
         Intent intent;
         switch (msg.what) {
             case ACTION_SHOW_DETAIL:
-                intent = new Intent(Main.this, AssignDetail.class);
-                intent.putExtra("assignment", msg.obj);
+                intent = new Intent(Main.this, AssignmentDetail.class);
+                Bundle bundle = new Bundle();
+                intent.putExtra("assignment", (Assignment) msg.obj);
                 intent.putExtra("user", user);
                 startActivity(intent);
                 break;
@@ -195,7 +196,7 @@ public class Main extends PtrActivity implements NetworkService.Listener {
     Listener listener;
 
     public interface Listener {
-        void getAssignment(Consumer<List<Assignment>> consumer,int mode);
+        void getAssignment(Consumer<List<Assignment>> consumer, int mode);
 
         void getLocation(Consumer<LatLng> c);
     }

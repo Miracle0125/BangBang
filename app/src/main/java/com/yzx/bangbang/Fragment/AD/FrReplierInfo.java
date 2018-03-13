@@ -15,8 +15,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.facebook.drawee.view.SimpleDraweeView;
-import com.yzx.bangbang.Activity.AssignDetail;
-import com.yzx.bangbang.Activity.ChatActivity;
+import com.yzx.bangbang.activity.AssignmentDetail;
+import com.yzx.bangbang.activity.ChatActivity;
 import com.yzx.bangbang.model.ReplierInfo;
 import com.yzx.bangbang.model.SimpleIndividualInfo;
 import com.yzx.bangbang.R;
@@ -46,7 +46,7 @@ public class FrReplierInfo extends Fragment implements View.OnClickListener {
     }
 
     private void init() {
-        replierInfoList = ((AssignDetail) getActivity()).replierInfoList;
+        replierInfoList = ((AssignmentDetail) getActivity()).replierInfoList;
         if (replierInfoList == null) return;
         adapter = new Adapter(getActivity().getLayoutInflater(), (ViewGroup) v.findViewById(R.id.scroll_view_container));
         initView();
@@ -130,7 +130,7 @@ public class FrReplierInfo extends Fragment implements View.OnClickListener {
 
     private void showAdoptDialog(int user_id, String name) {
         View v = getActivity().getLayoutInflater().inflate(R.layout.ad_dialog, null);
-        UniversalImageDownloader d = ((AssignDetail) getActivity()).downloader;
+        UniversalImageDownloader d = ((AssignmentDetail) getActivity()).downloader;
         if (d != null)
             d.setPortraitUsingCache(user_id, (SimpleDraweeView) v.findViewById(R.id.ad_dialog_portrait));
         ((TextView) v.findViewById(R.id.ad_dialog_name)).setText(name);
@@ -196,11 +196,11 @@ public class FrReplierInfo extends Fragment implements View.OnClickListener {
     }
 
     private void exitFragment() {
-        ((AssignDetail) getActivity()).inst().handler.sendEmptyMessage(AssignDetail.ACTION_REMOVE_FRAGMENT);
+        ((AssignmentDetail) getActivity()).inst().handler.sendEmptyMessage(AssignmentDetail.ACTION_REMOVE_FRAGMENT);
     }
 
-    private AssignDetail get() {
-        return ((AssignDetail) getActivity());
+    private AssignmentDetail get() {
+        return ((AssignmentDetail) getActivity());
     }
 
     private class Adapter {
@@ -220,7 +220,7 @@ public class FrReplierInfo extends Fragment implements View.OnClickListener {
             v.setText(info.date);
             v = (TextView) item.findViewById(R.id.message);
             v.setText(info.message);
-            UniversalImageDownloader d = ((AssignDetail) getActivity()).downloader;
+            UniversalImageDownloader d = ((AssignmentDetail) getActivity()).downloader;
             if (d != null)
                 d.downLoadPortrait(info.user_id, (SimpleDraweeView) item.findViewById(R.id.portrait));
             return item;

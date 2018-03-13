@@ -8,8 +8,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
-import com.yzx.bangbang.Activity.AssignDetail;
-import com.yzx.bangbang.Activity.Main;
+import com.yzx.bangbang.activity.AssignmentDetail;
+import com.yzx.bangbang.activity.Main;
 import com.yzx.bangbang.Fragment.Main.FrMain;
 import com.yzx.bangbang.model.Mysql.AssignmentModule;
 import com.yzx.bangbang.model.SimpleIndividualInfo;
@@ -128,7 +128,7 @@ public class MainAssignmentsListAdapter implements ListItem.Listener {
 
     @Override
     public void onItemTouched(int asm_id) {
-        Intent intent = new Intent(context, AssignDetail.class);
+        Intent intent = new Intent(context, AssignmentDetail.class);
         intent.putExtra("asm_id", asm_id);
         context.startActivity(intent);
     }

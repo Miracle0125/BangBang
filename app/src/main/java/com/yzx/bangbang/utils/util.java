@@ -15,8 +15,7 @@ import android.view.animation.DecelerateInterpolator;
 import android.view.animation.Interpolator;
 
 import com.balysv.materialripple.MaterialRippleLayout;
-import com.google.gson.reflect.TypeToken;
-import com.yzx.bangbang.Activity.BangBangApp;
+import com.yzx.bangbang.activity.BangBangApp;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -24,7 +23,6 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.lang.reflect.Type;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -34,8 +32,6 @@ import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Random;
 import java.util.UUID;
-
-import model.Assignment;
 
 
 public class util {

@@ -1,4 +1,4 @@
-package com.yzx.bangbang.Activity;
+package com.yzx.bangbang.activity;
 
 import android.media.MediaPlayer;
 import android.os.Build;

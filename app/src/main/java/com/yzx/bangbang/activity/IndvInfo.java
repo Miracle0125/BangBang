@@ -1,4 +1,4 @@
-package com.yzx.bangbang.Activity;
+package com.yzx.bangbang.activity;
 
 import android.content.Intent;
 import android.graphics.Color;

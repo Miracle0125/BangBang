@@ -14,8 +14,8 @@ import android.widget.TextView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.google.gson.Gson;
-import com.yzx.bangbang.Activity.IndvInfo;
-import com.yzx.bangbang.Activity.Main;
+import com.yzx.bangbang.activity.IndvInfo;
+import com.yzx.bangbang.activity.Main;
 import com.yzx.bangbang.model.SimpleIndividualInfo;
 import com.yzx.bangbang.model.User;
 import com.yzx.bangbang.R;

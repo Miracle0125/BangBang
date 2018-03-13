@@ -1,12 +1,8 @@
-package com.yzx.bangbang.Interface.Network.SignIn;
+package com.yzx.bangbang.Interface.network;
 
 import io.reactivex.Flowable;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
-
-/**
- * Created by Administrator on 2018/3/10.
- */
 
 public interface ISignUp {
     @GET("sign_up")

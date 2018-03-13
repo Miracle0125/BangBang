@@ -1,4 +1,4 @@
-package com.yzx.bangbang.Activity;
+package com.yzx.bangbang.activity;
 
 import android.app.Dialog;
 import android.content.Intent;

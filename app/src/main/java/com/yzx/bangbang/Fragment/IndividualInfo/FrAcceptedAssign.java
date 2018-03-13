@@ -9,8 +9,8 @@ import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import com.google.gson.Gson;
-import com.yzx.bangbang.Activity.AssignDetail;
-import com.yzx.bangbang.Activity.IndvInfo;
+import com.yzx.bangbang.activity.AssignmentDetail;
+import com.yzx.bangbang.activity.IndvInfo;
 import com.yzx.bangbang.model.EventModule;
 import com.yzx.bangbang.R;
 import com.yzx.bangbang.utils.NetWork.OkHttpUtil;
@@ -69,7 +69,7 @@ public class FrAcceptedAssign extends Fragment implements View.OnClickListener{
                 break;
             case R.id.accepted_asm_item:
                 Intent intent;
-                intent = new Intent(getActivity(), AssignDetail.class);
+                intent = new Intent(getActivity(), AssignmentDetail.class);
                 intent.putExtra("asm_id", ((AcceptedAssignItem) view).data.asm_id);
                 getActivity().startActivity(intent);
                 break;

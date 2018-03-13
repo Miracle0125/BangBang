@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:float="http://schemas.android.com/tools"
     android:id="@+id/new_asm_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FFFFFFFF"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    float:ignore="HardcodedText">
 
     <FrameLayout
         android:id="@+id/new_asm_status_bar"
@@ -14,10 +15,8 @@
         android:background="@color/gentle_blue" />
 
     <RelativeLayout
-        android:id="@+id/inner_fr_new_asm_0"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:layout_below="@+id/new_asm_status_bar"
         android:background="@color/gentle_blue">
 
         <ImageView
@@ -25,8 +24,7 @@
             android:layout_width="20dp"
             android:layout_height="20dp"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="10dp"
-
+            android:layout_marginStart="10dp"
             android:src="@drawable/icon_cancel" />
 
         <TextView
@@ -43,19 +41,18 @@
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:layout_marginRight="10dp"
+            android:layout_marginEnd="10dp"
             android:text="发送"
-            android:textSize="16sp" />
+            android:textSize="16sp"
+            float:ignore="RtlHardcoded" />
     </RelativeLayout>
 
 
     <com.yzx.floatlabelededittext.FloatLabeledEditText
-        android:id="@+id/inner_fr_new_asm_1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/inner_fr_new_asm_0"
-        android:layout_marginLeft="60dp"
-        android:layout_marginRight="20dp"
+        android:layout_marginStart="60dp"
+        android:layout_marginEnd="20dp"
         float:fletPadding="10dp">
 
         <EditText
@@ -68,15 +65,12 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="0.3dp"
-        android:layout_below="@id/inner_fr_new_asm_1"
         android:layout_marginTop="10dp"
         android:background="#DCDCDC" />
 
     <RelativeLayout
-        android:id="@+id/inner_fr_new_asm_2"
         android:layout_width="match_parent"
         android:layout_height="130dp"
-        android:layout_below="@+id/inner_fr_new_asm_1"
         android:layout_marginTop="20dp">
 
         <EditText
@@ -96,20 +90,19 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
             android:layout_marginBottom="10dp"
-            android:layout_marginRight="84dp"
+            android:layout_marginEnd="84dp"
             android:text="¥"
 
             android:textColor="@color/red"
             android:textSize="17sp" />
 
         <com.yzx.floatlabelededittext.FloatLabeledEditText
-            android:id="@+id/inner_new_asm_price_container"
             android:layout_width="80dp"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
             float:fletPadding="10dp">
 
             <EditText
@@ -124,72 +117,67 @@
     </RelativeLayout>
 
     <RelativeLayout
-        android:id="@+id/new_asm_images_line1"
+        android:id="@+id/main_fr_new_asm_checkbox_bar"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@color/gentle_blue">
+
+        <CheckBox
+            android:id="@+id/main_fr_new_asm_checkbox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="40dp"
+            android:checked="true"
+            android:text="定位" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/new_asm_images_container"
         android:layout_width="match_parent"
         android:layout_height="120dp"
-        android:layout_below="@+id/inner_fr_new_asm_2">
+        android:visibility="gone">
 
         <com.facebook.drawee.view.SimpleDraweeView
             android:id="@+id/new_asm_image0"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:layout_marginLeft="10dp"
+            android:layout_marginStart="10dp"
             android:layout_marginTop="10dp" />
 
         <com.facebook.drawee.view.SimpleDraweeView
             android:id="@+id/new_asm_image1"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:layout_marginLeft="20dp"
+            android:layout_marginStart="20dp"
             android:layout_marginTop="10dp"
-            android:layout_toRightOf="@+id/new_asm_image0" />
+            android:layout_toEndOf="@+id/new_asm_image0" />
 
         <com.facebook.drawee.view.SimpleDraweeView
             android:id="@+id/new_asm_image2"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:layout_marginLeft="20dp"
+            android:layout_marginStart="20dp"
             android:layout_marginTop="10dp"
-            android:layout_toRightOf="@+id/new_asm_image1" />
-    </RelativeLayout>
-
-
-    <RelativeLayout
-        android:id="@+id/main_fr_new_asm_checkbox_bar"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_below="@id/inner_fr_new_asm_2"
-        android:background="@color/gentle_blue" >
-        <CheckBox
-            android:checked="true"
-            android:id="@+id/main_fr_new_asm_checkbox"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_alignParentEnd="true"
-            android:layout_marginEnd="40dp"
-            android:text="定位"/>
+            android:layout_toEndOf="@+id/new_asm_image1" />
     </RelativeLayout>
 
     <FrameLayout
-        android:id="@+id/inner_fr_new_asm_4"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_below="@+id/main_fr_new_asm_checkbox_bar">
+        android:layout_height="50dp">
 
         <ImageView
             android:id="@+id/main_fr_new_asm_local_image"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:layout_marginLeft="10dp"
+            android:layout_marginStart="10dp"
             android:src="@drawable/icon_image" />
     </FrameLayout>
 
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/inner_fr_new_asm_4"
         android:background="@color/gentle_blue" />
-
-</RelativeLayout>
+</LinearLayout>

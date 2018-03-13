@@ -1,4 +1,4 @@
-package com.yzx.bangbang.Activity;
+package com.yzx.bangbang.activity;
 
 import android.app.Application;
 import android.content.SharedPreferences;
@@ -6,7 +6,6 @@ import android.content.res.Resources;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.squareup.leakcanary.LeakCanary;
-import com.yzx.bangbang.utils.ActivityManager;
 import com.yzx.bangbang.utils.Params;
 import com.yzx.bangbang.utils.SpUtil;
 
@@ -26,7 +25,6 @@ public class BangBangApp extends Application{
 
     private void init(){
         r = getResources();
-        ActivityManager.init();
         //initLeakCanary();
     }
     private void initLeakCanary(){

@@ -9,7 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
 import android.view.ViewConfiguration;
 
-import com.yzx.bangbang.Activity.SignIn;
+import com.yzx.bangbang.activity.SignIn;
 import com.yzx.bangbang.R;
 
 import java.io.File;
@@ -88,8 +88,8 @@ public class Params {
             ((Activity) context.get()).getWindowManager().getDefaultDisplay().getMetrics(metrics);
         screenHeight = metrics.heightPixels;
         screenWidth = metrics.widthPixels;
-        SpUtil.putInt(SpUtil.DATABASE,context.get().getResources().getString(R.string.key_screenWidth),screenWidth,context.get());
-        SpUtil.putInt(SpUtil.DATABASE, context.get().getResources().getString(R.string.key_screenHeight), screenHeight, context.get());
+        SpUtil.putInt(SpUtil.DEFAULT,context.get().getResources().getString(R.string.key_screenWidth),screenWidth,context.get());
+        SpUtil.putInt(SpUtil.DEFAULT, context.get().getResources().getString(R.string.key_screenHeight), screenHeight, context.get());
     }
 
     private static void initColor() {

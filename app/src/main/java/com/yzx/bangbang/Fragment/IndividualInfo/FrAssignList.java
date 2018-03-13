@@ -9,8 +9,8 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.TextView;
 import com.google.gson.Gson;
-import com.yzx.bangbang.Activity.AssignDetail;
-import com.yzx.bangbang.Activity.IndvInfo;
+import com.yzx.bangbang.activity.AssignmentDetail;
+import com.yzx.bangbang.activity.IndvInfo;
 import com.yzx.bangbang.adapter.AssignListAdapter;
 import com.yzx.bangbang.model.SimpleIndividualInfo;
 import com.yzx.bangbang.R;
@@ -71,7 +71,7 @@ public class FrAssignList extends Fragment {
         listView = (ListView) v.findViewById(R.id.al_listView);
         listView.setAdapter(new AssignListAdapter(getActivity(), list));
         listView.setOnItemClickListener((adapterView, view, i, l) -> {
-            Intent intent = new Intent(getActivity(), AssignDetail.class);
+            Intent intent = new Intent(getActivity(), AssignmentDetail.class);
             intent.putExtra("asm_id", list.get(i).id);
             startActivity(intent);
         });

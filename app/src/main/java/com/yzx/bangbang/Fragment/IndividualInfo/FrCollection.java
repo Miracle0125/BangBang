@@ -9,9 +9,9 @@ import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import com.google.gson.Gson;
-import com.yzx.bangbang.Activity.AssignDetail;
-import com.yzx.bangbang.Activity.IndvInfo;
-import com.yzx.bangbang.Activity.Main;
+import com.yzx.bangbang.activity.AssignmentDetail;
+import com.yzx.bangbang.activity.IndvInfo;
+import com.yzx.bangbang.activity.Main;
 import com.yzx.bangbang.model.Mysql.AssignmentModule;
 import com.yzx.bangbang.model.SimpleIndividualInfo;
 import com.yzx.bangbang.R;
@@ -94,7 +94,7 @@ public class FrCollection extends Fragment implements View.OnClickListener {
         switch (view.getId()){
             case R.id.al_list_item:
                 int asm_id = ((AssignmentModule)view.getTag()).id;
-                Intent i = new Intent(getActivity(), AssignDetail.class);
+                Intent i = new Intent(getActivity(), AssignmentDetail.class);
                 i.putExtra("asm_id",asm_id);
                 getActivity().startActivity(i);
                 break;

@@ -1,4 +1,4 @@
-package com.yzx.bangbang.Activity;
+package com.yzx.bangbang.activity;
 
 import android.app.Activity;
 import android.app.Dialog;
@@ -47,8 +47,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import model.Assignment;
 
-public class AssignDetail extends Activity implements View.OnClickListener, CommentView.Listener, SubCommentView.Listener {
+
+public class AssignmentDetail extends Activity implements View.OnClickListener, CommentView.Listener, SubCommentView.Listener {
     public Assignment assignment;
     TextView button, replier_info_text, btn_clct_tv;
     View decorView, bottomBar, placeHolder, replier_info_bar, btn_clct, btn_back;
@@ -146,7 +148,7 @@ public class AssignDetail extends Activity implements View.OnClickListener, Comm
     int preLength;
 
     private void initDialog() {
-        dialog = new Dialog(AssignDetail.this);
+        dialog = new Dialog(AssignmentDetail.this);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.ad_comment_option);
         View v1 = dialog.findViewById(R.id.ad_reply_comment);
@@ -178,7 +180,7 @@ public class AssignDetail extends Activity implements View.OnClickListener, Comm
         OkHttpUtil okhttp = OkHttpUtil.inst((s) -> {
             if (s.equals("")) {
                 runOnUiThread(()->{
-                    Toast.makeText(AssignDetail.this, "需求不存在", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AssignmentDetail.this, "需求不存在", Toast.LENGTH_SHORT).show();
                     finish();
                 });
             }
@@ -539,8 +541,8 @@ public class AssignDetail extends Activity implements View.OnClickListener, Comm
             if (s.equals("success"))
                 runOnUiThread(() -> {
                     if (already_collected)
-                        Toast.makeText(AssignDetail.this, "已取消收藏", Toast.LENGTH_SHORT).show();
-                    else Toast.makeText(AssignDetail.this, "已收藏", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(AssignmentDetail.this, "已取消收藏", Toast.LENGTH_SHORT).show();
+                    else Toast.makeText(AssignmentDetail.this, "已收藏", Toast.LENGTH_SHORT).show();
                     checkIfHasCollected();
                 });
         });
@@ -551,11 +553,11 @@ public class AssignDetail extends Activity implements View.OnClickListener, Comm
     private void deleteAssignment() {
         OkHttpUtil okHttp = OkHttpUtil.inst(s -> {
             if (s.equals("success")) {
-                runOnUiThread(() -> Toast.makeText(AssignDetail.this, "删除成功", Toast.LENGTH_SHORT).show());
+                runOnUiThread(() -> Toast.makeText(AssignmentDetail.this, "删除成功", Toast.LENGTH_SHORT).show());
                 finish();
-                SpUtil.putRefreshFlag(AssignDetail.this);
+                SpUtil.putRefreshFlag(AssignmentDetail.this);
             } else if (s.equals("failed")) {
-                runOnUiThread(() -> Toast.makeText(AssignDetail.this, "删除失败", Toast.LENGTH_SHORT).show());
+                runOnUiThread(() -> Toast.makeText(AssignmentDetail.this, "删除失败", Toast.LENGTH_SHORT).show());
             }
         });
         okHttp.addPart("delete_assignment", null, String.valueOf(assignment.id), OkHttpUtil.MEDIA_TYPE_JSON);
@@ -583,8 +585,8 @@ public class AssignDetail extends Activity implements View.OnClickListener, Comm
         dialog.show();
     }
 
-    public AssignDetail inst() {
-        return AssignDetail.this;
+    public AssignmentDetail inst() {
+        return AssignmentDetail.this;
     }
 
 
@@ -604,16 +606,16 @@ public class AssignDetail extends Activity implements View.OnClickListener, Comm
     }
 
     public static class AdHandler extends Handler {
-        private WeakReference<AssignDetail> ref;
+        private WeakReference<AssignmentDetail> ref;
 
-        public AdHandler(AssignDetail ref) {
+        public AdHandler(AssignmentDetail ref) {
             this.ref = new WeakReference<>(ref);
         }
 
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
-            AssignDetail inst = ref.get();
+            AssignmentDetail inst = ref.get();
             if (inst != null)
                 inst.handleMsg(msg);
         }
@@ -622,7 +624,7 @@ public class AssignDetail extends Activity implements View.OnClickListener, Comm
     public void handleMsg(Message msg) {
         switch (msg.what) {
             case NetworkService.KEY_INSERT_MSG:
-                Toast.makeText(AssignDetail.this, "请求发送成功", Toast.LENGTH_SHORT).show();
+                Toast.makeText(AssignmentDetail.this, "请求发送成功", Toast.LENGTH_SHORT).show();
                 break;
             case ACTION_REMOVE_FRAGMENT:
                 if (fm != null) {
@@ -673,10 +675,10 @@ public class AssignDetail extends Activity implements View.OnClickListener, Comm
     private void startPost(String json) {
         OkHttpUtil okHttp = OkHttpUtil.inst(s -> {
             if (s.equals("success")) {
-                runOnUiThread(() -> Toast.makeText(AssignDetail.this, "评论成功", Toast.LENGTH_SHORT).show());
+                runOnUiThread(() -> Toast.makeText(AssignmentDetail.this, "评论成功", Toast.LENGTH_SHORT).show());
                 //getComment();
             } else if (s.equals("failed")) {
-                runOnUiThread(() -> Toast.makeText(AssignDetail.this, "发送失败", Toast.LENGTH_SHORT).show());
+                runOnUiThread(() -> Toast.makeText(AssignmentDetail.this, "发送失败", Toast.LENGTH_SHORT).show());
             }
         });
         okHttp.addPart("comment", null, json, OkHttpUtil.MEDIA_TYPE_JSON);
@@ -695,7 +697,7 @@ public class AssignDetail extends Activity implements View.OnClickListener, Comm
         });*/
         if (already_accepted) return;
         if (isOwner) {
-            Toast.makeText(AssignDetail.this, "你是发布人啊(。・`ω´・)", Toast.LENGTH_SHORT).show();
+            Toast.makeText(AssignmentDetail.this, "你是发布人啊(。・`ω´・)", Toast.LENGTH_SHORT).show();
             return;
         }
         new Thread(() -> {
@@ -777,7 +779,7 @@ public class AssignDetail extends Activity implements View.OnClickListener, Comm
         WeakReference<LayoutInflater> inflaterRef;
         WeakReference<ViewGroup> viewRef;
 
-        public CommentInflater(AssignDetail context, ViewGroup parent) {
+        public CommentInflater(AssignmentDetail context, ViewGroup parent) {
             inflaterRef = new WeakReference<>(context.getLayoutInflater());
             viewRef = new WeakReference<ViewGroup>(parent);
         }

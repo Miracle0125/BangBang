@@ -12,8 +12,8 @@ import android.widget.TextView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.google.gson.Gson;
-import com.yzx.bangbang.Activity.ChatActivity;
-import com.yzx.bangbang.Activity.Main;
+import com.yzx.bangbang.activity.ChatActivity;
+import com.yzx.bangbang.activity.Main;
 import com.yzx.bangbang.model.Mysql.ChatRecord;
 import com.yzx.bangbang.model.SimpleIndividualInfo;
 import com.yzx.bangbang.R;

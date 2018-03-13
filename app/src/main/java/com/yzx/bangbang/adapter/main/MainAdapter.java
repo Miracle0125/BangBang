@@ -6,7 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import com.facebook.drawee.view.SimpleDraweeView;
-import com.yzx.bangbang.Activity.Main;
+import com.yzx.bangbang.activity.Main;
 import com.yzx.bangbang.Fragment.Main.FrMain;
 import com.yzx.bangbang.R;
 import com.yzx.bangbang.utils.SpUtil;

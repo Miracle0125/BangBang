@@ -7,35 +7,24 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Spinner;
 
-import com.amap.api.location.AMapLocationClient;
-import com.amap.api.location.AMapLocationClientOption;
-import com.amap.api.maps.AMapUtils;
-import com.amap.api.maps.model.LatLng;
 import com.facebook.drawee.view.SimpleDraweeView;
-import com.google.gson.Gson;
-import com.yzx.bangbang.Activity.Main;
+import com.yzx.bangbang.activity.Main;
 import com.yzx.bangbang.adapter.main.MainAdapter;
 import com.yzx.bangbang.adapter.main.MainDistanceSpinnerAdapter;
 import com.yzx.bangbang.adapter.main.MainSortSpinnerAdapter;
-import com.yzx.bangbang.model.Mysql.AssignmentModule;
 import com.yzx.bangbang.R;
-import com.yzx.bangbang.utils.NetWork.OkHttpUtil;
 import com.yzx.bangbang.utils.NetWork.UniversalImageDownloader;
-import com.yzx.bangbang.utils.SpUtil;
 import com.yzx.bangbang.view.mainView.ListItem;
 
 import java.io.File;
 import java.lang.ref.WeakReference;
-import java.util.List;
 import java.util.Map;
-import java.util.Stack;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -120,9 +109,9 @@ public class FrMain extends Fragment implements View.OnClickListener, ListItem.L
     float[][] dis_scope = {{0, 1000f}, {1000f, 2000f}, {2000f, 5000f}, {5000f, 200000f}};
 
     public void Refresh() {
-        if (sort_type == 0) DownloadAssignmentText();//默认
-        if (sort_type == 1) DownloadAssignmentTextOrderByPriceAsc();
-        if (sort_type == 2) DownloadAssignmentTextOrderByPriceDesc();
+//        if (sort_type == 0) DownloadAssignmentText();//默认
+//        if (sort_type == 1) DownloadAssignmentTextOrderByPriceAsc();
+//        if (sort_type == 2) DownloadAssignmentTextOrderByPriceDesc();
         //adapter.downloader.onRefresh();
         //usingPtr = true;
     }

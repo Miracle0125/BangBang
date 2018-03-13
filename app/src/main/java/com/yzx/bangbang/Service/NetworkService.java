@@ -7,7 +7,7 @@ import android.os.IBinder;
 import android.support.annotation.Nullable;
 
 import com.google.gson.Gson;
-import com.yzx.bangbang.Activity.Main;
+import com.yzx.bangbang.activity.Main;
 import com.yzx.bangbang.model.Mysql.ExploreRecord;
 import com.yzx.bangbang.utils.NetWork.OkHttpUtil;
 import com.yzx.bangbang.utils.Params;
