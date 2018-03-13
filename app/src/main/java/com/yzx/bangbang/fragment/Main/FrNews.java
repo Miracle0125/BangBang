@@ -20,7 +20,7 @@ import com.yzx.bangbang.utils.NetWork.OkHttpUtil;
 import java.util.List;
 import java.util.Set;
 
-public class FrNews extends Fragment implements View.OnClickListener {
+public class FrNews extends Fragment {
     LinearLayout frNews;
     LayoutInflater inflater;
     //List<String> titles;
@@ -89,7 +89,6 @@ public class FrNews extends Fragment implements View.OnClickListener {
         tv_title.setText(a.title);
         updateView(a.id, v);
         v.setTag(a.id);
-        v.setOnClickListener(FrNews.this);
         return v;
     }
 
@@ -108,32 +107,32 @@ public class FrNews extends Fragment implements View.OnClickListener {
         }
     }
 
-    @Override
-    public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.main_fr_news_item:
-                int asm_id = (int) view.getTag();
-                NetworkService.checkIfHasRecord(asm_id, NetworkService.id_count.get(asm_id) + NetworkService.id_diff.get(asm_id));
-              /*  NetworkService.inst.queryMessage(new ArrayList<Integer>(asm_id));*/
-                updateNtfCircle();
-                Intent i = new Intent(getActivity(), AssignmentDetail.class);
-                i.putExtra("asm_id", asm_id);
-                getActivity().startActivity(i);
-                break;
-        }
-    }
+//    @Override
+//    public void onClick(View view) {
+//        switch (view.getId()) {
+//            case R.id.main_fr_news_item:
+//                int asm_id = (int) view.getTag();
+//                NetworkService.checkIfHasRecord(asm_id, NetworkService.id_count.get(asm_id) + NetworkService.id_diff.get(asm_id));
+//              /*  NetworkService.inst.queryMessage(new ArrayList<Integer>(asm_id));*/
+//                //updateNtfCircle();
+//                Intent i = new Intent(getActivity(), AssignmentDetail.class);
+//                i.putExtra("asm_id", asm_id);
+//                getActivity().startActivity(i);
+//                break;
+//        }
+//    }
 
-    private void updateNtfCircle() {
-        TextView tv = Main.get().ntf_news;
-        if (tv.getVisibility() == View.VISIBLE) {
-            int i = Integer.valueOf(tv.getText().toString());
-            if (--i > 0) {
-                tv.setText(String.valueOf(i));
-            } else {
-                tv.setVisibility(View.GONE);
-            }
-        }
-    }
+//    private void updateNtfCircle() {
+//        TextView tv = Main.get().ntf_news;
+//        if (tv.getVisibility() == View.VISIBLE) {
+//            int i = Integer.valueOf(tv.getText().toString());
+//            if (--i > 0) {
+//                tv.setText(String.valueOf(i));
+//            } else {
+//                tv.setVisibility(View.GONE);
+//            }
+//        }
+//    }
 
     private class ReceiveList {
         List<AssignmentModule> list;

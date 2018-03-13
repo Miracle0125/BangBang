@@ -39,7 +39,7 @@ public class MainPresenter {
             @Override
             public void init() {
                 getLocation();
-                testPush();
+                //testPush();
             }
         };
     }

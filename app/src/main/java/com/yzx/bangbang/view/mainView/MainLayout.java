@@ -3,11 +3,15 @@ package com.yzx.bangbang.view.mainView;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Message;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import com.trello.rxlifecycle2.android.ActivityEvent;
+import com.yzx.bangbang.activity.Main;
 import com.yzx.bangbang.activity.NewAssignment;
 import com.yzx.bangbang.fragment.Main.FrMain;
 import com.yzx.bangbang.fragment.Main.FrMessage;
@@ -16,14 +20,20 @@ import com.yzx.bangbang.fragment.Main.FrUser;
 import com.yzx.bangbang.R;
 import com.yzx.bangbang.utils.FrMetro;
 import com.yzx.bangbang.utils.Params;
+import com.yzx.bangbang.utils.util;
+
+import org.intellij.lang.annotations.Flow;
+
 import java.util.Arrays;
 import java.util.List;
+
 import butterknife.BindView;
 import butterknife.OnClick;
+import io.reactivex.Flowable;
 
 
 public class MainLayout extends RelativeLayout {
-    Activity context;
+    Main context;
 
     public MainLayout(Context context) {
         this(context, null, 0);
@@ -35,7 +45,7 @@ public class MainLayout extends RelativeLayout {
 
     public MainLayout(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        this.context = (Activity) context;
+        this.context = (Main) context;
         init();
     }
 
@@ -55,7 +65,7 @@ public class MainLayout extends RelativeLayout {
 
     void init() {
         initSelector();
-        metro= new FrMetro(context.getFragmentManager(), R.id.main_fr_container);
+        metro = new FrMetro(context.getFragmentManager(), R.id.main_fr_container);
         metro.goToFragment(FrMain.class);
     }
 
@@ -66,9 +76,9 @@ public class MainLayout extends RelativeLayout {
             , R.id.main_new_assign})
     public void onClick(View v) {
         if (v.getId() == R.id.main_new_assign) {
-            Intent intent = new Intent(context, NewAssignment.class);
-            //intent.putExtra("user", user);!!
-            context.startActivity(intent);
+            Flowable.just(util.obtain_message(Main.ACTION_NEW_ASSIGNMENT))
+                    .compose(context.<Message>bindUntilEvent(ActivityEvent.DESTROY))
+                    .subscribe(context.consumer);
         } else {
             int idx = button_id.indexOf(v.getId());
             toolbar.setText(fragment_name[idx]);

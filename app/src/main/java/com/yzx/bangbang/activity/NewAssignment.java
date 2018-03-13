@@ -40,8 +40,8 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 import model.Assignment;
 
-//按照事件发生的顺序给函数排序，顺着看函数名就能知道大概做了什么。舒服
-public class NewAssignment extends RxAppCompatActivity implements View.OnClickListener {
+//按照事件发生的顺序写的，顺着看函数名就能知道大概做了什么。舒服
+public class NewAssignment extends RxAppCompatActivity {
     public static final int PICK_IMAGE = 1;
 
     @Override
@@ -104,7 +104,6 @@ public class NewAssignment extends RxAppCompatActivity implements View.OnClickLi
     }
 
     @OnClick({R.id.main_fr_new_asm_cancel, R.id.main_fr_new_asm_local_image, R.id.new_asm_send})
-    @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.main_fr_new_asm_cancel:

@@ -4,25 +4,19 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Message;
 import android.view.KeyEvent;
-import android.view.View;
 import android.view.Window;
-import android.widget.TextView;
 import android.widget.Toast;
-
 import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
-import com.yzx.bangbang.activity.common.PtrActivity;
+import com.yzx.bangbang.fragment.Main.FrMain;
 import com.yzx.bangbang.model.SimpleIndividualInfo;
 import com.yzx.bangbang.R;
-import com.yzx.bangbang.Service.NetworkService;
 import com.yzx.bangbang.model.User;
 import com.yzx.bangbang.utils.FrMetro;
 import com.yzx.bangbang.utils.util;
 import com.yzx.bangbang.presenter.MainPresenter;
 import java.lang.ref.WeakReference;
-import java.util.Set;
-
 import io.reactivex.functions.Consumer;
-import model.Assignment;
+
 
 /**
  * 此Activity与各个子界面交互
@@ -32,13 +26,12 @@ import model.Assignment;
 public class Main extends RxAppCompatActivity {
     public static User user;
     public static WeakReference<Main> ref;
-    public static final int ACTION_SHOW_DETAIL = 0;
-    public static final int ACTION_EXIT_LOG_IN = 3;
-    public static final int STATE_REFRESH_FINISH = 4;
-    public static final int ACTION_CLICK_PORTRAIT = 5;
-    public static final int RESULT_UPLOAD_SUCCESS = 6;
-    public static NetworkService networkService;
-    public FrMetro fm;
+    public static final int ACTION_SHOW_DETAIL = 1;
+    public static final int ACTION_EXIT_LOG_IN = 2;
+    public static final int ACTION_CLICK_PORTRAIT = 3;
+    public static final int ACTION_NEW_ASSIGNMENT = 4;
+    public static final int RESULT_UPLOAD_SUCCESS = 5;
+    public FrMetro metro;
     public MainPresenter.Listener listener;
     private MainPresenter presenter = new MainPresenter(this);
 
@@ -51,66 +44,43 @@ public class Main extends RxAppCompatActivity {
         init();
     }
 
-
     public void init() {
         listener = presenter.getListener();
-        ref = new WeakReference<>(this);
-        updateNtfCircle = () -> {
-            int num = 0;
-            Set<Integer> set = NetworkService.id_diff.keySet();
-            for (int i : set) {
-                if (NetworkService.id_diff.get(i) > 0) num++;
-            }
-            if (num == 0) {
-                ntf_news.setVisibility(View.GONE);
-            } else {
-                ntf_news.setText(String.valueOf(num));
-                ntf_news.setVisibility(View.VISIBLE);
-            }
-        };
+        listener.init();
     }
 
-    //主界面选择栏,ntf_news为显示新消息数量的小圆
-    public TextView ntf_news, ntf_message;
-    Runnable updateNtfCircle;
-//    FrNews frNews = (FrNews) getFragmentManager().findFragmentByTag((FrNews.class).toString());
-//                if (frNews != null)
-//            frNews.Resume();
-
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode == RESULT_UPLOAD_SUCCESS)
+            if (metro.getCurrent() instanceof FrMain)
+                ((FrMain) metro.getCurrent()).refresh();
+        super.onActivityResult(requestCode, resultCode, data);
+    }
 
     public Consumer<Message> consumer = (msg) -> {
-        Intent intent;
+        Intent intent = null;
         switch (msg.what) {
-            case ACTION_SHOW_DETAIL:
-                intent = new Intent(Main.this, AssignmentDetail.class);
-                Bundle bundle = new Bundle();
-                intent.putExtra("assignment", (Assignment) msg.obj);
-                intent.putExtra("user", user);
-                startActivity(intent);
+//            case ACTION_SHOW_DETAIL:
+//                intent = new Intent(Main.this, AssignmentDetail.class);
+//                Bundle bundle = new Bundle();
+//                intent.putExtra("assignment", (Assignment) msg.obj);
+//                startActivity(intent);
+//                break;
+            case ACTION_NEW_ASSIGNMENT:
+                intent = new Intent(this, NewAssignment.class);
                 break;
             case ACTION_EXIT_LOG_IN:
-                NetworkService.clearData();
-                intent = new Intent(Main.this, SignIn.class);
-                intent.putExtra("flag", "exit_log_in");
-                startActivity(intent);
-                break;
-            case STATE_REFRESH_FINISH:
-//                if (super.header.state == MaterialHeader.STATE_ON_REFRESH)
-//                    onFinishRefresh();
+                intent = new Intent(this, SignIn.class);
                 break;
             case ACTION_CLICK_PORTRAIT:
-                intent = new Intent(Main.this, IndvInfo.class);
+                intent = new Intent(this, IndvInfo.class);
                 intent.putExtra("info", (SimpleIndividualInfo) msg.obj);
-                startActivity(intent);
-                break;
-            case 6:
-                if (ntf_news != null) {
-                    runOnUiThread(updateNtfCircle);
-                }
                 break;
             default:
                 break;
         }
+        if (intent != null)
+            startActivityForResult(intent, msg.what);
     };
 
     @Override
