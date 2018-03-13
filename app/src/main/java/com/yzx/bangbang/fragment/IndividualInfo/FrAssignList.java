@@ -1,4 +1,4 @@
-package com.yzx.bangbang.Fragment.IndividualInfo;
+package com.yzx.bangbang.fragment.IndividualInfo;
 
 import android.app.Fragment;
 import android.content.Intent;
@@ -16,6 +16,8 @@ import com.yzx.bangbang.model.SimpleIndividualInfo;
 import com.yzx.bangbang.R;
 import com.yzx.bangbang.utils.NetWork.OkHttpUtil;
 import java.util.List;
+
+import model.Assignment;
 
 public class FrAssignList extends Fragment {
     Gson gson = new Gson();
@@ -72,7 +74,7 @@ public class FrAssignList extends Fragment {
         listView.setAdapter(new AssignListAdapter(getActivity(), list));
         listView.setOnItemClickListener((adapterView, view, i, l) -> {
             Intent intent = new Intent(getActivity(), AssignmentDetail.class);
-            intent.putExtra("asm_id", list.get(i).id);
+            intent.putExtra("asm_id", list.get(i).getId());
             startActivity(intent);
         });
     }

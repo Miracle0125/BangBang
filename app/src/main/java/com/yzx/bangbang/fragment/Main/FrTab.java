@@ -1,4 +1,4 @@
-package com.yzx.bangbang.Fragment.Main;
+package com.yzx.bangbang.fragment.Main;
 
 import android.app.Fragment;
 import android.os.Bundle;
@@ -8,8 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.yzx.bangbang.R;
-
-import java.util.zip.Inflater;
 
 public class FrTab extends Fragment {
     @Nullable

@@ -24,7 +24,7 @@ import android.widget.Toast;
 
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.google.gson.Gson;
-import com.yzx.bangbang.Fragment.AD.FrReplierInfo;
+import com.yzx.bangbang.fragment.AD.FrReplierInfo;
 import com.yzx.bangbang.model.Comment;
 import com.yzx.bangbang.model.Msg;
 import com.yzx.bangbang.model.ReplierInfo;
@@ -34,7 +34,6 @@ import com.yzx.bangbang.R;
 import com.yzx.bangbang.Service.NetworkService;
 import com.yzx.bangbang.utils.FrMetro;
 import com.yzx.bangbang.utils.NetWork.UniversalImageDownloader;
-import com.yzx.bangbang.utils.SpUtil;
 import com.yzx.bangbang.utils.NetWork.OkHttpUtil;
 import com.yzx.bangbang.utils.Params;
 import com.yzx.bangbang.utils.util;

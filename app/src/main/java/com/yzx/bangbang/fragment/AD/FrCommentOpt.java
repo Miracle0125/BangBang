@@ -1,4 +1,4 @@
-package com.yzx.bangbang.Fragment.AD;
+package com.yzx.bangbang.fragment.AD;
 
 import android.app.Fragment;
 import android.graphics.Color;
@@ -8,10 +8,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewTreeObserver;
 import android.view.animation.Animation;
 import android.view.animation.Transformation;
-import android.widget.RelativeLayout;
 
 import com.yzx.bangbang.R;
 

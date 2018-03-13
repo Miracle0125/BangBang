@@ -13,6 +13,8 @@ import com.yzx.bangbang.view.indvInfo.AssignListItem;
 
 import java.util.List;
 
+import model.Assignment;
+
 public class AssignListAdapter extends BaseAdapter {
     LayoutInflater inflater;
     List<Assignment> list;
@@ -45,7 +47,7 @@ public class AssignListAdapter extends BaseAdapter {
         if (v == null) {
             h = new ViewHolder();
             v = inflater.inflate(R.layout.al_list_item, null);
-            ((AssignListItem)v).setData(list.get(i));
+            //((AssignListItem)v).setData(list.get(i));
             h.title = (TextView) v.findViewById(R.id.title);
             h.date = (TextView) v.findViewById(R.id.date);
             h.price = (TextView) v.findViewById(R.id.price);
@@ -53,10 +55,10 @@ public class AssignListAdapter extends BaseAdapter {
             v.setTag(h);
         } else
             h = (ViewHolder) v.getTag();
-        h.title.setText(list.get(i).title);
-        h.date.setText(util.CustomDate(list.get(i).date));
-        h.price.setText(""+list.get(i).price);
-        h.repliers.setText("帮众  "+list.get(i).repliers);
+        h.title.setText(list.get(i).getTitle());
+        h.date.setText(util.CustomDate(list.get(i).getDate()));
+        h.price.setText(""+list.get(i).getPrice());
+        h.repliers.setText("帮众  "+list.get(i).getRepliers());
         return v;
     }
 

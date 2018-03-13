@@ -1,7 +1,6 @@
-package com.yzx.bangbang.Fragment.Main;
+package com.yzx.bangbang.fragment.Main;
 
 import android.app.Fragment;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -14,15 +13,11 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Spinner;
 
-import com.facebook.drawee.view.SimpleDraweeView;
 import com.yzx.bangbang.activity.Main;
 import com.yzx.bangbang.adapter.main.MainAdapter;
 import com.yzx.bangbang.adapter.main.MainDistanceSpinnerAdapter;
 import com.yzx.bangbang.adapter.main.MainSortSpinnerAdapter;
 import com.yzx.bangbang.R;
-
-import java.io.File;
-import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

@@ -1,4 +1,4 @@
-package com.yzx.bangbang.Fragment.IndividualInfo;
+package com.yzx.bangbang.fragment.IndividualInfo;
 
 import android.app.Fragment;
 import android.content.Intent;

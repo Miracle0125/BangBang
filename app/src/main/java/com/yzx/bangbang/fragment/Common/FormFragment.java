@@ -1,4 +1,4 @@
-package com.yzx.bangbang.Fragment.Common;
+package com.yzx.bangbang.fragment.Common;
 
 import android.app.Fragment;
 import android.os.Bundle;

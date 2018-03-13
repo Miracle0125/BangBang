@@ -11,10 +11,10 @@ import android.widget.Toast;
 
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.google.gson.Gson;
-import com.yzx.bangbang.Fragment.IndividualInfo.FrAcceptedAssign;
-import com.yzx.bangbang.Fragment.IndividualInfo.FrAssignList;
-import com.yzx.bangbang.Fragment.IndividualInfo.FrCollection;
-import com.yzx.bangbang.Fragment.IndividualInfo.FrConcern;
+import com.yzx.bangbang.fragment.IndividualInfo.FrAcceptedAssign;
+import com.yzx.bangbang.fragment.IndividualInfo.FrAssignList;
+import com.yzx.bangbang.fragment.IndividualInfo.FrCollection;
+import com.yzx.bangbang.fragment.IndividualInfo.FrConcern;
 import com.yzx.bangbang.model.SimpleIndividualInfo;
 import com.yzx.bangbang.model.User;
 import com.yzx.bangbang.model.UserRecord;

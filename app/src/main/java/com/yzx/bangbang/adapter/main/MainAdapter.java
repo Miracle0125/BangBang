@@ -2,7 +2,6 @@ package com.yzx.bangbang.adapter.main;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -10,7 +9,7 @@ import android.widget.TextView;
 import com.amap.api.maps.AMapUtils;
 import com.amap.api.maps.model.LatLng;
 import com.facebook.drawee.view.SimpleDraweeView;
-import com.yzx.bangbang.Fragment.Main.FrMain;
+import com.yzx.bangbang.fragment.Main.FrMain;
 import com.yzx.bangbang.R;
 import com.yzx.bangbang.activity.Main;
 import com.yzx.bangbang.utils.SpUtil;

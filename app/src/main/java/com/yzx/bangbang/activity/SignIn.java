@@ -8,10 +8,11 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
+
 import com.google.gson.Gson;
 import com.trello.rxlifecycle2.android.ActivityEvent;
 import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
-import com.yzx.bangbang.Fragment.Common.FormFragment;
+import com.yzx.bangbang.fragment.Common.FormFragment;
 import com.yzx.bangbang.Interface.network.ISignIn;
 import com.yzx.bangbang.Interface.network.ISignUp;
 import com.yzx.bangbang.model.receiver.RSignIn;
@@ -22,6 +23,7 @@ import com.yzx.bangbang.utils.NetWork.Retro;
 import com.yzx.bangbang.utils.Params;
 import com.yzx.bangbang.utils.SpUtil;
 import com.yzx.bangbang.utils.util;
+
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -44,7 +46,7 @@ public class SignIn extends RxAppCompatActivity {
 
     Intent mIntent;
     FrMetro metro;
-    String[]inputs, code = new String[]{"", "登陆成功", "注册成功", "密码错误", "密码不一致", "密码为空", "账号为空", "用户名为空", "账号已存在", "账号不存在", "用户名已存在"};
+    String[] inputs, code = new String[]{"", "登陆成功", "注册成功", "密码错误", "密码不一致", "密码为空", "账号为空", "用户名为空", "账号已存在", "账号不存在", "用户名已存在"};
 
 
     @Override
@@ -94,7 +96,7 @@ public class SignIn extends RxAppCompatActivity {
             if (!s[2].equals(s[3]))
                 return PASS_NOT_MATCH;
         }
-        inputs=s;
+        inputs = s;
         post(s, type);
         return -1;
     }
@@ -106,7 +108,7 @@ public class SignIn extends RxAppCompatActivity {
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .compose(this.<RSignIn>bindUntilEvent(ActivityEvent.DESTROY))
-                    .subscribe ( r -> handleState(r.state, r.user));
+                    .subscribe(r -> handleState(r.state, r.user));
         } else {
             Retro.inst().create(ISignUp.class)
                     .impl(src[0], src[1], src[2])
@@ -117,22 +119,22 @@ public class SignIn extends RxAppCompatActivity {
         }
     }
 
-    private void handleState(int state){
-        handleState(state,null);
+    private void handleState(int state) {
+        handleState(state, null);
     }
+
     private void handleState(int state, User user) {
         if (state == -1) return;
         Toast.makeText(this, code[state], Toast.LENGTH_SHORT).show();
         if (state == SIGN_UP_SUCCESS) {
             post(inputs, ACTION_SIGN_IN);
         } else if (state == SIGN_IN_SUCCESS) {
-            Gson gson =new Gson();
-            SpUtil.putString(Params.DATABASE, "user", gson.toJson(user), this);
             mIntent.putExtra("user", user);
-            util.putString(R.string.key_user, gson.toJson(user), this);
+            SpUtil.putObject(new Gson().toJson(user), SpUtil.USER);
             startActivity(mIntent);
         }
     }
+
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {

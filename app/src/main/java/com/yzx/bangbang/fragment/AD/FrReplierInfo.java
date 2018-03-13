@@ -1,4 +1,4 @@
-package com.yzx.bangbang.Fragment.AD;
+package com.yzx.bangbang.fragment.AD;
 
 import android.app.Fragment;
 import android.content.DialogInterface;
@@ -51,7 +51,7 @@ public class FrReplierInfo extends Fragment implements View.OnClickListener {
         adapter = new Adapter(getActivity().getLayoutInflater(), (ViewGroup) v.findViewById(R.id.scroll_view_container));
         initView();
         if (get().chosen)
-            getChosenUserId(get().assignment.id);
+            getChosenUserId(get().assignment.getId());
         else adaptItem();
     }
 
@@ -175,7 +175,7 @@ public class FrReplierInfo extends Fragment implements View.OnClickListener {
                 get().checkIfHasChosen();
             }
         });
-        okhttp.addPart("sql", "update `event` set `success` = '1',`chosen` = '" + user_id + "' where asm_id = '" + get().assignment.id + "'");
+        okhttp.addPart("sql", "update `event` set `success` = '1',`chosen` = '" + user_id + "' where asm_id = '" + get().assignment.getId() + "'");
         okhttp.post("update_data_common");
     }
 
@@ -191,7 +191,7 @@ public class FrReplierInfo extends Fragment implements View.OnClickListener {
                 });
             }
         });
-        okhttp.addPart("sql", "update `event` set `fulfill` = '1' where asm_id = '" + get().assignment.id + "'");
+        okhttp.addPart("sql", "update `event` set `fulfill` = '1' where asm_id = '" + get().assignment.getId() + "'");
         okhttp.post("update_data_common");
     }
 
