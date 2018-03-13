@@ -17,11 +17,11 @@ import android.widget.Toast;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.yzx.bangbang.Activity.AssignDetail;
 import com.yzx.bangbang.Activity.ChatActivity;
-import com.yzx.bangbang.module.ReplierInfo;
-import com.yzx.bangbang.module.SimpleIndividualInfo;
+import com.yzx.bangbang.model.ReplierInfo;
+import com.yzx.bangbang.model.SimpleIndividualInfo;
 import com.yzx.bangbang.R;
-import com.yzx.bangbang.Utils.NetWork.OkHttpUtil;
-import com.yzx.bangbang.Utils.NetWork.UniversalImageDownloader;
+import com.yzx.bangbang.utils.NetWork.OkHttpUtil;
+import com.yzx.bangbang.utils.NetWork.UniversalImageDownloader;
 
 import java.util.List;
 

@@ -7,7 +7,7 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.LinearLayout;
-import com.yzx.bangbang.Utils.util;
+import com.yzx.bangbang.utils.util;
 
 
 

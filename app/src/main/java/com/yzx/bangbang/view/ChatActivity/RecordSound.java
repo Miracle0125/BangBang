@@ -9,8 +9,8 @@ import android.widget.FrameLayout;
 import android.widget.Toast;
 
 import com.yzx.bangbang.Activity.ChatActivity;
-import com.yzx.bangbang.Utils.Params;
-import com.yzx.bangbang.Utils.util;
+import com.yzx.bangbang.utils.Params;
+import com.yzx.bangbang.utils.util;
 
 import java.io.IOException;
 import java.util.Date;

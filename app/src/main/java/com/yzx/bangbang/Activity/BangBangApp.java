@@ -6,9 +6,9 @@ import android.content.res.Resources;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.squareup.leakcanary.LeakCanary;
-import com.yzx.bangbang.Utils.ActivityManager;
-import com.yzx.bangbang.Utils.Params;
-import com.yzx.bangbang.Utils.SpUtil;
+import com.yzx.bangbang.utils.ActivityManager;
+import com.yzx.bangbang.utils.Params;
+import com.yzx.bangbang.utils.SpUtil;
 
 import java.io.File;
 

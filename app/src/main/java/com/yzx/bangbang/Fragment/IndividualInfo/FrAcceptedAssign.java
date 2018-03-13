@@ -11,10 +11,10 @@ import android.widget.TextView;
 import com.google.gson.Gson;
 import com.yzx.bangbang.Activity.AssignDetail;
 import com.yzx.bangbang.Activity.IndvInfo;
-import com.yzx.bangbang.module.EventModule;
+import com.yzx.bangbang.model.EventModule;
 import com.yzx.bangbang.R;
-import com.yzx.bangbang.Utils.NetWork.OkHttpUtil;
-import com.yzx.bangbang.Utils.Params;
+import com.yzx.bangbang.utils.NetWork.OkHttpUtil;
+import com.yzx.bangbang.utils.Params;
 import com.yzx.bangbang.view.indvInfo.AcceptedAssignItem;
 
 import java.util.List;

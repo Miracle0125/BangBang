@@ -19,13 +19,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
-import com.yzx.bangbang.module.Mysql.ChatRecord;
-import com.yzx.bangbang.module.SimpleIndividualInfo;
+import com.yzx.bangbang.model.Mysql.ChatRecord;
+import com.yzx.bangbang.model.SimpleIndividualInfo;
 import com.yzx.bangbang.R;
-import com.yzx.bangbang.Utils.NetWork.OkHttpUtil;
-import com.yzx.bangbang.Utils.NetWork.UniversalImageDownloader;
-import com.yzx.bangbang.Utils.Params;
-import com.yzx.bangbang.Utils.util;
+import com.yzx.bangbang.utils.NetWork.OkHttpUtil;
+import com.yzx.bangbang.utils.NetWork.UniversalImageDownloader;
+import com.yzx.bangbang.utils.Params;
+import com.yzx.bangbang.utils.util;
 import com.yzx.bangbang.view.mainView.Portrait;
 
 import java.io.File;

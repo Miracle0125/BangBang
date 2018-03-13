@@ -8,7 +8,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.yzx.bangbang.R;
-import com.yzx.bangbang.Utils.util;
+import com.yzx.bangbang.utils.util;
 
 import java.util.ArrayList;
 import java.util.List;

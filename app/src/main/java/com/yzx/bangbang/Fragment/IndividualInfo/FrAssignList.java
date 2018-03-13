@@ -11,10 +11,10 @@ import android.widget.TextView;
 import com.google.gson.Gson;
 import com.yzx.bangbang.Activity.AssignDetail;
 import com.yzx.bangbang.Activity.IndvInfo;
-import com.yzx.bangbang.Adapter.AssignListAdapter;
-import com.yzx.bangbang.module.SimpleIndividualInfo;
+import com.yzx.bangbang.adapter.AssignListAdapter;
+import com.yzx.bangbang.model.SimpleIndividualInfo;
 import com.yzx.bangbang.R;
-import com.yzx.bangbang.Utils.NetWork.OkHttpUtil;
+import com.yzx.bangbang.utils.NetWork.OkHttpUtil;
 import java.util.List;
 
 public class FrAssignList extends Fragment {

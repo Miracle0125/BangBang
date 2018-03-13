@@ -1,16 +1,14 @@
 package com.yzx.bangbang.Interface.Network.Main;
 
-import com.yzx.bangbang.module.receiver.LAssignment;
+import java.util.List;
 
 import io.reactivex.Flowable;
+import model.Assignment;
 import retrofit2.http.GET;
-
-/**
- * Created by Administrator on 2018/3/12.
- */
+import retrofit2.http.Query;
 
 public interface IMain {
     @GET("get_assignment")
-    Flowable<LAssignment> get_assignment();
+    Flowable<List<Assignment>> get_assignment(@Query("mode") int mode);
 }
 

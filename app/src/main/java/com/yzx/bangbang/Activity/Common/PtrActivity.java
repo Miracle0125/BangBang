@@ -6,7 +6,7 @@ import android.view.View;
 import android.widget.RelativeLayout;
 import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
 import com.yzx.bangbang.R;
-import com.yzx.bangbang.Utils.util;
+import com.yzx.bangbang.utils.util;
 import com.yzx.bangbang.view.Common.PtrLayout;
 import com.yzx.bangbang.Widget.Ptr.MaterialHeader;
 import com.yzx.bangbang.Widget.PtrUIListener;

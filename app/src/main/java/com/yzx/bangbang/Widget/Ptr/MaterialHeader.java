@@ -9,8 +9,7 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.Transformation;
 
-import com.yzx.bangbang.Activity.Main;
-import com.yzx.bangbang.Utils.util;
+import com.yzx.bangbang.utils.util;
 import com.yzx.bangbang.Widget.PtrUIListener;
 
 import in.srain.cube.views.ptr.PtrFrameLayout;

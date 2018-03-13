@@ -4,7 +4,7 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.widget.RelativeLayout;
 
-import com.yzx.bangbang.module.EventModule;
+import com.yzx.bangbang.model.EventModule;
 
 /**
  * Created by Administrator on 2016/12/5.

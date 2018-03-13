@@ -12,10 +12,10 @@ import android.widget.TextView;
 import com.google.gson.Gson;
 import com.yzx.bangbang.Activity.AssignDetail;
 import com.yzx.bangbang.Activity.Main;
-import com.yzx.bangbang.module.Mysql.AssignmentModule;
+import com.yzx.bangbang.model.Mysql.AssignmentModule;
 import com.yzx.bangbang.R;
 import com.yzx.bangbang.Service.NetworkService;
-import com.yzx.bangbang.Utils.NetWork.OkHttpUtil;
+import com.yzx.bangbang.utils.NetWork.OkHttpUtil;
 
 import java.util.List;
 import java.util.Set;

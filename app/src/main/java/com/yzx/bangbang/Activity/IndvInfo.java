@@ -15,17 +15,17 @@ import com.yzx.bangbang.Fragment.IndividualInfo.FrAcceptedAssign;
 import com.yzx.bangbang.Fragment.IndividualInfo.FrAssignList;
 import com.yzx.bangbang.Fragment.IndividualInfo.FrCollection;
 import com.yzx.bangbang.Fragment.IndividualInfo.FrConcern;
-import com.yzx.bangbang.module.SimpleIndividualInfo;
-import com.yzx.bangbang.module.User;
-import com.yzx.bangbang.module.UserRecord;
+import com.yzx.bangbang.model.SimpleIndividualInfo;
+import com.yzx.bangbang.model.User;
+import com.yzx.bangbang.model.UserRecord;
 import com.yzx.bangbang.R;
-import com.yzx.bangbang.Utils.ActivityManager;
-import com.yzx.bangbang.Utils.FrMetro;
-import com.yzx.bangbang.Utils.NetWork.OkHttpUtil;
-import com.yzx.bangbang.Utils.Params;
-import com.yzx.bangbang.Utils.NetWork.UniversalImageDownloader;
-import com.yzx.bangbang.Utils.SpUtil;
-import com.yzx.bangbang.Utils.util;
+import com.yzx.bangbang.utils.ActivityManager;
+import com.yzx.bangbang.utils.FrMetro;
+import com.yzx.bangbang.utils.NetWork.OkHttpUtil;
+import com.yzx.bangbang.utils.Params;
+import com.yzx.bangbang.utils.NetWork.UniversalImageDownloader;
+import com.yzx.bangbang.utils.SpUtil;
+import com.yzx.bangbang.utils.util;
 
 
 public class IndvInfo extends AppCompatActivity implements View.OnClickListener {

@@ -6,29 +6,30 @@ import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.os.Message;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
 import android.widget.TextView;
 import android.widget.Toast;
-import com.tencent.android.tpush.XGIOperateCallback;
-import com.tencent.android.tpush.XGPushConfig;
-import com.tencent.android.tpush.XGPushManager;
+
+import com.amap.api.maps.model.LatLng;
 import com.yzx.bangbang.Activity.Common.PtrActivity;
 import com.yzx.bangbang.Fragment.Main.FrMain;
-import com.yzx.bangbang.module.SimpleIndividualInfo;
-import com.yzx.bangbang.module.User;
+import com.yzx.bangbang.model.SimpleIndividualInfo;
+import com.yzx.bangbang.model.User;
 import com.yzx.bangbang.R;
 import com.yzx.bangbang.Service.NetworkService;
-import com.yzx.bangbang.Utils.FrMetro;
-import com.yzx.bangbang.Utils.util;
+import com.yzx.bangbang.utils.FrMetro;
+import com.yzx.bangbang.utils.util;
 import com.yzx.bangbang.Widget.Ptr.MaterialHeader;
-import com.yzx.bangbang.module.receiver.LAssignment;
 import com.yzx.bangbang.presenter.MainPresenter;
+
 import java.lang.ref.WeakReference;
+import java.util.List;
 import java.util.Set;
+
 import io.reactivex.functions.Consumer;
+import model.Assignment;
 
 /**
  * 此Activity与各个子界面交互
@@ -46,7 +47,7 @@ public class Main extends PtrActivity implements NetworkService.Listener {
     public static NetworkService networkService;
     public FrMetro fm;
     MainServiceConn conn;
-    private MainPresenter presenter=new MainPresenter(this);
+    private MainPresenter presenter = new MainPresenter(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,7 +80,6 @@ public class Main extends PtrActivity implements NetworkService.Listener {
             NetworkService.inst.getAssignments();
         }
     }
-
 
 
     private void initView() {
@@ -188,11 +188,15 @@ public class Main extends PtrActivity implements NetworkService.Listener {
         return ref.get();
     }
 
-    public Listener getListener(){
+    public Listener getListener() {
         return listener;
     }
+
     Listener listener;
-    public interface Listener{
-        void getAssignment(Consumer<LAssignment> consumer);
+
+    public interface Listener {
+        void getAssignment(Consumer<List<Assignment>> consumer,int mode);
+
+        void getLocation(Consumer<LatLng> c);
     }
 }

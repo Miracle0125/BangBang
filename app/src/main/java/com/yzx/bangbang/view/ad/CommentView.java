@@ -9,7 +9,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.LinearLayout;
 
-import com.yzx.bangbang.module.Comment;
+import com.yzx.bangbang.model.Comment;
 
 import java.lang.ref.WeakReference;
 

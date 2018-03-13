@@ -6,7 +6,7 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.widget.RelativeLayout;
 
-import com.yzx.bangbang.module.Comment;
+import com.yzx.bangbang.model.Comment;
 
 public class SubCommentView extends RelativeLayout {
     public SubCommentView(Context context) {

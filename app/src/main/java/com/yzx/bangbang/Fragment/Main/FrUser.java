@@ -16,13 +16,13 @@ import com.facebook.drawee.view.SimpleDraweeView;
 import com.google.gson.Gson;
 import com.yzx.bangbang.Activity.IndvInfo;
 import com.yzx.bangbang.Activity.Main;
-import com.yzx.bangbang.module.SimpleIndividualInfo;
-import com.yzx.bangbang.module.User;
+import com.yzx.bangbang.model.SimpleIndividualInfo;
+import com.yzx.bangbang.model.User;
 import com.yzx.bangbang.R;
 import com.yzx.bangbang.Service.NetworkService;
-import com.yzx.bangbang.Utils.NetWork.OkHttpUtil;
-import com.yzx.bangbang.Utils.Params;
-import com.yzx.bangbang.Utils.util;
+import com.yzx.bangbang.utils.NetWork.OkHttpUtil;
+import com.yzx.bangbang.utils.Params;
+import com.yzx.bangbang.utils.util;
 
 import java.io.File;
 import java.lang.ref.WeakReference;
