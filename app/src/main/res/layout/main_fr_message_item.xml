@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <com.facebook.drawee.view.SimpleDraweeView
+        android:id="@+id/main_fr_msg_portrait"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="15dp"
+        fresco:placeholderImage="@drawable/main_icon_portrait"
+        fresco:roundAsCircle="true" />
+
+    <TextView
+        android:id="@+id/main_fr_msg_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/main_fr_msg_portrait"
+        android:layout_marginLeft="10dp"
+        android:layout_toRightOf="@+id/main_fr_msg_portrait"
+        android:text="name" />
+
+    <TextView
+        android:id="@+id/main_fr_msg_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/main_fr_msg_name"
+        android:layout_marginTop="8dp"
+        android:layout_marginLeft="10dp"
+        android:layout_toRightOf="@+id/main_fr_msg_portrait"
+        android:text="content" />
+
+    <TextView
+        android:id="@+id/main_fr_msg_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="15dp"
+        android:text="2016-12-12" />
+
+    <LinearLayout
+        android:id="@+id/fr_msg_line"
+        android:layout_width="match_parent"
+        android:layout_height="0.3dp"
+        android:layout_below="@+id/main_fr_msg_portrait"
+        android:layout_marginTop="15dp"
+        android:background="#DCDCDC"
+        android:orientation="vertical" />
+
+</RelativeLayout>

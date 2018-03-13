@@ -1,0 +1,15 @@
+﻿<resources>
+    <string name="app_name">BangBang</string>
+    <string name="action_settings">Settings</string>
+    <string name="offline_string">{"num":7,"list":[{"date":"2016-07-16 14:00:00","bidders":"0","price":"50","employer_name":"Tom","id":"9","title":"Hello Wrold","content":"什么?"},{"date":"2016-07-16 14:00:00","bidders":"0","price":"50","employer_name":"Tom","id":"8","title":"Hello Wrold","content":"什么?"},{"date":"2016-07-16 14:00:00","bidders":"0","price":"50","employer_name":"Tom","id":"7","title":"Hello Wrold","content":"什么?"},{"date":"2016-07-16 14:00:00","bidders":"0","price":"50","employer_name":"Tom","id":"6","title":"Hello Wrold","content":"什么?"},{"date":"2016-07-16 14:00:00","bidders":"0","price":"50","employer_name":"Tom","id":"5","title":"Hello Wrold","content":"什么?"},{"date":"2016-04-26 13:02:00","bidders":"0","price":"50","employer_name":"Tom","id":"4","title":"我想要","content":"什么？"},{"date":"2016-04-11 16:00:00","bidders":"0","price":"30","employer_name":"Tom","id":"3","title":"Hello","content":"Geek"}]}</string>
+    <string name="key_user">user</string>
+    <string name="key_screenWidth">screenWidth</string>
+    <string name="key_screenHeight">screenHeight</string>
+    <string name="resume">resume</string>
+    <string name="fr_main_dis0">无限制</string>
+    <string name="fr_main_dis1">0 － 1000m</string>
+    <string name="fr_main_dis2">1000 － 2000m</string>
+    <string name="fr_main_dis3">2000 － 5000m</string>
+    <string name="fr_main_dis4">5000m以上</string>
+    <string name="serverSoundDir">D:\\\Server\\\sound\\\</string>
+</resources>

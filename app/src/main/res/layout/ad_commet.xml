@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.yzx.bangbang.view.ad.CommentView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:id="@+id/ad_comment_body"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <com.yzx.bangbang.view.mainView.Portrait
+            android:id="@+id/ad_comment_portrait"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginLeft="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            fresco:roundAsCircle="true" />
+
+        <TextView
+            android:id="@+id/ad_comment_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/ad_comment_portrait"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@+id/ad_comment_portrait"
+            android:text="replier"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/ad_comment_flour"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/ad_comment_name"
+            android:layout_marginLeft="3dp"
+            android:layout_toRightOf="@+id/ad_comment_name"
+            android:text="楼"
+            android:textSize="12sp" />
+        <TextView
+            android:id="@+id/ad_comment_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/ad_comment_name"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@+id/ad_comment_portrait"
+            android:text="date"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/ad_comment_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/ad_comment_portrait"
+            android:layout_marginTop="4dp"
+            android:layout_marginLeft="10dp"
+            android:text="content"
+            android:textSize="14sp" />
+
+    </RelativeLayout>
+</com.yzx.bangbang.view.ad.CommentView>

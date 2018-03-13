@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+    <com.yzx.bangbang.view.mainView.Portrait
+        android:id="@+id/portrait"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="20dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="12dp"
+        fresco:placeholderImage="@drawable/main_icon_portrait"
+        fresco:roundAsCircle = "true"/>
+
+    <FrameLayout
+        android:layout_alignTop="@+id/portrait"
+        android:layout_toRightOf="@+id/portrait"
+        android:layout_marginLeft="15dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/light_gray">
+
+        <TextView
+            android:padding="4dp"
+            android:id="@+id/message"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="write message here"
+            android:textSize="16sp"/>
+        <RelativeLayout
+            android:visibility="gone"
+            android:id="@+id/chat_sound_record_container"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp">
+            <com.facebook.drawee.view.SimpleDraweeView
+                android:id="@+id/chat_icon_speaker"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                fresco:placeholderImage = "@drawable/icon_speaker"/>
+            <TextView
+                android:id="@+id/chat_sound_record_time"
+                android:layout_toRightOf="@+id/chat_icon_speaker"
+                android:gravity="center"
+                android:text="10"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                />
+
+        </RelativeLayout>
+
+    </FrameLayout>
+
+    <TextView
+        android:id="@+id/date"
+        android:layout_below="@+id/portrait"
+        android:layout_alignLeft="@+id/portrait"
+        android:layout_marginTop="5dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="2016-8-8"/>
+
+</RelativeLayout>

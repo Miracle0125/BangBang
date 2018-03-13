@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <drawable name="transparent">#00FFFFFF</drawable>
+    <drawable name="default_pressed">#10000000</drawable>
+    <drawable name="drawer_mark_default">#F9AD2F</drawable>
+    <drawable name="drawer_mark_press">#ffc970</drawable>
+    <drawable name="drawer_delete_default">#F92F34</drawable>
+    <drawable name="drawer_delete_press">#ff7a7e</drawable>
+</resources>

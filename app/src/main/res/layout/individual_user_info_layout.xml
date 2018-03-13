@@ -1,0 +1,324 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
+    xmlns:ripple="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <RelativeLayout
+                android:id="@+id/indv_header"
+                android:layout_width="match_parent"
+                android:layout_height="250dp">
+
+                <com.facebook.drawee.view.SimpleDraweeView
+                    android:layout_width="match_parent"
+                    android:layout_height="250dp"
+                    fresco:backgroundImage="@drawable/individual_bg" />
+
+                <com.facebook.drawee.view.SimpleDraweeView
+                    android:id="@+id/indv_portrait"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="70dp"
+                    fresco:roundAsCircle="true"/>
+
+                <com.facebook.drawee.view.SimpleDraweeView
+                    android:layout_alignBottom="@+id/indv_portrait"
+                    android:layout_alignRight="@+id/indv_portrait"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    fresco:placeholderImage = "@drawable/icon_sex_male"/>
+
+                <TextView
+                    android:id="@+id/indv_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/indv_portrait"
+                    android:layout_centerHorizontal="true"
+                    android:text=""
+                    android:textColor="@color/white"
+                    android:textSize="17sp" />
+
+                <TextView
+                    android:id="@+id/indv_signature"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/indv_name"
+                    android:layout_centerHorizontal="true"
+                    android:text=""
+                    android:textColor="@color/white"
+                    android:textSize="16sp" />
+            </RelativeLayout>
+            <RelativeLayout
+                android:id="@+id/indv_block1"
+                android:layout_below="@+id/indv_header"
+                android:layout_width="384dp"
+                android:layout_height="wrap_content"
+                >
+                <LinearLayout
+                    android:id="@+id/indv_divide"
+                    android:layout_width="match_parent"
+                    android:layout_height="7dp"
+                    android:background="#F0F0F0"
+                    android:orientation="vertical"/>
+                <LinearLayout
+                    android:id="@+id/indv_block_concern"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="70dp"
+                    android:layout_marginTop="20dp"
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="15sp"
+                        android:text="他关注的人"/>
+                    <TextView
+                        android:id="@+id/indv_num_concern"
+                        android:layout_marginTop="10dp"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="17sp"
+                        android:text="0"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/indv_block_follower"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="70dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginTop="20dp"
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="15sp"
+                        android:text="关注他的人"/>
+                    <TextView
+                        android:id="@+id/indv_num_follower"
+                        android:textSize="17sp"
+                        android:layout_marginTop="10dp"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="0"/>
+                </LinearLayout>
+                <TextView
+                    android:id="@+id/indv_introduction"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/indv_block_concern"
+                    android:text="这个人很懒，什么都没有留下"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="18dp"/>
+                <com.andexert.library.RippleView
+                    android:visibility="gone"
+                    android:id="@+id/indv_btn_concern"
+                    android:layout_width="60dp"
+                    android:layout_height="25dp"
+                    android:layout_alignParentRight="true"
+
+                    android:layout_below="@+id/indv_introduction"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginTop="20dp"
+                    android:background="#99cc33">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:text="关注"
+                        android:textSize="12sp" />
+                </com.andexert.library.RippleView>
+
+                <LinearLayout
+                    android:layout_marginTop="20dp"
+                    android:id="@+id/indv_divide2"
+                    android:layout_below="@+id/indv_btn_concern"
+                    android:layout_width="match_parent"
+                    android:layout_height="7dp"
+                    android:background="#F0F0F0"
+                    android:orientation="vertical">
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="1.5dp"
+                        android:background="#DCDCDC" />
+                </LinearLayout>
+
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_below="@+id/indv_block1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <RelativeLayout
+                    android:id="@+id/indv_bb_contact_bar"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp">
+                    <TextView
+                        android:layout_centerVertical="true"
+                        android:textSize="16sp"
+                        android:layout_marginLeft="30dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="帮帮号"
+                        />
+                    <TextView
+                        android:id="@+id/indv_bb_contact"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="15dp"
+                        />
+                    <LinearLayout
+                        android:id="@+id/indv_divide5"
+                        android:layout_marginTop="17dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="0.3dp"
+                        android:background="#DCDCDC"
+                        android:layout_alignParentBottom="true"
+                        android:orientation="vertical" />
+
+                </RelativeLayout>
+                <com.andexert.library.RippleView
+                    android:layout_below="@+id/indv_bb_contact_bar"
+                    android:id="@+id/indv_his_asm_bar"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    ripple:rv_color = "@color/gray">
+                    <TextView
+                        android:layout_centerVertical="true"
+                        android:textSize="16sp"
+                        android:layout_marginLeft="30dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="我的需求"
+                        />
+                    <TextView
+                        android:id="@+id/indv_num_his_asm"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="15dp"
+                        />
+                    <LinearLayout
+                        android:id="@+id/indv_divide3"
+                        android:layout_marginTop="17dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="0.3dp"
+                        android:background="#DCDCDC"
+                        android:layout_alignParentBottom="true"
+                        android:orientation="vertical" />
+                </com.andexert.library.RippleView>
+                <com.andexert.library.RippleView
+                    android:layout_below="@+id/indv_his_asm_bar"
+                    android:id="@+id/indv_accepted_asm_bar"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    ripple:rv_color = "@color/gray">
+                    <TextView
+                        android:layout_centerVertical="true"
+                        android:textSize="16sp"
+                        android:layout_marginLeft="30dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="已接需求"
+                        />
+                    <TextView
+                        android:id="@+id/indv_num_accepted_asm"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="15dp"
+                        />
+                    <LinearLayout
+                        android:id="@+id/indv_divide6"
+                        android:layout_marginTop="17dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="0.3dp"
+                        android:background="#DCDCDC"
+                        android:layout_alignParentBottom="true"
+                        android:orientation="vertical" />
+
+                </com.andexert.library.RippleView>
+                <com.andexert.library.RippleView
+                    android:id="@+id/indv_clct_bar"
+                    android:layout_below="@+id/indv_accepted_asm_bar"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    ripple:rv_color = "@color/gray">
+                    <TextView
+                        android:layout_centerVertical="true"
+                        android:textSize="16sp"
+                        android:layout_marginLeft="30dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="我的收藏"
+                        />
+                    <TextView
+                        android:id="@+id/indv_num_clct"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="15dp"
+                        />
+                    <LinearLayout
+                        android:id="@+id/indv_divide4"
+                        android:layout_marginTop="17dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="0.3dp"
+                        android:background="#DCDCDC"
+                        android:layout_alignParentBottom="true"
+                        android:orientation="vertical" />
+
+                </com.andexert.library.RippleView>
+            </RelativeLayout>
+        </RelativeLayout>
+    </ScrollView>
+    <RelativeLayout
+        android:id="@+id/indv_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize">
+        <RelativeLayout
+            android:layout_marginLeft="10dp"
+            android:layout_centerVertical="true"
+            android:layout_width="45dp"
+            android:layout_height="45dp">
+
+            <com.facebook.drawee.view.SimpleDraweeView
+                android:id="@+id/indv_icon_back_background"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+            <com.facebook.drawee.view.SimpleDraweeView
+                android:id="@+id/indv_btn_back"
+                android:layout_centerInParent="true"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                fresco:placeholderImage = "@drawable/icon_back"/>
+        </RelativeLayout>
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:id="@+id/btn_user_setting"
+            fresco:placeholderImage = "@drawable/icon_pen"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="20dp"
+            android:layout_width="25dp"
+            android:layout_height="25dp" />
+    </RelativeLayout>
+    <FrameLayout
+        android:id="@+id/fragment_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+</RelativeLayout>

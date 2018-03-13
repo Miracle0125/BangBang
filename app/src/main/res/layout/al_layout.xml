@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <RelativeLayout
+        android:id="@+id/al_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/colorPrimary">
+        <RelativeLayout
+            android:layout_marginLeft="10dp"
+            android:layout_centerVertical="true"
+            android:layout_width="45dp"
+            android:layout_height="45dp">
+            <com.facebook.drawee.view.SimpleDraweeView
+                android:id="@+id/al_icon_back_background"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+            <com.facebook.drawee.view.SimpleDraweeView
+                android:id="@+id/btn_back"
+                android:layout_centerInParent="true"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                fresco:placeholderImage = "@drawable/icon_back"/>
+        </RelativeLayout>
+        <TextView
+            android:id="@+id/al_toolbar_textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="需求"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            />
+    </RelativeLayout>
+    <ListView
+        android:id="@+id/al_listView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/al_toolbar"/>
+</RelativeLayout>

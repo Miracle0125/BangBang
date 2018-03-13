@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <integer-array name="ptr_colors">
+        <item>@color/red</item>
+        <item>@color/blue</item>
+        <item>@color/yellow</item>
+        <item>@color/green</item>
+    </integer-array>
+    <string-array name="distances">
+        <item>@string/fr_main_dis0</item>
+        <item>@string/fr_main_dis1</item>
+        <item>@string/fr_main_dis2</item>
+        <item>@string/fr_main_dis3</item>
+        <item>@string/fr_main_dis4</item>
+    </string-array>
+    <string-array name="sort">
+        <item>默认</item>
+        <item>按价格升序</item>
+        <item>按价格降序</item>
+    </string-array>
+</resources>

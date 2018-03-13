@@ -1,0 +1,400 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.yzx.bangbang.view.ad.AdLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/ad_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+
+    <RelativeLayout
+        android:id="@+id/ad_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/colorPrimary">
+
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:id="@+id/btn_back"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20dp"
+            fresco:placeholderImage="@drawable/icon_back" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="需求详情"
+            android:textColor="@color/white"
+            android:textSize="18sp" />
+    </RelativeLayout>
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ad_toolbar"
+        android:scrollbars="none">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.yzx.bangbang.view.mainView.Portrait
+                android:id="@+id/ad_portrait"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/ad_title"
+                android:layout_marginLeft="20dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="10dp"
+                fresco:roundAsCircle="true" />
+
+            <TextView
+                android:id="@+id/ad_posterName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@+id/ad_portrait"
+                android:layout_marginLeft="10dp"
+                android:layout_toRightOf="@+id/ad_portrait"
+                android:text="UserName"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/ad_title"
+                android:layout_width="280dp"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/ad_portrait"
+                android:layout_marginTop="20dp"
+                android:text="AssignmentTitle"
+                android:textColor="#242424"
+                android:textSize="20sp" />
+
+
+            <TextView
+                android:id="@+id/ad_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/ad_posterName"
+                android:layout_below="@+id/ad_posterName"
+                android:layout_marginTop="1dp"
+
+                android:text="2016.4.05"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/ad_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_alignTop="@+id/ad_portrait"
+                android:layout_marginRight="20dp"
+                android:text="30"
+                android:textColor="#006000"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/ad_price"
+                android:layout_marginEnd="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_toLeftOf="@+id/ad_price"
+                android:layout_toStartOf="@+id/ad_price"
+                android:text="¥"
+                android:textColor="#A8A8A8"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/ad_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/ad_portrait"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="10dp"
+                android:text="       "
+                android:textColor="#242424"
+                android:textSize="14sp" />
+
+            <com.facebook.drawee.view.SimpleDraweeView
+                android:visibility="gone"
+                android:layout_below="@+id/ad_content"
+                android:id="@+id/ad_image0"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                fresco:placeholderImage="@color/light_blue" />
+            <com.facebook.drawee.view.SimpleDraweeView
+                android:layout_toRightOf="@+id/ad_image0"
+                android:layout_below="@+id/ad_content"
+                android:id="@+id/ad_image1"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:visibility="gone"
+                fresco:placeholderImage="@color/light_blue" />
+            <com.facebook.drawee.view.SimpleDraweeView
+                android:layout_toRightOf="@+id/ad_image1"
+                android:layout_below="@+id/ad_content"
+                android:id="@+id/ad_image2"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:visibility="gone"
+                fresco:placeholderImage="@color/light_blue" />
+
+            <FrameLayout
+                android:id="@+id/ad_line0"
+                android:layout_width="match_parent"
+                android:layout_height="0.3dp"
+                android:layout_below="@+id/ad_image0"
+                android:layout_marginTop="10dp"
+                android:background="#DCDCDC" />
+
+            <RelativeLayout
+                android:visibility="gone"
+                android:id="@+id/ad_icon_success_block"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="200dp"
+                android:layout_marginRight="18dp"
+                android:layout_below="@+id/ad_line0"
+                android:layout_marginTop="5dp">
+                <com.facebook.drawee.view.SimpleDraweeView
+                    android:id="@+id/ad_icon_success"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    fresco:placeholderImage = "@drawable/main_icon_success"/>
+                <TextView
+                    android:id="@+id/ad_state_text"
+                    android:layout_toRightOf="@+id/ad_icon_success"
+                    android:layout_marginLeft="5dp"
+                    android:layout_centerVertical="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="已选帮众"/>
+
+            </RelativeLayout>
+
+
+            <com.andexert.library.RippleView
+                android:id="@+id/ad_btn_clct"
+                android:layout_width="60dp"
+                android:layout_height="25dp"
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/ad_line0"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="10dp"
+                android:background="#99cc33">
+
+                <TextView
+                    android:id="@+id/ad_btn_clct_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:text="收藏"
+                    android:textSize="12sp" />
+
+            </com.andexert.library.RippleView>
+
+            <com.andexert.library.RippleView
+                android:id="@+id/ad_btn_delete"
+                android:layout_width="60dp"
+                android:layout_height="25dp"
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/ad_line0"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="10dp"
+                android:background="#d82d2d"
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:text="删除"
+                    android:textColor="@color/white"
+                    android:textSize="12sp" />
+            </com.andexert.library.RippleView>
+
+
+            <FrameLayout
+                android:id="@+id/ad_line1"
+                android:layout_width="match_parent"
+                android:layout_height="10dp"
+                android:layout_below="@+id/ad_line0"
+                android:layout_marginTop="45dp"
+                android:background="#F0F0F0">
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#DCDCDC" />
+            </FrameLayout>
+
+            <RelativeLayout
+                android:id="@+id/replier_info_bar"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:layout_below="@+id/ad_line1"
+                android:clickable="true">
+
+                <TextView
+                    android:id="@+id/replier_info_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="30dp"
+                    android:text="尚无帮众" />
+
+                <com.facebook.drawee.view.SimpleDraweeView
+                    android:visibility="gone"
+                    android:id="@+id/replier_info_bar_image0"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="20dp"
+                    fresco:placeholderImage="@drawable/main_icon_portrait"
+                    fresco:roundAsCircle="true" />
+
+                <com.facebook.drawee.view.SimpleDraweeView
+                    android:visibility="gone"
+                    android:id="@+id/replier_info_bar_image1"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="40dp"
+                    fresco:placeholderImage="@drawable/main_icon_portrait"
+                    fresco:roundAsCircle="true" />
+
+                <com.facebook.drawee.view.SimpleDraweeView
+                    android:visibility="gone"
+                    android:id="@+id/replier_info_bar_image2"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="60dp"
+                    fresco:placeholderImage="@drawable/main_icon_portrait"
+                    fresco:roundAsCircle="true" />
+
+
+                <FrameLayout
+                    android:id="@+id/ad_line3"
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginTop="10dp"
+                    android:background="#DCDCDC" />
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/ad_tv_num_replies"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/replier_info_bar"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="10dp"
+                android:text="留言"
+                android:textSize="14sp" />
+
+            <FrameLayout
+                android:id="@+id/ad_line2"
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_below="@id/ad_tv_num_replies"
+                android:layout_marginTop="10dp"
+                android:background="#DCDCDC" />
+
+            <LinearLayout
+                android:id="@+id/ad_comment_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/ad_line2"
+                android:orientation="vertical" />
+
+            <RelativeLayout
+                android:id="@+id/ad_bottom_bar_place_holder"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_below="@+id/ad_comment_container" />
+        </RelativeLayout>
+    </ScrollView>
+
+    <RelativeLayout
+        android:id="@+id/ad_bottom_bar"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_alignParentBottom="true"
+        android:background="#FFFFFFFF"
+        android:focusable="true"
+        android:focusableInTouchMode="true">
+
+        <RelativeLayout
+            android:id="@+id/btn_container"
+            android:layout_width="100dp"
+            android:layout_height="45dp"
+            android:layout_alignBottom="@+id/edit"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true">
+
+            <TextView
+                android:id="@+id/btn_send"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="5dp"
+                android:background="#2196f3"
+                android:gravity="center"
+                android:text="接受需求"
+                android:textColor="#ffffff" />
+        </RelativeLayout>
+
+
+        <EditText
+            android:id="@+id/edit"
+            style="?android:attr/textViewStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="45dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginBottom="0dp"
+            android:layout_marginLeft="5dp"
+            android:layout_toLeftOf="@+id/btn_container"
+            android:layout_toStartOf="@+id/btn_container"
+            android:background="#FFDCDCDC"
+            android:hint="    点击输入留言"
+            android:inputType="textMultiLine"
+            android:lines="4"
+            android:maxLength="120"
+            android:maxLines="4" />
+
+        <TextView
+            android:id="@+id/edit_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignRight="@+id/edit"
+            android:layout_marginBottom="5dp"
+            android:text="还能输入120字"
+            android:visibility="invisible" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/ad_fragment_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        />
+
+</com.yzx.bangbang.view.ad.AdLayout>

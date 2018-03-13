@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.yzx.bangbang.view.Common.FormFragmentLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:float="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="25dp"
+        android:layout_marginTop="100dp"
+        android:background="#F0F0F0"
+        android:orientation="vertical">
+
+        <com.yzx.floatlabelededittext.FloatLabeledEditText
+            android:layout_marginTop="60dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            float:fletPadding="10dp">
+
+            <EditText
+                android:id="@+id/form_fr_input0"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="账号" />
+        </com.yzx.floatlabelededittext.FloatLabeledEditText>
+
+        <com.yzx.floatlabelededittext.FloatLabeledEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            float:fletPadding="10dp">
+
+            <EditText
+                android:id="@+id/form_fr_input1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="密码"
+                android:inputType="textPassword" />
+        </com.yzx.floatlabelededittext.FloatLabeledEditText>
+
+
+        <RelativeLayout
+            android:layout_marginBottom="30dp"
+            android:id="@+id/form_fr_btn"
+            android:layout_width="120dp"
+            android:layout_height="45dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="8dp">
+
+            <TextView
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:gravity="center"
+                android:text="登录"
+                android:textColor="#3366cc"
+                android:textSize="16sp" />
+
+        </RelativeLayout>
+    </LinearLayout>
+</com.yzx.bangbang.view.Common.FormFragmentLayout>

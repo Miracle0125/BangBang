@@ -1,0 +1,105 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+
+android {
+    compileSdkVersion 27
+    buildToolsVersion "27.0.3"
+    signingConfigs{
+
+    }
+    defaultConfig {
+        applicationId "com.yzx.bangbang"
+        minSdkVersion 17
+        targetSdkVersion 27
+        versionCode 1
+        versionName "1.0"
+        multiDexEnabled true
+        applicationId "com.yzx.bangbang"
+        ndk {
+            abiFilters 'armeabi', 'armeabi-v7a', 'arm64-v8a'
+        }
+        manifestPlaceholders = [
+                XG_ACCESS_ID:"2100278529",
+                XG_ACCESS_KEY : "A38HG2V72GIX",
+        ]
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        debug {
+
+        }
+    }
+    productFlavors {
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+allprojects {
+    repositories {
+        mavenCentral()
+        jcenter()
+    }
+}
+
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    testCompile 'junit:junit:4.12'
+    compile 'com.android.support:appcompat-v7:27.0.0'
+    compile 'com.android.support:design:27.0.0'
+    compile 'com.android.support:support-compat:27.0.0'
+    compile group: 'com.google.code.gson', name: 'gson', version: '2.8.2'
+    compile project(':floatlabelededittext')
+    compile project(':MaterialRipple')
+    compile project(':ptr-lib')
+//    compile files('libs/okhttp-3.2.0.jar')
+//    compile files('libs/okio-1.11.0.jar')
+    debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5'
+    releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5'
+    compile 'com.facebook.fresco:fresco:1.8.1'
+    compile 'com.github.traex.rippleeffect:library:1.3'
+    compile files('libs/AMap_Location_V3.1.0_20161027.jar')
+    compile files('libs/AMap_Search_V3.6.1_20161122.jar')
+    compile files('libs/Android_Map3D_SDK_V4.1.2_20161104.jar')
+    compile 'com.trello.rxlifecycle2:rxlifecycle:2.2.1'
+    compile 'com.trello.rxlifecycle2:rxlifecycle-android:2.2.1'
+    compile 'com.trello.rxlifecycle2:rxlifecycle-components:2.2.1'
+    compile 'com.trello.rxlifecycle2:rxlifecycle-navi:2.1.0'
+    compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
+    compile 'io.reactivex.rxjava2:rxjava:2.0.6'
+    compile 'com.squareup.retrofit2:converter-gson:2.3.0'
+    compile 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'
+    compile 'com.squareup.retrofit2:retrofit:2.3.0'
+    compile group: 'org.reactivestreams', name: 'reactive-streams', version: '1.0.2'
+    compile group: 'com.squareup.okhttp3', name: 'okhttp', version: '3.10.0'
+    compile group: 'com.squareup.okio', name: 'okio', version: '1.14.0'
+    compile 'com.jakewharton:butterknife:8.8.1'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
+    compile 'com.tencent.xinge:xinge:3.2.2-release'
+    compile 'com.tencent.wup:wup:1.0.0.E-release'
+    compile 'com.tencent.mid:mid:4.0.6-release'
+    compile "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+}
+
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+
+    dependencies {
+        classpath 'me.tatarka:gradle-retrolambda:3.7.0'
+    }
+}
+
+
+
+apply plugin: 'com.android.application' //or apply plugin: 'java'
+apply plugin: 'me.tatarka.retrolambda'
+repositories {
+    mavenCentral()
+}

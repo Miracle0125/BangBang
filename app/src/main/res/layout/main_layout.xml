@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.yzx.bangbang.view.mainView.MainLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/main_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/colorPrimary"
+        android:gravity="center"
+        android:text="主页"
+        android:textColor="@color/white"
+        android:textSize="16dp" />
+
+    <FrameLayout
+        android:id="@+id/main_fr_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/main_navigationBar"
+        android:layout_below="@+id/toolbar" />
+
+    <RelativeLayout
+        android:id="@+id/main_navigationBar"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:layout_alignParentBottom="true">
+
+        <ImageView
+            android:id="@+id/main_new_assign"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_centerHorizontal="true"
+            android:src="@drawable/main_new_assign" />
+
+        <ImageView
+            android:id="@+id/main_select_news"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginEnd="10dp"
+            android:layout_toStartOf="@+id/main_new_assign"
+            android:padding="20dp"
+            android:src="@drawable/main_news" />
+
+        <ImageView
+            android:id="@+id/main_select_main"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginEnd="10dp"
+            android:layout_toStartOf="@+id/main_select_news"
+            android:padding="20dp"
+            android:src="@drawable/main_mainicon" />
+
+        <ImageView
+            android:id="@+id/main_select_message"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="10dp"
+            android:layout_toEndOf="@+id/main_new_assign"
+            android:padding="20dp"
+            android:src="@drawable/main_message" />
+
+        <ImageView
+            android:id="@+id/main_select_client"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="10dp"
+            android:layout_toEndOf="@+id/main_select_message"
+            android:padding="20dp"
+            android:src="@drawable/main_client" />
+
+        <include
+            android:id="@+id/main_ntf_circle0"
+            layout="@layout/main_s_circle"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:layout_alignRight="@+id/main_select_news"
+            android:layout_alignTop="@+id/main_select_news"
+            android:layout_marginRight="7dp"
+            android:layout_marginTop="7dp" />
+
+        <include
+            android:id="@+id/main_ntf_circle1"
+            layout="@layout/main_s_circle"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:layout_alignRight="@+id/main_select_message"
+            android:layout_alignTop="@+id/main_select_message"
+            android:layout_marginRight="7dp"
+            android:layout_marginTop="7dp" />
+    </RelativeLayout>
+
+</com.yzx.bangbang.view.mainView.MainLayout>

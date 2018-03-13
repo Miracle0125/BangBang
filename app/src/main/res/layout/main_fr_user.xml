@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/main_fr_user"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/main_fr_user_portrait_bar"
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="100dp">
+
+        <LinearLayout
+            android:id="@+id/main_fr_exit_divide2"
+            android:layout_width="match_parent"
+            android:layout_height="0.3dp"
+            android:layout_marginLeft="30dp"
+            android:background="#DCDCDC"
+            android:orientation="vertical" />
+
+        <TextView
+            android:id="@+id/main_fr_user_name"
+            android:layout_marginTop="15dp"
+            android:layout_marginLeft="20dp"
+            android:text="UserName"
+            android:textSize="18dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/main_fr_user_portrait"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="查看个人信息"
+            android:layout_alignLeft="@+id/main_fr_user_name"
+            android:layout_marginTop="15dp"
+            android:layout_below="@+id/main_fr_user_name"/>
+
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:id="@+id/main_fr_user_portrait"
+            android:layout_marginLeft="20dp"
+            android:layout_width="100dp"
+            android:padding="10dp"
+            android:layout_height="100dp"
+            fresco:placeholderImage = "@drawable/main_icon_portrait"
+            fresco:roundAsCircle = "true"
+            />
+ <!--       <LinearLayout
+            android:id="@+id/main_fr_exit_divide3"
+
+            android:layout_width="match_parent"
+            android:layout_height="0.3dp"
+            android:layout_marginLeft="30dp"
+            android:background="#DCDCDC"
+            android:orientation="vertical"
+            android:layout_alignParentBottom="true" />-->
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/main_fr_user_divide4"
+        android:layout_width="match_parent"
+        android:layout_height="7dp"
+        android:layout_below="@+id/main_fr_user_portrait_bar"
+        android:background="#F0F0F0"
+        android:orientation="vertical">
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="1.5dp"
+            android:background="#DCDCDC" />
+    </LinearLayout>
+
+    <!--recent-->
+    <RelativeLayout
+        android:id="@+id/main_fr_user_explore_record"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_below="@+id/main_fr_user_portrait_bar"
+        >
+
+        <TextView
+            android:textSize="16sp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="30dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="最近浏览"
+            />
+
+        <LinearLayout
+            android:id="@+id/main_fr_exit_divide5"
+            android:layout_width="match_parent"
+            android:layout_height="0.3dp"
+            android:background="#DCDCDC"
+            android:layout_alignParentBottom="true"
+            android:orientation="vertical" />
+    </RelativeLayout>
+    <!--exit-->
+    <RelativeLayout
+        android:id="@+id/main_fr_user_exit"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginBottom="40dp"
+        android:layout_alignParentBottom="true"
+        >
+
+        <LinearLayout
+            android:id="@+id/main_fr_exit_divide"
+            android:layout_width="match_parent"
+            android:layout_height="0.3dp"
+            android:background="#DCDCDC"
+            android:orientation="vertical" />
+        
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:padding="15dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            fresco:backgroundImage = "@drawable/main_icon_power"/>
+        
+        <TextView
+            android:textSize="18sp"
+            android:layout_centerInParent="true"
+            android:layout_marginLeft="50dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="退出登录"
+            />
+
+        <LinearLayout
+            android:id="@+id/main_fr_exit_divide1"
+            android:layout_width="match_parent"
+            android:layout_height="0.3dp"
+            android:background="#DCDCDC"
+            android:layout_alignParentBottom="true"
+            android:orientation="vertical" />
+
+    </RelativeLayout>
+</RelativeLayout>
