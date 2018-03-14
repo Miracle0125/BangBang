@@ -222,7 +222,7 @@ public class FrReplierInfo extends Fragment implements View.OnClickListener {
             v.setText(info.message);
             UniversalImageDownloader d = ((AssignmentDetail) getActivity()).downloader;
             if (d != null)
-                d.downLoadPortrait(info.user_id, (SimpleDraweeView) item.findViewById(R.id.portrait));
+                d.downLoadPortrait(info.user_id, (SimpleDraweeView) item.findViewById(R.id.employer_portrait));
             return item;
         }
     }

@@ -235,7 +235,7 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
             tv.setText("" + cr.record_time);
             downloadFile(cr.message, v);
         }
-        Portrait portrait = (Portrait) v.findViewById(R.id.portrait);
+        Portrait portrait = (Portrait) v.findViewById(R.id.employer_portrait);
         downloader.downLoadPortrait(id, portrait);
         return v;
     }

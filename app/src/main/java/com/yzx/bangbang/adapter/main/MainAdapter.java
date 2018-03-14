@@ -2,7 +2,6 @@ package com.yzx.bangbang.adapter.main;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -45,7 +44,6 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(ViewHolder h, int i) {
-        Log.i("adapter", "this is pos at" + i);
         h.tv_date.setText(util.CustomDate(data.get(i).getDate()));
         h.tv_employer.setText(data.get(i).getEmployer_name());
         h.tv_title.setText(data.get(i).getTitle());
@@ -96,7 +94,7 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
             tv_title = v.findViewById(R.id.item_title);
             tv_price = v.findViewById(R.id.item_price);
             tv_replies = v.findViewById(R.id.item_num_reply);
-            portrait = v.findViewById(R.id.portrait);
+            portrait = v.findViewById(R.id.employer_portrait);
             tv_distance = v.findViewById(R.id.distance);
             if (type == TYPE_WITH_IMAGE) {
                 image0 = v.findViewById(R.id.image0);

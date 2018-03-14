@@ -46,4 +46,14 @@
         <item name="android:layout_gravity">center_horizontal</item>
     </style>
 
+    <style name="GreenButton" parent="Theme.AppCompat.Light">
+        <item name="colorButtonNormal">@color/green</item>
+        <item name="android:colorPressedHighlight">@color/pink</item>
+    </style>
+
+    <style name="BlueButton" parent="Theme.AppCompat.Light" >
+        <item name="colorButtonNormal">#99cc33</item>
+        <item name="android:colorPressedHighlight">@color/pink</item>
+    </style>
+
 </resources>

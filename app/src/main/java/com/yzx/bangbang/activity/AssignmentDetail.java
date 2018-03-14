@@ -8,6 +8,8 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.KeyEvent;
@@ -16,6 +18,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.view.Window;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -24,6 +27,9 @@ import android.widget.Toast;
 
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.google.gson.Gson;
+import com.trello.rxlifecycle2.android.ActivityEvent;
+import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
+import com.yzx.bangbang.Interface.network.IAssignmentDetail;
 import com.yzx.bangbang.fragment.AD.FrReplierInfo;
 import com.yzx.bangbang.model.Comment;
 import com.yzx.bangbang.model.Msg;
@@ -32,7 +38,9 @@ import com.yzx.bangbang.model.Reply;
 import com.yzx.bangbang.model.User;
 import com.yzx.bangbang.R;
 import com.yzx.bangbang.Service.NetworkService;
+import com.yzx.bangbang.presenter.AssignmentDetailPresenter;
 import com.yzx.bangbang.utils.FrMetro;
+import com.yzx.bangbang.utils.NetWork.Retro;
 import com.yzx.bangbang.utils.NetWork.UniversalImageDownloader;
 import com.yzx.bangbang.utils.NetWork.OkHttpUtil;
 import com.yzx.bangbang.utils.Params;
@@ -46,12 +54,16 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 import model.Assignment;
 
 
-public class AssignmentDetail extends Activity implements View.OnClickListener, CommentView.Listener, SubCommentView.Listener {
+public class AssignmentDetail extends RxAppCompatActivity implements View.OnClickListener, CommentView.Listener, SubCommentView.Listener {
     public Assignment assignment;
-    TextView button, replier_info_text, btn_clct_tv;
+    TextView replier_info_text, btn_clct_tv;
     View decorView, bottomBar, placeHolder, replier_info_bar, btn_clct, btn_back;
     SimpleDraweeView portrait;
     EditText edit;
@@ -69,67 +81,53 @@ public class AssignmentDetail extends Activity implements View.OnClickListener, 
     public boolean chosen;
     public boolean fulfill;
     public List<ReplierInfo> replierInfoList;
+    AssignmentDetailPresenter presenter = new AssignmentDetailPresenter(this);
+    AssignmentDetailPresenter.Listener listener = presenter.getListener();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.ad_layout);
-        //ActivityManager.getManager().addActivity(this);
-        int asm_id;
-
-        assignment = (Assignment) getIntent().getSerializableExtra("assignment");
-        if (assignment == null) {
-            asm_id = getIntent().getExtras().getInt("asm_id");
-            downloadAssignmentById(asm_id);
-        } else
-            init();
+        setContentView(R.layout.asm_detail);
+        init();
     }
 
     AdLayout adLayout;
 
     private void init() {
-        downloader = new UniversalImageDownloader(this);
-        fm = new FrMetro(getFragmentManager(), R.id.ad_fragment_container);
-        if (assignment.getEmployer_id() == Main.user.getId()) isOwner = true;
+        assignment = (Assignment) getIntent().getSerializableExtra("assignment");
+        if (assignment == null) {
+            listener.get_assignment_by_id(getIntent().getExtras().getInt("asm_id"));
+        }
         initView();
         initEdit();
         initDialog();
         getComment();
         getReplierInfo();
-        downloadImages();
         setKBDetector();
         checkIfHasChosen();
         checkIfHasFulfill();
         currentLines = 1;
     }
 
-    @Override
-    protected void onDestroy() {
-        clear();
-        super.onDestroy();
-    }
-
-    private void clear() {
-    }
+    @BindView(R.id.subscribe)
+    Button btn_subscribe;
+    @BindView(R.id.collect)
+    Button btn_collect;
+    @BindView(R.id.button_comment)
+    Button btn_comment;
+    SwipeRefreshLayout swipeRefreshLayout;
+    @BindView(R.id.list)
+    RecyclerView list;
 
     private void initView() {
         if (assignment == null) return;
-        adLayout = (AdLayout) findViewById(R.id.ad_layout);
-        button = (TextView) findViewById(R.id.btn_send);
-        button.setOnClickListener(this);
-        btn_back = findViewById(R.id.btn_back);
-        btn_back.setOnClickListener(this);
-        placeHolder = findViewById(R.id.ad_bottom_bar_place_holder);
-        bottomBar = findViewById(R.id.ad_bottom_bar);
-        replier_info_bar = findViewById(R.id.replier_info_bar);
-        replier_info_bar.setOnClickListener(this);
-        replier_info_text = (TextView) findViewById(R.id.replier_info_text);
+
+
         ((TextView) findViewById(R.id.ad_title)).setText(assignment.getTitle());
         ((TextView) findViewById(R.id.ad_content)).setText(assignment.getContent());
         ((TextView) findViewById(R.id.ad_posterName)).setText(assignment.getEmployer_name());
         ((TextView) findViewById(R.id.ad_price)).setText(util.s(assignment.getPrice()));
         ((TextView) findViewById(R.id.ad_price)).setTextColor(util.CustomColor(assignment.getPrice()));
-        downloader.downLoadPortrait(assignment.getEmployer_id(), (SimpleDraweeView) findViewById(R.id.ad_portrait));
         if (assignment.getEmployer_id() == Main.user.getId()) {
             View v = findViewById(R.id.ad_btn_delete);
             v.setVisibility(View.VISIBLE);
@@ -176,24 +174,6 @@ public class AssignmentDetail extends Activity implements View.OnClickListener, 
         });
     }
 
-    private void downloadAssignmentById(int asm_id) {
-        OkHttpUtil okhttp = OkHttpUtil.inst((s) -> {
-            if (s.equals("")) {
-                runOnUiThread(()->{
-                    Toast.makeText(AssignmentDetail.this, "需求不存在", Toast.LENGTH_SHORT).show();
-                    finish();
-                });
-            }
-            TempList tempList = gson.fromJson(s, TempList.class);
-            if (tempList != null && tempList.list.size() != 0) {
-                assignment = tempList.list.get(0).toAssignment();
-                runOnUiThread(this::init);
-            }
-        });
-        okhttp.addPart("sql", "select * from assignment where `id` = " + asm_id);
-        okhttp.post("query_data_common");
-    }
-
     Comments comments;
 
     private void getComment() {
@@ -205,29 +185,6 @@ public class AssignmentDetail extends Activity implements View.OnClickListener, 
         });
         okHttp.addPart("comment", String.valueOf(assignment.getId()));
         okHttp.post("query_comment");
-    }
-
-    private void downloadImages() {
-        for (int i = 0; i < assignment.getImages(); i++) {
-            SimpleDraweeView view;
-            switch (i) {
-                case 0:
-                    view = (SimpleDraweeView) findViewById(R.id.ad_image0);
-                    view.setVisibility(View.VISIBLE);
-                    downloader.downloadAssignmentImages(assignment.getId(), i, view);
-                    break;
-                case 1:
-                    view = (SimpleDraweeView) findViewById(R.id.ad_image1);
-                    view.setVisibility(View.VISIBLE);
-                    downloader.downloadAssignmentImages(assignment.getId(), i, view);
-                    break;
-                case 2:
-                    view = (SimpleDraweeView) findViewById(R.id.ad_image2);
-                    view.setVisibility(View.VISIBLE);
-                    downloader.downloadAssignmentImages(assignment.getId(), i, view);
-                    break;
-            }
-        }
     }
 
     private void getReplierInfo() {
@@ -375,10 +332,10 @@ public class AssignmentDetail extends Activity implements View.OnClickListener, 
         placeHolder.setLayoutParams(params_holder);
         bar_tv.setVisibility(View.VISIBLE);
         if (already_accepted) {
-            button.setTextColor(getResources().getColor(R.color.white));
-            button.setBackgroundColor(Color.parseColor("#2196f3"));
+            btn_subscribe.setTextColor(getResources().getColor(R.color.white));
+            btn_subscribe.setBackgroundColor(Color.parseColor("#2196f3"));
         }
-        button.setText("发送");
+        btn_subscribe.setText("发送");
         state = POST_COMMENT;
     }
 
@@ -390,21 +347,21 @@ public class AssignmentDetail extends Activity implements View.OnClickListener, 
         placeHolder.setLayoutParams(params_holder);
         bar_tv.setVisibility(View.INVISIBLE);
         if (already_accepted) {
-            button.setBackgroundColor(getResources().getColor(R.color.cloud_gray));
-            button.setTextColor(getResources().getColor(R.color.gray));
-            button.setText("已接受");
+            btn_subscribe.setBackgroundColor(getResources().getColor(R.color.cloud_gray));
+            btn_subscribe.setTextColor(getResources().getColor(R.color.gray));
+            btn_subscribe.setText("已接受");
         } else {
-            button.setText("接受需求");
+            btn_subscribe.setText("接受需求");
         }
         state = ACCEPT_ASSIGN;
     }
 
     private void updateButtonView() {
-        if (button != null)
+        if (btn_subscribe != null)
             if (state == ACCEPT_ASSIGN && already_accepted) {
-                button.setBackgroundColor(getResources().getColor(R.color.cloud_gray));
-                button.setTextColor(getResources().getColor(R.color.gray));
-                button.setText("已接受");
+                btn_subscribe.setBackgroundColor(getResources().getColor(R.color.cloud_gray));
+                btn_subscribe.setTextColor(getResources().getColor(R.color.gray));
+                btn_subscribe.setText("已接受");
             }
     }
 
@@ -717,7 +674,7 @@ public class AssignmentDetail extends Activity implements View.OnClickListener, 
 
     private void showReplierInfo() {
         if (fm == null) {
-            fm = new FrMetro(getFragmentManager(), R.id.ad_fragment_container);
+            fm = new FrMetro(getFragmentManager(), R.id.fragment_container);
         }
         fm.goToFragment(FrReplierInfo.class);
         updateFragmentBackground();
@@ -727,9 +684,9 @@ public class AssignmentDetail extends Activity implements View.OnClickListener, 
     private void updateFragmentBackground() {
         if (fm == null) return;
         if (fm.getCurrent() == null)
-            findViewById(R.id.ad_fragment_container).setBackgroundColor(Color.parseColor("#00FAFAFA"));
+            findViewById(R.id.fragment_container).setBackgroundColor(Color.parseColor("#00FAFAFA"));
         else
-            findViewById(R.id.ad_fragment_container).setBackgroundColor(getResources().getColor(R.color.opaque));
+            findViewById(R.id.fragment_container).setBackgroundColor(getResources().getColor(R.color.opaque));
     }
 
 
@@ -770,7 +727,7 @@ public class AssignmentDetail extends Activity implements View.OnClickListener, 
             public double latitude, longitude;
 
             public Assignment toAssignment() {
-               // return new Assignment(employer_name, title, content, date, id, repliers, employer_id, images, price);
+                // return new Assignment(employer_name, title, content, date, id, repliers, employer_id, images, price);
                 return null;
             }
         }
