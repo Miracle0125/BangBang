@@ -45,7 +45,7 @@ public class FrMain extends Fragment {
     SwipeRefreshLayout swipeRefreshLayout;
     private View v;
     //Map<Integer, View> Id_View;
-    MainAdapter adapter = new MainAdapter(getActivity());
+    MainAdapter adapter;
 
     @Nullable
     @Override
@@ -57,20 +57,30 @@ public class FrMain extends Fragment {
     }
 
     public void init() {
+        adapter = new MainAdapter(getActivity());
         ButterKnife.bind(this, v);
         initSpinner();
-        swipeRefreshLayout.setOnRefreshListener(() -> context().listener.getAssignment((r) -> {
-            adapter.setData(r);
-            if (recyclerView.getLayoutManager() == null)
-                recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-            if (recyclerView.getAdapter() == null)
-                recyclerView.setAdapter(adapter);
-            swipeRefreshLayout.setRefreshing(false);
-        }, sort_type));
-        recyclerView.setOnClickListener(v -> {
-            Log.d("test","item click");
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                Log.d("test", "refresh");
+                context().listener.getAssignment((r) -> {
+                    adapter.setData(r);
+                    if (recyclerView.getLayoutManager() == null)
+                        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+                    if (recyclerView.getAdapter() == null)
+                        recyclerView.setAdapter(adapter);
+                    swipeRefreshLayout.setRefreshing(false);
+                }, sort_type);
+            }
         });
-        refresh();
+//        swipeRefreshLayout.setOnRefreshListener(() -> {
+//
+//        });
+        recyclerView.setOnClickListener(v -> {
+            Log.d("test", "item click");
+        });
+        //refresh();
     }
 
     private void initSpinner() {

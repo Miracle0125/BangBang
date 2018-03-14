@@ -57,7 +57,7 @@ public class UniversalImageDownloader {
                         final String path = Params.TEMP_DIR + util.getRandomString(8) + ".png";
                         util.writeFile(Base64.decode(receiver.image_base64, Base64.DEFAULT), path, () -> loadPortrait(view, path, context));
                         portraitCache.put(user_id, path);
-                        SpUtil.putString(SpUtil.PORTRAIT,user_id,path,context);
+                        //SpUtil.putString(SpUtil.PORTRAIT,user_id,path);
                     }
                 }
             });
@@ -66,10 +66,11 @@ public class UniversalImageDownloader {
         }
     }
 
-    public void setPortraitUsingCache(int user_id,final SimpleDraweeView view){
-        String path = SpUtil.getString(SpUtil.PORTRAIT,user_id,context);
-        if (path!=null)
-                ((Activity) context).runOnUiThread(() -> view.setImageURI(Uri.fromFile(new File(path))));
+    public void setPortraitUsingCache(int user_id, final SimpleDraweeView view) {
+        String path = null;
+        //String path = SpUtil.getString(SpUtil.PORTRAIT,user_id,context);
+        if (path != null)
+            ((Activity) context).runOnUiThread(() -> view.setImageURI(Uri.fromFile(new File(path))));
     }
 
     private void loadPortrait(final SimpleDraweeView view, final String path, Context context) {
@@ -146,7 +147,6 @@ public class UniversalImageDownloader {
             }
         };
     }
-
 
 
     private class ImageEntity {

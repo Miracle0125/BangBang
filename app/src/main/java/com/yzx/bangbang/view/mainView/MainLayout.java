@@ -1,8 +1,7 @@
 package com.yzx.bangbang.view.mainView;
 
-import android.app.Activity;
+
 import android.content.Context;
-import android.content.Intent;
 import android.os.Message;
 import android.util.AttributeSet;
 import android.view.View;
@@ -22,12 +21,11 @@ import com.yzx.bangbang.utils.FrMetro;
 import com.yzx.bangbang.utils.Params;
 import com.yzx.bangbang.utils.util;
 
-import org.intellij.lang.annotations.Flow;
-
 import java.util.Arrays;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.reactivex.Flowable;
 
@@ -46,7 +44,6 @@ public class MainLayout extends RelativeLayout {
     public MainLayout(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         this.context = (Main) context;
-        init();
     }
 
     private static int current_index = 0;
@@ -59,11 +56,18 @@ public class MainLayout extends RelativeLayout {
     String[] fragment_name = {"主页", "消息", "私信", "用户", ""};
     Class[] target_class = {FrMain.class, FrNews.class, FrMessage.class, FrUser.class, NewAssignment.class};
     ImageView[] selector = new ImageView[button_id.size()];
-    @BindView(R.id.toolbar)
     TextView toolbar;
     public FrMetro metro;
 
+    @Override
+    protected void onFinishInflate() {
+        super.onFinishInflate();
+        init();
+    }
+
     void init() {
+        ButterKnife.bind(this);
+        toolbar = findViewById(R.id.toolbar);
         initSelector();
         metro = new FrMetro(context.getFragmentManager(), R.id.main_fr_container);
         metro.goToFragment(FrMain.class);

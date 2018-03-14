@@ -32,11 +32,14 @@ import com.yzx.bangbang.utils.util;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Observable;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import io.reactivex.Flowable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 import model.Assignment;
 
@@ -95,6 +98,8 @@ public class NewAssignment extends RxAppCompatActivity {
 
     private void addImage(String path) {
         if (path == null) return;
+        if (vector_image_view == null)
+            vector_image_view = new SimpleDraweeView[]{image0, image1, image2};
         if (num_images == 0)
             image_container.setVisibility(View.VISIBLE);
         SimpleDraweeView draweeView = getImageView();
@@ -136,7 +141,7 @@ public class NewAssignment extends RxAppCompatActivity {
         }
         btn_send.setClickable(false);
         toast("开始上传");
-        upload();
+        prepare_data();
     }
 
     private boolean checkPrice(String s) {
@@ -153,17 +158,10 @@ public class NewAssignment extends RxAppCompatActivity {
         return true;
     }
 
-    private void upload() {
+    private void prepare_data() {
         User user = (User) SpUtil.getObject(SpUtil.USER);
-        double latitude = 0, longitude = 0;
-        if (isLocationEnable.isChecked()) {
-            LatLng latLng = (LatLng) SpUtil.getObject(SpUtil.LATLNG);
-            if (latLng != null) {
-                latitude = latLng.latitude;
-                longitude = latLng.longitude;
-            }
-        }
-        Assignment assignment = new Assignment(0,
+        final LatLng latLng = isLocationEnable.isChecked() ? null : (LatLng) SpUtil.getObject(SpUtil.LATLNG);
+        String assignment = new Gson().toJson(new Assignment(0,
                 title.getText().toString(),
                 content.getText().toString(),
                 user.getId(), user.getName(),
@@ -172,17 +170,22 @@ public class NewAssignment extends RxAppCompatActivity {
                 0,
                 num_images,
                 0,
-                latitude,
-                longitude);
+                latLng == null ? 0 : latLng.latitude,
+                latLng == null ? 0 : latLng.longitude));
         List<File> image_files = new ArrayList<>();
-        for (int i = 0; i < paths.size(); i++)
-            image_files.add(new File(paths.get(i)));
+        Flowable.fromIterable(paths).map(File::new)
+                .doOnComplete(() -> upload(assignment, image_files))
+                .subscribe(image_files::add);
+    }
+
+    private void upload(String assignment, List<File> image_files) {
         Retro.inst().create(IMain.class)
-                .new_assignment(new Gson().toJson(assignment), Retro.files2MultipartBody(image_files))
+                .new_assignment(assignment, Retro.files2MultipartBody(image_files))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .compose(this.<Integer>bindUntilEvent(ActivityEvent.DESTROY))
                 .subscribe(this::res);
+
     }
 
     private void res(int code) {
@@ -252,11 +255,11 @@ public class NewAssignment extends RxAppCompatActivity {
     ViewGroup image_container;
     @BindView(R.id.new_asm_image0)
     SimpleDraweeView image0;
-    @BindView(R.id.new_asm_image0)
+    @BindView(R.id.new_asm_image1)
     SimpleDraweeView image1;
-    @BindView(R.id.new_asm_image0)
+    @BindView(R.id.new_asm_image2)
     SimpleDraweeView image2;
-    SimpleDraweeView[] vector_image_view = {image0, image1, image2};
+    SimpleDraweeView[] vector_image_view;
     @BindView(R.id.new_asm_send)
     View btn_send;
 }

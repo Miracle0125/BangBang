@@ -81,6 +81,10 @@ public class SignIn extends RxAppCompatActivity {
     }
 
     public int judge(String[] s, int type) {
+        if (Params.use_default_account) {
+            post(new String[]{"n", "0"}, type);
+            return -1;
+        }
         if (type == 0) {
             if (s[0].equals(""))
                 return SignIn.NULL_ACCOUNT;
@@ -130,7 +134,7 @@ public class SignIn extends RxAppCompatActivity {
             post(inputs, ACTION_SIGN_IN);
         } else if (state == SIGN_IN_SUCCESS) {
             mIntent.putExtra("user", user);
-            SpUtil.putObject(new Gson().toJson(user), SpUtil.USER);
+            SpUtil.putObject(user, SpUtil.USER);
             startActivity(mIntent);
         }
     }

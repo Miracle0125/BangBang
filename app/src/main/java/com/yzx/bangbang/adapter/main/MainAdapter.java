@@ -2,6 +2,7 @@ package com.yzx.bangbang.adapter.main;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -12,6 +13,7 @@ import com.facebook.drawee.view.SimpleDraweeView;
 import com.yzx.bangbang.fragment.Main.FrMain;
 import com.yzx.bangbang.R;
 import com.yzx.bangbang.activity.Main;
+import com.yzx.bangbang.utils.NetWork.Retro;
 import com.yzx.bangbang.utils.SpUtil;
 import com.yzx.bangbang.utils.util;
 
@@ -24,19 +26,26 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
 
     private List<Assignment> data;
     private Main main;
+    private static int pos = 0;
+    private static final int TYPE_DEFAULT = 0;
+    private static final int TYPE_WITH_IMAGE = 1;
 
     public MainAdapter(Context context) {
         main = (Main) context;
     }
 
+    int layout[] = {R.layout.main_list_item, R.layout.main_list_item_with_images};
+
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
-        View v = main.getLayoutInflater().inflate(R.layout.main_list_item, viewGroup, false);
-        return new ViewHolder(v, data.get(i).getImages() > 0);
+        View v = main.getLayoutInflater().inflate(layout[i], viewGroup, false);
+        return new ViewHolder(v, i);
     }
+
 
     @Override
     public void onBindViewHolder(ViewHolder h, int i) {
+        Log.i("adapter", "this is pos at" + i);
         h.tv_date.setText(util.CustomDate(data.get(i).getDate()));
         h.tv_employer.setText(data.get(i).getEmployer_name());
         h.tv_title.setText(data.get(i).getTitle());
@@ -54,19 +63,15 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
                 }
             }
         }
+        h.portrait.setImageURI(Retro.get_image_uri(String.valueOf(data.get(i).getEmployer_id()),Retro.IMAGE_PORTRAIT));
         int num_images = data.get(i).getImages();
         if (num_images > 0) {
             SimpleDraweeView images[] = {h.image0, h.image1, h.image2};
             for (int j = 0; j < num_images; j++)
-                images[j].setImageURI(util.get_image_uri(data.get(i).getId() + "_" + j));
+                images[j].setImageURI(Retro.get_image_uri(data.get(i).getId() + "_" + j));
         }
-
-        //downloader.downLoadPortrait(assignment.employer_id, h.portrait);
-//        h.portrait.setTag(new SimpleIndividualInfo(assignment.employer_id, assignment.employer_name));
-//        h.portrait.setOnClickListener((view) ->
-//                Flowable.just(util.obtain_message(Main.ACTION_CLICK_PORTRAIT,view.getTag()))
-//                        .subscribe(((Main) context).consumer));
     }
+
 
     @Override
     public int getItemCount() {
@@ -74,6 +79,7 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
+        View v;
         TextView tv_employer,
                 tv_title,
                 tv_date,
@@ -82,8 +88,9 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
                 tv_distance;
         SimpleDraweeView image0, image1, image2, portrait;
 
-        public ViewHolder(View v, boolean have_image) {
+        public ViewHolder(View v, int type) {
             super(v);
+            this.v = v;
             tv_date = v.findViewById(R.id.item_date);
             tv_employer = v.findViewById(R.id.item_username);
             tv_title = v.findViewById(R.id.item_title);
@@ -91,14 +98,17 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
             tv_replies = v.findViewById(R.id.item_num_reply);
             portrait = v.findViewById(R.id.portrait);
             tv_distance = v.findViewById(R.id.distance);
-            if (have_image) {
-                ViewGroup viewGroup = v.findViewById(R.id.image_container);
-                viewGroup.setVisibility(View.VISIBLE);
+            if (type == TYPE_WITH_IMAGE) {
                 image0 = v.findViewById(R.id.image0);
                 image1 = v.findViewById(R.id.image1);
                 image2 = v.findViewById(R.id.image2);
             }
         }
+    }
+
+    @Override
+    public int getItemViewType(int pos) {
+        return data.get(pos).getImages() > 0 ? TYPE_WITH_IMAGE : TYPE_DEFAULT;
     }
 
     public void setData(List<Assignment> data) {

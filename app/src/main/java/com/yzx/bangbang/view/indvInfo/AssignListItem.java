@@ -4,6 +4,8 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.widget.RelativeLayout;
 
+import model.Assignment;
+
 /**
  * Created by Administrator on 2016/12/5.
  */

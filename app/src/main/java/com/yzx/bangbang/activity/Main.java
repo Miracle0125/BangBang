@@ -1,5 +1,6 @@
 package com.yzx.bangbang.activity;
 
+import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Message;
@@ -31,7 +32,6 @@ public class Main extends RxAppCompatActivity {
     public static final int ACTION_CLICK_PORTRAIT = 3;
     public static final int ACTION_NEW_ASSIGNMENT = 4;
     public static final int RESULT_UPLOAD_SUCCESS = 5;
-    public FrMetro metro;
     public MainPresenter.Listener listener;
     private MainPresenter presenter = new MainPresenter(this);
 
@@ -51,9 +51,7 @@ public class Main extends RxAppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (resultCode == RESULT_UPLOAD_SUCCESS)
-            if (metro.getCurrent() instanceof FrMain)
-                ((FrMain) metro.getCurrent()).refresh();
+        //if (resultCode == RESULT_UPLOAD_SUCCESS)
         super.onActivityResult(requestCode, resultCode, data);
     }
 

@@ -11,8 +11,8 @@ import com.yzx.bangbang.utils.SpUtil;
 
 import java.io.File;
 
-public class BangBangApp extends Application{
-    public static Resources r ;
+public class BangBangApp extends Application {
+    public static Resources r;
 
     @Override
     public void onCreate() {
@@ -23,11 +23,13 @@ public class BangBangApp extends Application{
         init();
     }
 
-    private void init(){
+    private void init() {
         r = getResources();
+        SpUtil.init(this);
         //initLeakCanary();
     }
-    private void initLeakCanary(){
+
+    private void initLeakCanary() {
         if (!LeakCanary.isInAnalyzerProcess(this)) {
             // This process is dedicated to LeakCanary for heap analysis.
             // You should not setParams your app in this process.
@@ -35,32 +37,33 @@ public class BangBangApp extends Application{
         }
     }
 
-    private void clearDir(String path){
+    private void clearDir(String path) {
         File file = new File(path);
-        if (!(file.exists()&&file.isDirectory())){
+        if (!(file.exists() && file.isDirectory())) {
             return;
         }
         String[] tempList = file.list();
-        if(tempList==null) return;
+        if (tempList == null) return;
         for (int i = 0; i < tempList.length; i++) {
-            File f = new File(path+tempList[i]);
+            File f = new File(path + tempList[i]);
             if (f.exists())
                 f.delete();
         }
 
     }
-    private void clearSp(){
-        SharedPreferences db = getSharedPreferences(Params.DATABASE,0);
-        if(db!=null)
-        db.edit().clear().apply();
-        db = getSharedPreferences(SpUtil.PORTRAIT,0);
-        if(db!=null)
-        db.edit().clear().apply();
-        db = getSharedPreferences(SpUtil.SAVED_INFO,0);
-        if(db!=null)
+
+    private void clearSp() {
+        SharedPreferences db = getSharedPreferences(Params.DATABASE, 0);
+        if (db != null)
             db.edit().clear().apply();
-        db = getSharedPreferences(SpUtil.SAVED_INFO,0);
-        if(db!=null)
+        db = getSharedPreferences(SpUtil.PORTRAIT, 0);
+        if (db != null)
+            db.edit().clear().apply();
+        db = getSharedPreferences(SpUtil.SAVED_INFO, 0);
+        if (db != null)
+            db.edit().clear().apply();
+        db = getSharedPreferences(SpUtil.SAVED_INFO, 0);
+        if (db != null)
             db.edit().clear().apply();
     }
 }

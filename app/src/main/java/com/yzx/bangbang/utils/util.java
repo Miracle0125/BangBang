@@ -293,10 +293,6 @@ public class util {
         return msg;
     }
 
-    public static Uri get_image_uri(String name) {
-        return Uri.parse("http://" + Params.ip + ":8080/server/image/" + name + ".jpg");
-    }
-
     public static void AppExit() {
         try {
             android.os.Process.killProcess(android.os.Process.myPid());

@@ -1,5 +1,7 @@
 package com.yzx.bangbang.utils.NetWork;
 
+import android.net.Uri;
+
 import com.google.gson.Gson;
 import com.yzx.bangbang.utils.Params;
 
@@ -23,6 +25,9 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class Retro {
 
+    public static final int IMAGE_ASSIGNMENT = 0;
+    public static final int IMAGE_PORTRAIT = 1;
+    private static final String[] image_dir = {"", "portrait/"};
 
     private static Retrofit.Builder getBuilder() {
         return new Retrofit.Builder()
@@ -46,10 +51,19 @@ public class Retro {
                 .build();
     }
 
+    public static Uri get_image_uri(String name, int type) {
+        return Uri.parse("http://" + Params.ip + ":8080/server/image/" + image_dir[type] + name + ".jpg");
+    }
+
+    public static Uri get_image_uri(String name) {
+        return get_image_uri(name, IMAGE_ASSIGNMENT);
+    }
+
+
     public static MultipartBody files2MultipartBody(List<File> files) {
         MultipartBody.Builder builder = new MultipartBody.Builder().setType(MultipartBody.FORM);
         for (int i = 0; i < files.size(); i++) {
-            builder.addPart(Headers.of("Content-Disposition", "form-data; name=\"file\";filename=\"file" + i + ".jpg\""), RequestBody.create(MediaType.parse("image/png"), files.get(i)));
+            builder.addPart(Headers.of("Content-Disposition", "form-data; name=\"image\";filename=\"image" + i + ".jpg\""), RequestBody.create(MediaType.parse("image/png"), files.get(i)));
         }
         return builder.build();
     }

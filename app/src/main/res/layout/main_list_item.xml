@@ -3,17 +3,17 @@
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:fresco="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/assign_list_item_main"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    tools:ignore="HardcodedText">
 
     <com.facebook.drawee.view.SimpleDraweeView
         android:id="@+id/portrait"
         android:layout_width="45dp"
         android:layout_height="45dp"
-        android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginLeft="20dp"
         android:layout_marginStart="20dp"
         android:layout_marginTop="12dp"
         fresco:placeholderImage="@drawable/main_icon_portrait"
@@ -24,8 +24,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignTop="@+id/portrait"
-        android:layout_marginLeft="10dp"
-        android:layout_toRightOf="@+id/portrait"
+        android:layout_marginStart="10dp"
+        android:layout_toEndOf="@+id/portrait"
         android:text="UserName"
         android:textColor="@color/minor"
         android:textSize="14sp"
@@ -35,7 +35,7 @@
         android:id="@+id/item_title"
         android:layout_width="280dp"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/portrait"
+        android:layout_alignStart="@+id/portrait"
         android:layout_below="@+id/portrait"
         android:layout_marginTop="8dp"
         android:text="AssignmentTitle"
@@ -46,44 +46,41 @@
         android:id="@+id/image_container"
         android:layout_width="match_parent"
         android:layout_height="120dp"
+        android:layout_below="@id/item_title"
         android:visibility="gone">
 
         <com.facebook.drawee.view.SimpleDraweeView
             android:id="@+id/image0"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:layout_marginLeft="10dp"
+            android:layout_marginStart="10dp"
             android:layout_marginTop="10dp"
-            android:visibility="gone"
-            fresco:placeholderImage="@color/light_blue" />
+            fresco:placeholderImage="@color/white" />
 
         <com.facebook.drawee.view.SimpleDraweeView
             android:id="@+id/image1"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:layout_marginLeft="20dp"
+            android:layout_marginStart="20dp"
             android:layout_marginTop="10dp"
-            android:layout_toRightOf="@+id/image0"
-            android:visibility="gone"
-            fresco:placeholderImage="@color/light_blue" />
+            android:layout_toEndOf="@+id/image0"
+            fresco:placeholderImage="@color/white" />
 
         <com.facebook.drawee.view.SimpleDraweeView
             android:id="@+id/image2"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:layout_marginLeft="20dp"
+            android:layout_marginStart="20dp"
             android:layout_marginTop="10dp"
-            android:layout_toRightOf="@+id/image1"
-            android:visibility="gone"
-            fresco:placeholderImage="@color/light_blue" />
+            android:layout_toEndOf="@+id/image1"
+            fresco:placeholderImage="@color/white" />
     </RelativeLayout>
-
 
     <TextView
         android:id="@+id/item_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/item_username"
+        android:layout_alignStart="@+id/item_username"
         android:layout_below="@+id/item_username"
         android:layout_marginTop="1dp"
         android:text="2016.4.05"
@@ -94,9 +91,9 @@
         android:id="@+id/item_price"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
         android:layout_alignTop="@+id/portrait"
-        android:layout_marginRight="20dp"
+        android:layout_marginEnd="20dp"
         android:text="30"
         android:textColor="#006000"
         android:textSize="20sp"
@@ -108,8 +105,6 @@
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/item_price"
         android:layout_marginEnd="5dp"
-        android:layout_marginRight="5dp"
-        android:layout_toLeftOf="@+id/item_price"
         android:layout_toStartOf="@+id/item_price"
         android:text="¥"
         android:textColor="#A8A8A8"
@@ -120,7 +115,7 @@
         android:id="@+id/main_fr_reply_bar"
         android:layout_width="match_parent"
         android:layout_height="35dp"
-        android:layout_below="@+id/item_title"
+        android:layout_below="@+id/image_container"
         android:layout_marginTop="10dp">
 
         <LinearLayout
@@ -135,10 +130,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-
             android:layout_centerVertical="true"
-            android:layout_marginRight="20dp"
+            android:layout_marginEnd="20dp"
             android:text="0"
             android:textColor="@color/main"
             android:textSize="14sp" />
@@ -149,8 +142,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_marginRight="20dp"
-            android:layout_toLeftOf="@+id/item_reply_icon" />
+            android:layout_marginEnd="20dp"
+            android:layout_toStartOf="@+id/item_reply_icon" />
 
         <com.facebook.drawee.view.SimpleDraweeView
             android:id="@+id/item_reply_icon"
@@ -158,8 +151,8 @@
             android:layout_height="14dp"
             android:layout_centerVertical="true"
 
-            android:layout_marginRight="3dp"
-            android:layout_toLeftOf="@+id/item_num_reply"
+            android:layout_marginEnd="3dp"
+            android:layout_toStartOf="@+id/item_num_reply"
             fresco:placeholderImage="@drawable/main_icon_reply" />
 
     </RelativeLayout>

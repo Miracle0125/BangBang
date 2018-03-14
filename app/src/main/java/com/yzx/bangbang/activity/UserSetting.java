@@ -58,7 +58,7 @@ public class UserSetting extends AppCompatActivity implements View.OnClickListen
         info = (SimpleIndividualInfo) getIntent().getSerializableExtra("info");
         if (info==null) return;
         downloader = new UniversalImageDownloader(this);
-        user = gson.fromJson(SpUtil.getString(Params.DATABASE,"user",this), User.class);
+        user = (User) SpUtil.getObject(SpUtil.USER);
         initView();
     }
 
