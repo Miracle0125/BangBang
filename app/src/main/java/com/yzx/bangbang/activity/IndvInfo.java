@@ -24,7 +24,7 @@ import com.yzx.bangbang.utils.FrMetro;
 import com.yzx.bangbang.utils.NetWork.OkHttpUtil;
 import com.yzx.bangbang.utils.Params;
 import com.yzx.bangbang.utils.NetWork.UniversalImageDownloader;
-import com.yzx.bangbang.utils.SpUtil;
+import com.yzx.bangbang.utils.sql.SpUtil;
 import com.yzx.bangbang.utils.util;
 
 

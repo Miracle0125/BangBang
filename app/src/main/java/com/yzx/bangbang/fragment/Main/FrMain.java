@@ -18,9 +18,11 @@ import com.yzx.bangbang.adapter.main.MainAdapter;
 import com.yzx.bangbang.adapter.main.MainDistanceSpinnerAdapter;
 import com.yzx.bangbang.adapter.main.MainSortSpinnerAdapter;
 import com.yzx.bangbang.R;
+import com.yzx.bangbang.utils.util;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import io.reactivex.Flowable;
 
 
 /**
@@ -58,29 +60,22 @@ public class FrMain extends Fragment {
 
     public void init() {
         adapter = new MainAdapter(getActivity());
+        adapter.setOnClickListener(v ->
+                Flowable.just(util.obtain_message(Main.ACTION_SHOW_DETAIL, v.getTag()))
+                        .subscribe(context().consumer));
         ButterKnife.bind(this, v);
         initSpinner();
-        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                Log.d("test", "refresh");
-                context().listener.getAssignment((r) -> {
-                    adapter.setData(r);
-                    if (recyclerView.getLayoutManager() == null)
-                        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-                    if (recyclerView.getAdapter() == null)
-                        recyclerView.setAdapter(adapter);
-                    swipeRefreshLayout.setRefreshing(false);
-                }, sort_type);
-            }
+        swipeRefreshLayout.setOnRefreshListener(() -> {
+            context().listener.getAssignment((r) -> {
+                adapter.setData(r);
+                if (recyclerView.getLayoutManager() == null)
+                    recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+                if (recyclerView.getAdapter() == null)
+                    recyclerView.setAdapter(adapter);
+                swipeRefreshLayout.setRefreshing(false);
+            }, sort_type);
         });
-//        swipeRefreshLayout.setOnRefreshListener(() -> {
-//
-//        });
-        recyclerView.setOnClickListener(v -> {
-            Log.d("test", "item click");
-        });
-        //refresh();
+        //swipeRefreshLayout.post(() -> swipeRefreshLayout.setRefreshing(true));
     }
 
     private void initSpinner() {
@@ -131,6 +126,7 @@ public class FrMain extends Fragment {
 //            return;
 //        draweeView.setImageURI(Uri.fromFile(new File(data.getString("path"))));
 //    }
+
 
     public Main context() {
         return (Main) super.getActivity();

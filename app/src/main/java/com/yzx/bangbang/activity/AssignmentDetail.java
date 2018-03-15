@@ -1,6 +1,5 @@
 package com.yzx.bangbang.activity;
 
-import android.app.Activity;
 import android.app.Dialog;
 import android.graphics.Bitmap;
 import android.graphics.Color;
@@ -9,6 +8,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -27,9 +27,8 @@ import android.widget.Toast;
 
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.google.gson.Gson;
-import com.trello.rxlifecycle2.android.ActivityEvent;
 import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
-import com.yzx.bangbang.Interface.network.IAssignmentDetail;
+import com.yzx.bangbang.adapter.AssignmentDetailAdapter;
 import com.yzx.bangbang.fragment.AD.FrReplierInfo;
 import com.yzx.bangbang.model.Comment;
 import com.yzx.bangbang.model.Msg;
@@ -40,7 +39,6 @@ import com.yzx.bangbang.R;
 import com.yzx.bangbang.Service.NetworkService;
 import com.yzx.bangbang.presenter.AssignmentDetailPresenter;
 import com.yzx.bangbang.utils.FrMetro;
-import com.yzx.bangbang.utils.NetWork.Retro;
 import com.yzx.bangbang.utils.NetWork.UniversalImageDownloader;
 import com.yzx.bangbang.utils.NetWork.OkHttpUtil;
 import com.yzx.bangbang.utils.Params;
@@ -56,8 +54,6 @@ import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.schedulers.Schedulers;
 import model.Assignment;
 
 
@@ -82,157 +78,59 @@ public class AssignmentDetail extends RxAppCompatActivity implements View.OnClic
     public boolean fulfill;
     public List<ReplierInfo> replierInfoList;
     AssignmentDetailPresenter presenter = new AssignmentDetailPresenter(this);
-    AssignmentDetailPresenter.Listener listener = presenter.getListener();
+    AssignmentDetailPresenter.Listener listener;
+    AssignmentDetailAdapter adapter = new AssignmentDetailAdapter(this);
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.asm_detail);
-        init();
+        check_data(assignment);
     }
 
     AdLayout adLayout;
 
-    private void init() {
-        assignment = (Assignment) getIntent().getSerializableExtra("assignment");
-        if (assignment == null) {
-            listener.get_assignment_by_id(getIntent().getExtras().getInt("asm_id"));
+    //rxjava 写这里就是爽
+    private void check_data(Assignment assignment) {
+        if (assignment == null)
+            this.assignment = (Assignment) getIntent().getSerializableExtra("assignment");
+        if (this.assignment == null) {
+            int asm_id = getIntent().getIntExtra("asm_id", -1);
+            if (asm_id == -1) return;
+            listener.get_assignment_by_id(asm_id, this::check_data);
+            return;
         }
-        initView();
-        initEdit();
-        initDialog();
-        getComment();
-        getReplierInfo();
-        setKBDetector();
-        checkIfHasChosen();
-        checkIfHasFulfill();
-        currentLines = 1;
+        init();
     }
 
-    @BindView(R.id.subscribe)
+    private void init() {
+        listener = presenter.getListener();
+        initView();
+        //initEdit();
+        //currentLines = 1;
+    }
+
+    //    @BindView(R.id.subscribe)
     Button btn_subscribe;
-    @BindView(R.id.collect)
+    //    @BindView(R.id.collect)
     Button btn_collect;
-    @BindView(R.id.button_comment)
+    //    @BindView(R.id.button_comment)
     Button btn_comment;
     SwipeRefreshLayout swipeRefreshLayout;
     @BindView(R.id.list)
     RecyclerView list;
 
+
     private void initView() {
-        if (assignment == null) return;
-
-
-        ((TextView) findViewById(R.id.ad_title)).setText(assignment.getTitle());
-        ((TextView) findViewById(R.id.ad_content)).setText(assignment.getContent());
-        ((TextView) findViewById(R.id.ad_posterName)).setText(assignment.getEmployer_name());
-        ((TextView) findViewById(R.id.ad_price)).setText(util.s(assignment.getPrice()));
-        ((TextView) findViewById(R.id.ad_price)).setTextColor(util.CustomColor(assignment.getPrice()));
-        if (assignment.getEmployer_id() == Main.user.getId()) {
-            View v = findViewById(R.id.ad_btn_delete);
-            v.setVisibility(View.VISIBLE);
-            v.setOnClickListener(this);
-            btn_clct = findViewById(R.id.ad_btn_clct);
-            btn_clct.setVisibility(View.GONE);
-            adLayout.invalidate();
-        } else {
-            btn_clct_tv = (TextView) findViewById(R.id.ad_btn_clct_tv);
-            btn_clct = findViewById(R.id.ad_btn_clct);
-            btn_clct.setOnClickListener(this);
-            checkIfHasCollected();
-        }
-    }
-
-    int preLength;
-
-    private void initDialog() {
-        dialog = new Dialog(AssignmentDetail.this);
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.setContentView(R.layout.ad_comment_option);
-        View v1 = dialog.findViewById(R.id.ad_reply_comment);
-        v1.setOnClickListener(view -> {
-            saveFlag = true;
-            if (isSubComment) {
-                String s = "回复 " + inst().poster_name + " 的评论:";
-                preLength = s.length();
-                edit.setText(s);
-                edit.setSelection(edit.getText().length());
-                edit.setFocusableInTouchMode(true);
-                edit.requestFocus();
-            }
-            dialog.hide();
-            //postSubComment(inst.poster_name,inst.poster_id,inst.parent_id);
-        });
-        //dialog.setContentView(dialogView);
-        dialog.setOnCancelListener(dialogInterface -> {
-            if (!saveFlag) {
-                inst().poster_name = "";
-                inst().poster_id = -1;
-                inst().parent_id = -1;
-                isSubComment = false;
-            }
+        ButterKnife.bind(this);
+        adapter.setAssignment(assignment);
+        list.setLayoutManager(new LinearLayoutManager(this));
+        list.setAdapter(adapter);
+        listener.get_comment(assignment.getId(), r -> {
+            adapter.setComments(r);
+            adapter.notifyDataSetChanged();
         });
     }
-
-    Comments comments;
-
-    private void getComment() {
-        OkHttpUtil okHttp = OkHttpUtil.inst(s -> {
-            if (s.length() == 0 || s.charAt(0) == '<')
-                return;
-            comments = gson.fromJson(s, Comments.class);
-            runOnUiThread(() -> processInputStream(comments.list, comments.floors));
-        });
-        okHttp.addPart("comment", String.valueOf(assignment.getId()));
-        okHttp.post("query_comment");
-    }
-
-    private void getReplierInfo() {
-        OkHttpUtil okhttp = OkHttpUtil.inst(s -> {
-            final ReplierInfoList temp = gson.fromJson(s, ReplierInfoList.class);
-            if (temp != null) {
-                for (ReplierInfo info : temp.list) {
-                    if (Main.user.getId() == info.user_id)
-                        already_accepted = true;
-                }
-                runOnUiThread(() -> {
-                    if (!isOwner)
-                        updateButtonView();
-                    updateReplierInfoBar(temp.list);
-                });
-                inst().replierInfoList = temp.list;
-            }
-        });
-        okhttp.addPart("asm_id", String.valueOf(assignment.getId()));
-        okhttp.post("query_replier_info");
-    }
-
-    public void checkIfHasChosen() {
-        OkHttpUtil okhttp = OkHttpUtil.inst(s -> {
-            if (s.length() == 0 || s.charAt(0) == '<') return;
-            int i = parseString(s);
-            if (i == 1) {
-                chosen = true;
-                runOnUiThread(() -> findViewById(R.id.ad_icon_success_block).setVisibility(View.VISIBLE));
-            }
-        });
-        okhttp.addPart("sql", "select count(*) from `event` where `asm_id` = '" + assignment.getId() + "' and `success` = '1'");
-        okhttp.post("query_data_common");
-    }
-
-    public void checkIfHasFulfill() {
-        OkHttpUtil okhttp = OkHttpUtil.inst(s -> {
-            if (s.length() == 0 || s.charAt(0) == '<') return;
-            int i = parseString(s);
-            if (i == 1) {
-                fulfill = true;
-                runOnUiThread(() -> ((TextView) findViewById(R.id.ad_state_text)).setText("需求完结"));
-            }
-        });
-        okhttp.addPart("sql", "select count(*) from `event` where `asm_id` = '" + assignment.getId() + "' and `fulfill` = '1'");
-        okhttp.post("query_data_common");
-    }
-
 
     Map<Integer, ViewGroup> commentMap;
     Map<Integer, ViewGroup> commentViewTreeMap;
@@ -280,6 +178,7 @@ public class AssignmentDetail extends RxAppCompatActivity implements View.OnClic
     TextView bar_tv;
 
     private void initEdit() {
+
         diff_editHeight = util.px(45);
         bar = (RelativeLayout) findViewById(R.id.ad_bottom_bar);
         edit = (EditText) findViewById(R.id.edit);
@@ -397,16 +296,6 @@ public class AssignmentDetail extends RxAppCompatActivity implements View.OnClic
 
     util.KeyBoardDetector detector;
 
-    private void setKBDetector() {
-        //detector = new util.KeyBoardDetector();
-        decorView = getWindow().getDecorView();
-        decorView.getViewTreeObserver().addOnGlobalLayoutListener(() -> {
-            detector = new util.KeyBoardDetector(decorView);
-            util.Animate(bottomBar, -(Params.screenHeight - detector.get_key_board_top()), util.VERTICAL, 0);
-            if (detector.isKeyBoardRose()) OnStartInput();
-            else OnCancelInput();
-        });
-    }
 
     @Override
     public void onClick(View v) {
@@ -415,17 +304,13 @@ public class AssignmentDetail extends RxAppCompatActivity implements View.OnClic
                 if (state == ACCEPT_ASSIGN) {
                     requestAcceptAsm();
                 } else if (state == POST_COMMENT) {
-                    sendComment();
                 }
                 break;
             case R.id.ad_btn_delete:
-                deleteAssignment();
                 break;
             case R.id.ad_btn_clct:
                 if (!already_collected)
-                    collectAssignment();
-                else cancelCollection();
-                break;
+                    break;
             case R.id.replier_info_bar:
                 if (!isOwner) return;
                 showReplierInfo();
@@ -436,35 +321,6 @@ public class AssignmentDetail extends RxAppCompatActivity implements View.OnClic
         }
     }
 
-    //3  define in params.EVENT_TYPE_COLLECT_ASSIGNMENT
-    private void checkIfHasCollected() {
-        OkHttpUtil okHttp = OkHttpUtil.inst(s -> {
-            //while result >0 ,has collected
-            if (util.parseString(s, "count(*)") == 0) {
-                already_collected = false;
-                runOnUiThread(() -> updateButtonCollectView(false));
-            } else {
-                runOnUiThread(() -> updateButtonCollectView(true));
-                already_collected = true;
-            }
-        });
-        okHttp.addPart("sql", null, "select count(*) from event where user_id = " + Main.user.getId() + " and type = 3 and asm_id = " + assignment.getId(), OkHttpUtil.MEDIA_TYPE_JSON);
-        okHttp.post("query_data_common");
-    }
-
-    private void updateButtonCollectView(boolean hasCollect) {
-        if (hasCollect) {
-            btn_clct_tv.setText("已收藏");
-            btn_clct_tv.setTextColor(getResources().getColor(R.color.gray));
-            btn_clct.setBackgroundColor(getResources().getColor(R.color.cloud_gray));
-            already_collected = true;
-        } else {
-            btn_clct_tv.setText("收藏");
-            btn_clct_tv.setTextColor(getResources().getColor(R.color.main));
-            btn_clct.setBackgroundColor(Color.parseColor("#99cc33"));
-            already_collected = false;
-        }
-    }
 
     private int parseString(String s) {
         if (s.charAt(0) != '{') return -1;
@@ -474,56 +330,7 @@ public class AssignmentDetail extends RxAppCompatActivity implements View.OnClic
         return Integer.valueOf(s.substring(22, end));
     }
 
-    private void collectAssignment() {
-        OkHttpUtil okHttp = OkHttpUtil.inst(s -> {
-            if (s.equals("success"))
-                updateNumCollection(true);
-        });
-        okHttp.addPart("sql", null, "insert into event (`user_id`, `user_name`, `date`, `type`, `asm_id`, `asm_title`, `price`) values ('" + Main.user.getId() + "','" + Main.user.getName() + "','" + util.getDate() + "','" + String.valueOf(Params.EVENT_TYPE_COLLECT_ASSIGNMENT) + "','" + assignment.getId() + "','" + assignment.getTitle() + "','" + assignment.getPrice() + "')", OkHttpUtil.MEDIA_TYPE_JSON);
-        okHttp.post("update_data_common");
-    }
-
-    private void cancelCollection() {
-        OkHttpUtil okHttp = OkHttpUtil.inst(s -> {
-            if (s.equals("success"))
-                updateNumCollection(false);
-        });
-        okHttp.addPart("sql", "delete from event where user_id = '" + Main.user.getId() + "' and asm_id = '" + assignment.getId() + "' and type = '" + Params.EVENT_TYPE_COLLECT_ASSIGNMENT + "'");
-        okHttp.post("update_data_common");
-    }
-
-    private void updateNumCollection(boolean isIncrease) {
-        String symbol = isIncrease ? "+" : "-";
-        OkHttpUtil okHttp = OkHttpUtil.inst(s -> {
-            if (s.equals("success"))
-                runOnUiThread(() -> {
-                    if (already_collected)
-                        Toast.makeText(AssignmentDetail.this, "已取消收藏", Toast.LENGTH_SHORT).show();
-                    else Toast.makeText(AssignmentDetail.this, "已收藏", Toast.LENGTH_SHORT).show();
-                    checkIfHasCollected();
-                });
-        });
-        okHttp.addPart("sql", "update user_record set `num_coll` =  num_coll " + symbol + " 1 where user_id = " + Main.user.getId());
-        okHttp.post("update_data_common");
-    }
-
-    private void deleteAssignment() {
-        OkHttpUtil okHttp = OkHttpUtil.inst(s -> {
-            if (s.equals("success")) {
-                runOnUiThread(() -> Toast.makeText(AssignmentDetail.this, "删除成功", Toast.LENGTH_SHORT).show());
-                finish();
-                //SpUtil.putRefreshFlag(AssignmentDetail.this);
-            } else if (s.equals("failed")) {
-                runOnUiThread(() -> Toast.makeText(AssignmentDetail.this, "删除失败", Toast.LENGTH_SHORT).show());
-            }
-        });
-        okHttp.addPart("delete_assignment", null, String.valueOf(assignment.getId()), OkHttpUtil.MEDIA_TYPE_JSON);
-        okHttp.post("delete_asm");
-    }
-
-
     //@SuppressLint("HandlerLeak")
-    public Handler handler = new AdHandler(this);
     Dialog dialog;
     String poster_name;
     int poster_id, parent_id;
@@ -562,73 +369,6 @@ public class AssignmentDetail extends RxAppCompatActivity implements View.OnClic
 
     }
 
-    public static class AdHandler extends Handler {
-        private WeakReference<AssignmentDetail> ref;
-
-        public AdHandler(AssignmentDetail ref) {
-            this.ref = new WeakReference<>(ref);
-        }
-
-        @Override
-        public void handleMessage(Message msg) {
-            super.handleMessage(msg);
-            AssignmentDetail inst = ref.get();
-            if (inst != null)
-                inst.handleMsg(msg);
-        }
-    }
-
-    public void handleMsg(Message msg) {
-        switch (msg.what) {
-            case NetworkService.KEY_INSERT_MSG:
-                Toast.makeText(AssignmentDetail.this, "请求发送成功", Toast.LENGTH_SHORT).show();
-                break;
-            case ACTION_REMOVE_FRAGMENT:
-                if (fm != null) {
-                    if (fm.getCurrent() != null) {
-                        fm.removeCurrent();
-                        updateFragmentBackground();
-                    }
-                }
-                break;
-        }
-    }
-
-    public static class Temp {
-        List<Reply> list;
-
-        public List<Reply> getList() {
-            return list;
-        }
-    }
-
-    static int MajorComments;
-
-    private void sendComment() {
-        User user = Main.user;
-        Gson gson = new Gson();
-        String s = edit.getText().toString();
-        Comment comment;
-        if (saveFlag) {
-            comment = new Comment(user.getName(), poster_name, util.getDate(), -1, assignment.getId(), user.getId(), poster_id, inst().parent_id, -1, -1, edit.getText().toString());
-        } else {
-            comment = new Comment(user.getName(), assignment.getEmployer_name(), util.getDate(), -1, assignment.getId(), user.getId(), assignment.getEmployer_id(), 0, -1, -1, edit.getText().toString());
-        }
-        startPost(gson.toJson(comment));
-    }
-
-/*    private boolean isSubComment(String s) {
-        if (s.charAt(2) != ' ')
-            return false;
-        for (int i = 3; i < s.length(); i++) {
-            if (s.charAt(i) == ' ') {
-                if (s.charAt(i + 4) == ':')
-                    return true;
-            }
-        }
-        return false;
-    }*/
-
     private void startPost(String json) {
         OkHttpUtil okHttp = OkHttpUtil.inst(s -> {
             if (s.equals("success")) {
@@ -644,14 +384,6 @@ public class AssignmentDetail extends RxAppCompatActivity implements View.OnClic
 
     //接收需求后更新数据库消息表，增加需求的回复者数量,更新UserRecord,更新Replier_info
     private void requestAcceptAsm() {
-        //NetworkService.inst.send(gson.toJson(msg), NetworkService.KEY_INSERT_MSG);
-/*        NetworkService.inst.sendJson("accept_assignment", "", gson.toJson(msg), "message_manager", new OkHttpUtil.simpleOkHttpCallback() {
-            @Override
-            public void onResponse(String s) {
-                if (s.equals("update_success"))
-                    inst().handler.sendEmptyMessage(NetworkService.KEY_INSERT_MSG);
-            }
-        });*/
         if (already_accepted) return;
         if (isOwner) {
             Toast.makeText(AssignmentDetail.this, "你是发布人啊(。?`ω′?)", Toast.LENGTH_SHORT).show();
@@ -661,8 +393,8 @@ public class AssignmentDetail extends RxAppCompatActivity implements View.OnClic
             Msg msg = new Msg(assignment.getEmployer_name(), Main.user.getName(), assignment.getTitle(), util.getDate(), assignment.getEmployer_id(), assignment.getEmployer_id(), Main.user.getId(), assignment.getId(), 0);
             ReplierInfo info = new ReplierInfo(Main.user.getName(), assignment.getTitle(), null, util.getDate(), Main.user.getId(), assignment.getId(), assignment.getPrice());
             OkHttpUtil okhttp = OkHttpUtil.inst(s -> {
-                if (s.equals("update_success"))
-                    inst().handler.sendEmptyMessage(NetworkService.KEY_INSERT_MSG);
+                if (s.equals("update_success")) ;
+                //inst().handler.sendEmptyMessage(NetworkService.KEY_INSERT_MSG);
             });
             okhttp.addPart("accept_assignment", "message", gson.toJson(msg), OkHttpUtil.MEDIA_TYPE_JSON);
             okhttp.addPart("accept_assignment", "replier_info", gson.toJson(info), OkHttpUtil.MEDIA_TYPE_JSON);
@@ -753,7 +485,7 @@ public class AssignmentDetail extends RxAppCompatActivity implements View.OnClic
             TextView tv = (TextView) v.findViewById(R.id.ad_comment_content);
             tv.setText(comment.content);
             tv = (TextView) v.findViewById(R.id.ad_comment_date);
-            tv.setText(util.CustomDate(comment.date));
+            tv.setText(util.transform_date(comment.date));
             tv = (TextView) v.findViewById(R.id.ad_comment_name);
             tv.setText(comment.poster_name);
             tv = (TextView) v.findViewById(R.id.ad_comment_flour);
@@ -772,7 +504,7 @@ public class AssignmentDetail extends RxAppCompatActivity implements View.OnClic
             tv = (TextView) v.findViewById(R.id.ad_sub_comment_poster_name);
             tv.setText(comment.poster_name);
             tv = (TextView) v.findViewById(R.id.ad_sub_comment_date);
-            tv.setText(util.CustomDate(comment.date));
+            tv.setText(util.transform_date(comment.date));
             tv = (TextView) v.findViewById(R.id.ad_sub_comment_content);
             tv.setText(comment.content);
             return v;

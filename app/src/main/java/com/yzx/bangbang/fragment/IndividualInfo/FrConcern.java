@@ -100,7 +100,7 @@ public class FrConcern extends Fragment implements View.OnClickListener {
     @Override
     public void onClick(View view) {
         switch (view.getId()){
-            case R.id.employer_portrait:
+            case R.id.host_portrait:
                 SimpleIndividualInfo info = (SimpleIndividualInfo) view.getTag();
                 Intent i = new Intent(getActivity(),IndvInfo.class);
                 i.putExtra("info",info);
@@ -136,7 +136,7 @@ public class FrConcern extends Fragment implements View.OnClickListener {
             }else {
                 btn.setOnClickListener(FrConcern.this);
             }*/
-            SimpleDraweeView portrait = (SimpleDraweeView) item.findViewById(R.id.employer_portrait);
+            SimpleDraweeView portrait = (SimpleDraweeView) item.findViewById(R.id.host_portrait);
             portrait.setTag(info);
             portrait.setOnClickListener(FrConcern.this);
             downloader.downLoadPortrait(info.id,portrait);

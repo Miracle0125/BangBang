@@ -1,4 +1,4 @@
-package com.yzx.bangbang.utils;
+package com.yzx.bangbang.utils.sql;
 
 import android.app.Activity;
 import android.content.Context;

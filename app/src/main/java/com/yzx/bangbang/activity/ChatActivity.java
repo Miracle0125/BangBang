@@ -181,7 +181,7 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
 
             convr_id = parseString(s, "convr_id");
 /*            if (convr_id == null)
-                convr_id = Main.user.getId() + "," + obj_info.id;*/
+                convr_id = Main.user.get_random_id() + "," + obj_info.id;*/
         });
         okhttp.addPart("sql", "select distinct(convr_id) from `chat_record` where user_id = '" + Main.user.getId() + "' and obj_user_id = '" + obj_info.id + "' or user_id = '" + obj_info.id + "' and obj_user_id = '" + Main.user.getId() + "'");
         okhttp.post("query_data_common");
@@ -227,7 +227,7 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
             TextView tv = (TextView) v.findViewById(R.id.message);
             tv.setText(cr.message);
             tv = (TextView) v.findViewById(R.id.date);
-            tv.setText(util.CustomDate(util.getDate(cr.date)));
+            tv.setText(util.transform_date(util.getDate(cr.date)));
         } else if (cr.type == 1) {
             v.findViewById(R.id.message).setVisibility(View.GONE);
             v.findViewById(R.id.chat_sound_record_container).setVisibility(View.VISIBLE);
@@ -235,7 +235,7 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
             tv.setText("" + cr.record_time);
             downloadFile(cr.message, v);
         }
-        Portrait portrait = (Portrait) v.findViewById(R.id.employer_portrait);
+        Portrait portrait = (Portrait) v.findViewById(R.id.host_portrait);
         downloader.downLoadPortrait(id, portrait);
         return v;
     }

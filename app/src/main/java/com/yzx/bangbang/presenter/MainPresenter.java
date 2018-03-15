@@ -13,7 +13,7 @@ import com.trello.rxlifecycle2.android.ActivityEvent;
 import com.yzx.bangbang.activity.Main;
 import com.yzx.bangbang.Interface.network.IMain;
 import com.yzx.bangbang.utils.NetWork.Retro;
-import com.yzx.bangbang.utils.SpUtil;
+import com.yzx.bangbang.utils.sql.SpUtil;
 
 import java.util.List;
 import io.reactivex.android.schedulers.AndroidSchedulers;

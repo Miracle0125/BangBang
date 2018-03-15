@@ -11,6 +11,7 @@ import android.view.ViewConfiguration;
 
 import com.yzx.bangbang.activity.SignIn;
 import com.yzx.bangbang.R;
+import com.yzx.bangbang.utils.sql.SpUtil;
 
 import java.io.File;
 import java.lang.ref.WeakReference;
@@ -23,7 +24,7 @@ import java.lang.ref.WeakReference;
  * */
 public class Params {
     //public static String ip = "192.168.23.1";
-    public static String ip = "222.210.1.209";
+    public static String ip = "222.210.2.43";
     public static boolean use_default_account =true;
      public static final String DATABASE = "DateBase";
     public static int screenHeight, screenWidth, statusHeight;

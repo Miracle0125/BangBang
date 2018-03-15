@@ -10,7 +10,6 @@ import com.facebook.drawee.view.SimpleDraweeView;
 import com.google.gson.Gson;
 import com.yzx.bangbang.Service.NetworkService;
 import com.yzx.bangbang.utils.Params;
-import com.yzx.bangbang.utils.SpUtil;
 import com.yzx.bangbang.utils.util;
 
 import java.io.File;

@@ -2,11 +2,11 @@ package com.yzx.bangbang.model;
 
 public class Comment {
 
-    public String poster_name, receiver_name, date,content;
-    public int id, asm_id, poster_id, receiver_id, parent, pos,floors;
+    public String poster_name, receiver_name, date, content;
+    public int id, asm_id, poster_id, receiver_id, parent, pos, floors;
 
-    public Comment(String poster_name, String receiver_name, String date, int id, int asm_id, int poster_id,
-                   int receiver_id, int parent, int pos,int floors,String content) {
+    public Comment(int id, int asm_id, int poster_id, String poster_name, int receiver_id, String receiver_name, String content, String date,
+                   int parent, int pos, int floors) {
         this.poster_name = poster_name;
         this.receiver_name = receiver_name;
         this.date = date;
@@ -56,7 +56,7 @@ public class Comment {
         return pos;
     }
 
-    public String getContent(){
+    public String getContent() {
         return content;
     }
 }

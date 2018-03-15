@@ -5,7 +5,7 @@
     xmlns:fresco="http://schemas.android.com/apk/res-auto">
     <com.yzx.bangbang.view.mainView.Portrait
         android:clickable="true"
-        android:id="@+id/employer_portrait"
+        android:id="@+id/host_portrait"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="20dp"
         android:layout_width="45dp"
@@ -16,10 +16,10 @@
         android:id="@+id/user_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_toRightOf="@+id/employer_portrait"
+        android:layout_toRightOf="@+id/host_portrait"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="5dp"
-        android:layout_alignTop="@+id/employer_portrait"
+        android:layout_alignTop="@+id/host_portrait"
         android:textSize="17sp"
         android:text="user_name"/>
     <TextView
@@ -34,8 +34,8 @@
         android:id="@+id/message"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/employer_portrait"
-        android:layout_alignLeft="@+id/employer_portrait"
+        android:layout_below="@+id/host_portrait"
+        android:layout_alignLeft="@+id/host_portrait"
         android:layout_marginTop="10dp"
         android:text="message"/>
 

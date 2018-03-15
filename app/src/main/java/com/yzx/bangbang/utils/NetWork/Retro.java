@@ -59,6 +59,9 @@ public class Retro {
         return get_image_uri(name, IMAGE_ASSIGNMENT);
     }
 
+    public static Uri get_portrait_uri(int id) {
+        return get_image_uri(String.valueOf(id), Retro.IMAGE_PORTRAIT);
+    }
 
     public static MultipartBody files2MultipartBody(List<File> files) {
         MultipartBody.Builder builder = new MultipartBody.Builder().setType(MultipartBody.FORM);

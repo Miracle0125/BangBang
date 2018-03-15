@@ -18,11 +18,11 @@ import com.yzx.bangbang.Interface.network.ISignUp;
 import com.yzx.bangbang.model.receiver.RSignIn;
 import com.yzx.bangbang.model.User;
 import com.yzx.bangbang.R;
+import com.yzx.bangbang.utils.sql.DAO;
+import com.yzx.bangbang.utils.sql.SqlUtil;
 import com.yzx.bangbang.utils.FrMetro;
 import com.yzx.bangbang.utils.NetWork.Retro;
 import com.yzx.bangbang.utils.Params;
-import com.yzx.bangbang.utils.SpUtil;
-import com.yzx.bangbang.utils.util;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -134,7 +134,7 @@ public class SignIn extends RxAppCompatActivity {
             post(inputs, ACTION_SIGN_IN);
         } else if (state == SIGN_IN_SUCCESS) {
             mIntent.putExtra("user", user);
-            SpUtil.putObject(user, SpUtil.USER);
+            DAO.insert(DAO.TYPE_USER, user);
             startActivity(mIntent);
         }
     }

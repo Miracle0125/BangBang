@@ -23,7 +23,7 @@ import com.yzx.bangbang.R;
 import com.yzx.bangbang.Service.NetworkService;
 import com.yzx.bangbang.utils.NetWork.OkHttpUtil;
 import com.yzx.bangbang.utils.Params;
-import com.yzx.bangbang.utils.SpUtil;
+import com.yzx.bangbang.utils.sql.SpUtil;
 import com.yzx.bangbang.utils.util;
 
 import java.io.File;

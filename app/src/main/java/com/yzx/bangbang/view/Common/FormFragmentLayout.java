@@ -39,7 +39,7 @@ public class FormFragmentLayout extends LinearLayout {
     private void initDetector() {
         View v = ((Activity) context).getWindow().getDecorView();
         v.getViewTreeObserver().addOnGlobalLayoutListener(() -> {
-            if (!util.IsKeyBoardRose(v)) {
+            if (!util.is_keyboard_rose(v)) {
                 translation = 0;
                 util.Animate(this, translation, util.VERTICAL, 150);
             } else {

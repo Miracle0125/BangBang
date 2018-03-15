@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:ignore="HardcodedText">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:id="@+id/host_portrait"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            app:roundAsCircle="true" />
+
+        <TextView
+            android:id="@+id/host_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/host_portrait"
+            android:layout_marginStart="15dp"
+            android:layout_toEndOf="@+id/host_portrait"
+            android:text="name" />
+
+        <TextView
+            android:id="@+id/date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="20dp"
+            android:layout_marginTop="20dp"
+            android:text="1小时前" />
+
+        <TextView
+            android:id="@+id/content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@+id/host_name"
+            android:layout_below="@+id/host_name"
+            android:layout_marginTop="15dp"
+            android:text="talk something" />
+
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:id="@+id/icon_num_repliers"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:layout_alignStart="@+id/content"
+            android:layout_below="@+id/content"
+            android:layout_marginTop="15dp"
+            app:placeholderImage="@drawable/icon_message" />
+
+        <TextView
+            android:id="@+id/num_repliers"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/icon_num_repliers"
+            android:layout_marginStart="7dp"
+            android:layout_toEndOf="@+id/icon_num_repliers"
+            android:text="3"
+            android:textSize="12sp" />
+    </RelativeLayout>
+
+    <FrameLayout
+        android:layout_marginStart="60dp"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginTop="7dp"
+        android:background="#DCDCDC" />
+
+</LinearLayout>

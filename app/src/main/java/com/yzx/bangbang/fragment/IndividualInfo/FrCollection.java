@@ -118,7 +118,7 @@ public class FrCollection extends Fragment implements View.OnClickListener {
             TextView v = (TextView) item.findViewById(R.id.title);
             v.setText(assignment.title);
             v = (TextView) item.findViewById(R.id.date);
-            v.setText(util.CustomDate(assignment.date));
+            v.setText(util.transform_date(assignment.date));
             v = (TextView) item.findViewById(R.id.price);
             v.setText(String.valueOf(assignment.price));
             v = (TextView) item.findViewById(R.id.repliers);

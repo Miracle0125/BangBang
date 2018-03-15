@@ -9,7 +9,6 @@ import android.widget.TextView;
 
 import com.yzx.bangbang.R;
 import com.yzx.bangbang.utils.util;
-import com.yzx.bangbang.view.indvInfo.AssignListItem;
 
 import java.util.List;
 
@@ -56,7 +55,7 @@ public class AssignListAdapter extends BaseAdapter {
         } else
             h = (ViewHolder) v.getTag();
         h.title.setText(list.get(i).getTitle());
-        h.date.setText(util.CustomDate(list.get(i).getDate()));
+        h.date.setText(util.transform_date(list.get(i).getDate()));
         h.price.setText(""+list.get(i).getPrice());
         h.repliers.setText("帮众  "+list.get(i).getRepliers());
         return v;

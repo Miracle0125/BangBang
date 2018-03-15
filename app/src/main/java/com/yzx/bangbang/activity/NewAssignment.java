@@ -24,22 +24,22 @@ import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
 import com.yzx.bangbang.Interface.network.IMain;
 import com.yzx.bangbang.model.User;
 import com.yzx.bangbang.R;
+import com.yzx.bangbang.utils.sql.DAO;
+import com.yzx.bangbang.utils.sql.SqlUtil;
 import com.yzx.bangbang.utils.NetWork.Retro;
 import com.yzx.bangbang.utils.Params;
-import com.yzx.bangbang.utils.SpUtil;
+import com.yzx.bangbang.utils.sql.SpUtil;
 import com.yzx.bangbang.utils.util;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Observable;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.reactivex.Flowable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 import model.Assignment;
 
@@ -159,7 +159,9 @@ public class NewAssignment extends RxAppCompatActivity {
     }
 
     private void prepare_data() {
-        User user = (User) SpUtil.getObject(SpUtil.USER);
+        //User user = (User) SpUtil.getObject(SpUtil.USER);
+        // User user = new Gson().fromJson(SqlUtil.queryString(SqlUtil.TABLE_JSON, "user"), User.class);
+        User user = (User) DAO.query(DAO.TYPE_USER);
         final LatLng latLng = isLocationEnable.isChecked() ? null : (LatLng) SpUtil.getObject(SpUtil.LATLNG);
         String assignment = new Gson().toJson(new Assignment(0,
                 title.getText().toString(),

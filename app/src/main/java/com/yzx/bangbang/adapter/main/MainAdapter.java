@@ -13,7 +13,7 @@ import com.yzx.bangbang.fragment.Main.FrMain;
 import com.yzx.bangbang.R;
 import com.yzx.bangbang.activity.Main;
 import com.yzx.bangbang.utils.NetWork.Retro;
-import com.yzx.bangbang.utils.SpUtil;
+import com.yzx.bangbang.utils.sql.SpUtil;
 import com.yzx.bangbang.utils.util;
 
 import java.util.List;
@@ -38,17 +38,19 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
         View v = main.getLayoutInflater().inflate(layout[i], viewGroup, false);
+        v.setOnClickListener(r -> listener.click(r));
         return new ViewHolder(v, i);
     }
 
 
     @Override
     public void onBindViewHolder(ViewHolder h, int i) {
-        h.tv_date.setText(util.CustomDate(data.get(i).getDate()));
+        h.v.setTag(data.get(i));
+        h.tv_date.setText(util.transform_date(data.get(i).getDate()));
         h.tv_employer.setText(data.get(i).getEmployer_name());
         h.tv_title.setText(data.get(i).getTitle());
         h.tv_price.setText(util.s(data.get(i).getPrice()));
-        h.tv_price.setTextColor(util.CustomColor(data.get(i).getPrice()));
+        h.tv_price.setTextColor(util.price_color(data.get(i).getPrice()));
         h.tv_replies.setText(util.s(data.get(i).getRepliers()));
         if (FrMain.distance != 0) {
             LatLng user_pos = (LatLng) SpUtil.getObject(SpUtil.LATLNG);
@@ -61,7 +63,7 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
                 }
             }
         }
-        h.portrait.setImageURI(Retro.get_image_uri(String.valueOf(data.get(i).getEmployer_id()),Retro.IMAGE_PORTRAIT));
+        h.portrait.setImageURI(Retro.get_image_uri(String.valueOf(data.get(i).getEmployer_id()), Retro.IMAGE_PORTRAIT));
         int num_images = data.get(i).getImages();
         if (num_images > 0) {
             SimpleDraweeView images[] = {h.image0, h.image1, h.image2};
@@ -94,7 +96,7 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
             tv_title = v.findViewById(R.id.item_title);
             tv_price = v.findViewById(R.id.item_price);
             tv_replies = v.findViewById(R.id.item_num_reply);
-            portrait = v.findViewById(R.id.employer_portrait);
+            portrait = v.findViewById(R.id.host_portrait);
             tv_distance = v.findViewById(R.id.distance);
             if (type == TYPE_WITH_IMAGE) {
                 image0 = v.findViewById(R.id.image0);
@@ -104,6 +106,14 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
         }
     }
 
+
+
+    public ClickListener listener;
+
+    public interface ClickListener {
+        void click(View v);
+    }
+
     @Override
     public int getItemViewType(int pos) {
         return data.get(pos).getImages() > 0 ? TYPE_WITH_IMAGE : TYPE_DEFAULT;
@@ -111,6 +121,10 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
 
     public void setData(List<Assignment> data) {
         this.data = data;
+    }
+
+    public void setOnClickListener(ClickListener listener) {
+        this.listener = listener;
     }
 
 }

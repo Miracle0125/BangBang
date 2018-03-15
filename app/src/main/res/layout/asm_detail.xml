@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -9,10 +10,45 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <android.support.v7.app.AlertController.RecycleListView
+        <android.support.v7.widget.RecyclerView
             android:id="@+id/list"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
     </android.support.v4.widget.SwipeRefreshLayout>
-</LinearLayout>
+
+    <RelativeLayout
+        android:visibility="gone"
+        android:id="@+id/edit_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true">
+
+        <com.yzx.floatlabelededittext.FloatLabeledEditText
+            android:id="@+id/inner_edit_wrapper"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="20dp"
+            android:layout_marginStart="15dp"
+            android:layout_toStartOf="@+id/button_send">
+
+            <EditText
+                android:id="@+id/edit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="回复" />
+        </com.yzx.floatlabelededittext.FloatLabeledEditText>
+
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:id="@+id/button_send"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_alignBottom="@id/inner_edit_wrapper"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="10dp"
+            app:placeholderImage="@drawable/icon_send" />
+
+    </RelativeLayout>
+
+
+</RelativeLayout>

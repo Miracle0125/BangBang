@@ -45,7 +45,7 @@
             android:textSize="20sp" />
 
         <com.yzx.bangbang.view.mainView.Portrait
-            android:id="@+id/employer_portrait"
+            android:id="@+id/host_portrait"
             android:layout_width="45dp"
             android:layout_height="45dp"
             android:layout_alignStart="@id/title"
@@ -54,12 +54,12 @@
             fresco:roundAsCircle="true" />
 
         <TextView
-            android:id="@+id/employer_name"
+            android:id="@+id/host_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignTop="@+id/employer_portrait"
+            android:layout_alignTop="@+id/host_portrait"
             android:layout_marginStart="10dp"
-            android:layout_toEndOf="@+id/employer_portrait"
+            android:layout_toEndOf="@+id/host_portrait"
             android:text="UserName"
             android:textSize="14sp"
             android:textStyle="bold" />
@@ -68,14 +68,26 @@
             android:id="@+id/date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignStart="@+id/employer_name"
-            android:layout_below="@+id/employer_name"
+            android:layout_alignStart="@+id/host_name"
+            android:layout_below="@+id/host_name"
             android:layout_marginTop="1dp"
             android:text="2016.4.05"
             android:textSize="12sp" />
 
         <TextView
-            android:id="@+id/textView"
+            android:id="@+id/content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/host_portrait"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="10dp"
+            android:text="this is content"
+            android:textColor="#242424"
+            android:textSize="14sp" />
+
+
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignBottom="@+id/price"
@@ -90,7 +102,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
-            android:layout_alignTop="@+id/employer_portrait"
+            android:layout_alignTop="@+id/host_portrait"
             android:layout_marginEnd="20dp"
             android:text="30"
             android:textColor="#006000"
@@ -101,7 +113,7 @@
             android:id="@+id/image_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/employer_portrait"
+            android:layout_below="@id/host_portrait"
             android:orientation="horizontal"
             android:visibility="gone">
 
@@ -133,6 +145,7 @@
     </RelativeLayout>
 
     <LinearLayout
+        android:layout_gravity="center_vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
@@ -142,17 +155,18 @@
         <Button
             android:id="@+id/subscribe"
             style="@style/Widget.AppCompat.Button.Colored"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="82dp"
+            android:layout_height="40dp"
             android:layout_marginEnd="15dp"
+            android:textSize="12sp"
             android:text="接受需求"
             android:theme="@style/GreenButton" />
 
         <Button
             android:id="@+id/collect"
             style="@style/Widget.AppCompat.Button.Colored"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="82dp"
+            android:layout_height="40dp"
             android:layout_marginEnd="15dp"
             android:text="收藏"
             android:theme="@style/GreenButton" />
@@ -172,7 +186,7 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginStart="15dp"
-            android:text="尚无帮众" />
+            android:text="还没人来" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -202,44 +216,8 @@
                 android:layout_height="40dp"
                 android:layout_marginEnd="12dp"
                 fresco:roundAsCircle="true" />
-
-
         </LinearLayout>
     </RelativeLayout>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingBottom="10dp"
-        android:paddingTop="10dp">
-
-        <com.facebook.drawee.view.SimpleDraweeView
-            android:id="@+id/user_portrait"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_alignBottom="@+id/edit_comment"
-            fresco:roundAsCircle="true" />
-
-        <EditText
-            android:id="@+id/edit_comment"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_toEndOf="@+id/user_portrait"
-            android:text="说点什么吗？"
-            android:textColor="@color/cloud_gray" />
-
-        <Button
-            android:id="@+id/button_comment"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/user_portrait"
-            android:layout_alignParentEnd="true"
-            android:text="留言"
-            android:theme="@style/BlueButton" />
-
-    </RelativeLayout>
-
 </LinearLayout>
 
 

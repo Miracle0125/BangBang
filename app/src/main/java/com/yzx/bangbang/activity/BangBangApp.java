@@ -6,8 +6,9 @@ import android.content.res.Resources;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.squareup.leakcanary.LeakCanary;
+import com.yzx.bangbang.utils.sql.SqlUtil;
 import com.yzx.bangbang.utils.Params;
-import com.yzx.bangbang.utils.SpUtil;
+import com.yzx.bangbang.utils.sql.SpUtil;
 
 import java.io.File;
 
@@ -26,6 +27,7 @@ public class BangBangApp extends Application {
     private void init() {
         r = getResources();
         SpUtil.init(this);
+        SqlUtil.init();
         //initLeakCanary();
     }
 

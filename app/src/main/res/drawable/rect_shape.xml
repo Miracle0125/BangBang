@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- 填充的颜色 -->
+
+      <solid android:color="#F7F8FA" />
+
+    <!-- 四个角的弧度 -->
+    <corners
+        android:bottomLeftRadius="100dp"
+        android:bottomRightRadius="100dp"
+        android:topLeftRadius="100dp"
+        android:topRightRadius="100dp" />
+    <!-- padding：TextView里面的文字与TextView边界的间隔 -->
+</shape>

@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <com.facebook.drawee.view.SimpleDraweeView
-            android:id="@+id/employer_portrait"
+            android:id="@+id/host_portrait"
             android:layout_width="45dp"
             android:layout_height="45dp"
             fresco:placeholderImage = "@drawable/main_icon_portrait"
@@ -23,7 +23,7 @@
             android:layout_centerVertical="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@+id/employer_portrait"
+            android:layout_toRightOf="@+id/host_portrait"
             android:layout_marginLeft="25dp"
             android:text="name"
             android:textColor="@color/main"/>

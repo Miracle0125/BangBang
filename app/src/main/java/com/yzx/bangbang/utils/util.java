@@ -14,9 +14,9 @@ import android.support.v4.view.ViewCompat;
 import android.view.View;
 import android.view.animation.DecelerateInterpolator;
 import android.view.animation.Interpolator;
+import android.view.inputmethod.InputMethodManager;
 
 import com.balysv.materialripple.MaterialRippleLayout;
-import com.yzx.bangbang.activity.BangBangApp;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -113,7 +113,7 @@ public class util {
         return (int) (dp * Params.scale + 0.5f);
     }
 
-    public static String getId() {
+    public static String get_random_id() {
         return UUID.randomUUID().toString();
     }
 
@@ -134,10 +134,16 @@ public class util {
         }
     }
 
-    public static boolean IsKeyBoardRose(View decorView) {
+    public static boolean is_keyboard_rose(View decorView) {
         Rect rect = new Rect();
         decorView.getWindowVisibleDisplayFrame(rect);
         return ((double) (rect.bottom - rect.top) / Params.screenHeight) < 0.8;
+    }
+
+    public static void rise_keyboard(Activity activity) {
+        InputMethodManager imm = (InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE);
+        if (imm != null)
+            imm.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
     }
 
     public static String getRandomString(int length) {
@@ -161,7 +167,7 @@ public class util {
     }
 
 
-    public static int CustomColor(float p) {
+    public static int price_color(float p) {
         if (p >= 100) return Params.COLOR_RED;
         if (p >= 10) return Params.COLOR_GREEN;
         return Params.COLOR_DEEP_BLUE;
@@ -255,7 +261,7 @@ public class util {
     }
 
     //将日期变成几天前或者几小时前
-    public static String CustomDate(String raw_date) {
+    public static String transform_date(String raw_date) {
         if (format0 == null || format1 == null) {
             format0 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             format1 = new SimpleDateFormat("yyyy-MM-dd");

@@ -107,7 +107,7 @@ public class FrMessage extends Fragment implements View.OnClickListener {
                 obj_user_name = chatRecord.user_name;
             }
             tv = (TextView) v.findViewById(R.id.main_fr_msg_date);
-            tv.setText(util.CustomDate(util.getDate(chatRecord.date)));
+            tv.setText(util.transform_date(util.getDate(chatRecord.date)));
             tv = (TextView) v.findViewById(R.id.main_fr_msg_content);
             tv.setText(chatRecord.message);
             int obj_user_id;

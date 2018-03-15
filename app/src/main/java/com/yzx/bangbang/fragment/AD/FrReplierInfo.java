@@ -172,7 +172,7 @@ public class FrReplierInfo extends Fragment implements View.OnClickListener {
                     if (dialog != null) dialog.hide();
                     exitFragment();
                 });
-                get().checkIfHasChosen();
+                //get().checkIfHasChosen();
             }
         });
         okhttp.addPart("sql", "update `event` set `success` = '1',`chosen` = '" + user_id + "' where asm_id = '" + get().assignment.getId() + "'");
@@ -182,7 +182,7 @@ public class FrReplierInfo extends Fragment implements View.OnClickListener {
     private void fulfillAssignment() {
         OkHttpUtil okhttp = OkHttpUtil.inst((s) -> {
             if (s.equals("success")) {
-                get().checkIfHasFulfill();
+                //get().checkIfHasFulfill();
                 fulfill = true;
                 get().runOnUiThread(()->{
                     updateItemView();
@@ -196,7 +196,7 @@ public class FrReplierInfo extends Fragment implements View.OnClickListener {
     }
 
     private void exitFragment() {
-        ((AssignmentDetail) getActivity()).inst().handler.sendEmptyMessage(AssignmentDetail.ACTION_REMOVE_FRAGMENT);
+        //((AssignmentDetail) getActivity()).inst().handler.sendEmptyMessage(AssignmentDetail.ACTION_REMOVE_FRAGMENT);
     }
 
     private AssignmentDetail get() {
@@ -222,7 +222,7 @@ public class FrReplierInfo extends Fragment implements View.OnClickListener {
             v.setText(info.message);
             UniversalImageDownloader d = ((AssignmentDetail) getActivity()).downloader;
             if (d != null)
-                d.downLoadPortrait(info.user_id, (SimpleDraweeView) item.findViewById(R.id.employer_portrait));
+                d.downLoadPortrait(info.user_id, (SimpleDraweeView) item.findViewById(R.id.host_portrait));
             return item;
         }
     }

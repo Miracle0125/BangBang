@@ -42,7 +42,7 @@
             android:layout_height="wrap_content">
 
             <com.yzx.bangbang.view.mainView.Portrait
-                android:id="@+id/employer_portrait"
+                android:id="@+id/host_portrait"
                 android:layout_width="45dp"
                 android:layout_height="45dp"
                 android:layout_alignParentLeft="true"
@@ -57,9 +57,9 @@
                 android:id="@+id/ad_posterName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignTop="@+id/employer_portrait"
+                android:layout_alignTop="@+id/host_portrait"
                 android:layout_marginLeft="10dp"
-                android:layout_toRightOf="@+id/employer_portrait"
+                android:layout_toRightOf="@+id/host_portrait"
                 android:text="UserName"
                 android:textSize="14sp"
                 android:textStyle="bold" />
@@ -68,7 +68,7 @@
                 android:id="@+id/ad_title"
                 android:layout_width="280dp"
                 android:layout_height="wrap_content"
-                android:layout_alignLeft="@+id/employer_portrait"
+                android:layout_alignLeft="@+id/host_portrait"
                 android:layout_marginTop="20dp"
                 android:text="AssignmentTitle"
                 android:textColor="#242424"
@@ -91,7 +91,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
-                android:layout_alignTop="@+id/employer_portrait"
+                android:layout_alignTop="@+id/host_portrait"
                 android:layout_marginRight="20dp"
                 android:text="30"
                 android:textColor="#006000"
@@ -114,7 +114,7 @@
                 android:id="@+id/ad_content"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/employer_portrait"
+                android:layout_below="@+id/host_portrait"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
                 android:layout_marginTop="10dp"

@@ -17,6 +17,7 @@ import com.yzx.bangbang.utils.util;
 import com.yzx.bangbang.presenter.MainPresenter;
 import java.lang.ref.WeakReference;
 import io.reactivex.functions.Consumer;
+import model.Assignment;
 
 
 /**
@@ -58,12 +59,11 @@ public class Main extends RxAppCompatActivity {
     public Consumer<Message> consumer = (msg) -> {
         Intent intent = null;
         switch (msg.what) {
-//            case ACTION_SHOW_DETAIL:
-//                intent = new Intent(Main.this, AssignmentDetail.class);
-//                Bundle bundle = new Bundle();
-//                intent.putExtra("assignment", (Assignment) msg.obj);
-//                startActivity(intent);
-//                break;
+            case ACTION_SHOW_DETAIL:
+                intent = new Intent(Main.this, AssignmentDetail.class);
+                intent.putExtra("assignment", (Assignment) msg.obj);
+                startActivity(intent);
+                break;
             case ACTION_NEW_ASSIGNMENT:
                 intent = new Intent(this, NewAssignment.class);
                 break;
