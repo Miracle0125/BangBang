@@ -57,7 +57,7 @@
             app:placeholderImage="@drawable/icon_message" />
 
         <TextView
-            android:id="@+id/num_repliers"
+            android:id="@+id/num_comments"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignBottom="@+id/icon_num_repliers"

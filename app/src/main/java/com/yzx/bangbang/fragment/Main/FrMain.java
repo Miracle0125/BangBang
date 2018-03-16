@@ -65,17 +65,23 @@ public class FrMain extends Fragment {
                         .subscribe(context().consumer));
         ButterKnife.bind(this, v);
         initSpinner();
-        swipeRefreshLayout.setOnRefreshListener(() -> {
-            context().listener.getAssignment((r) -> {
-                adapter.setData(r);
-                if (recyclerView.getLayoutManager() == null)
-                    recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-                if (recyclerView.getAdapter() == null)
-                    recyclerView.setAdapter(adapter);
-                swipeRefreshLayout.setRefreshing(false);
-            }, sort_type);
-        });
-        //swipeRefreshLayout.post(() -> swipeRefreshLayout.setRefreshing(true));
+        swipeRefreshLayout.setOnRefreshListener(this::refresh);
+        refresh();
+    }
+
+    private void refresh() {
+        if (!swipeRefreshLayout.isRefreshing())
+            swipeRefreshLayout.setRefreshing(true);
+        context().listener.getAssignment((r) -> {
+            adapter.setData(r);
+            adapter.notifyDataSetChanged();
+            if (recyclerView.getLayoutManager() == null)
+                recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+            if (recyclerView.getAdapter() == null)
+                recyclerView.setAdapter(adapter);
+
+            swipeRefreshLayout.setRefreshing(false);
+        }, sort_type);
     }
 
     private void initSpinner() {
@@ -110,10 +116,6 @@ public class FrMain extends Fragment {
     }
 
     float[][] dis_scope = {{0, 1000f}, {1000f, 2000f}, {2000f, 5000f}, {5000f, 200000f}};
-
-    public void refresh() {
-        swipeRefreshLayout.setRefreshing(true);
-    }
 
 //    private void LoadImage(Bundle data) {
 //        int[] imageId = {R.id.image0, R.id.image1, R.id.image2};

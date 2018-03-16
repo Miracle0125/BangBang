@@ -2,6 +2,7 @@ package com.yzx.bangbang.view.mainView;
 
 
 import android.content.Context;
+import android.os.AsyncTask;
 import android.os.Message;
 import android.util.AttributeSet;
 import android.view.View;
@@ -47,15 +48,10 @@ public class MainLayout extends RelativeLayout {
     }
 
     private static int current_index = 0;
-    List<Integer> button_id = Arrays.asList(
-            R.id.main_select_main
-            , R.id.main_select_news
-            , R.id.main_select_message
-            , R.id.main_select_client
-            , R.id.main_new_assign);
-    String[] fragment_name = {"主页", "消息", "私信", "用户", ""};
-    Class[] target_class = {FrMain.class, FrNews.class, FrMessage.class, FrUser.class, NewAssignment.class};
-    ImageView[] selector = new ImageView[button_id.size()];
+    List<Integer> button_id;
+    String[] fragment_name;
+    Class[] target_class;
+    ImageView[] selector;
     TextView toolbar;
     public FrMetro metro;
 
@@ -66,6 +62,15 @@ public class MainLayout extends RelativeLayout {
     }
 
     void init() {
+        fragment_name = new String[]{"主页", "消息", "私信", "用户", ""};
+        target_class = new Class[]{FrMain.class, FrNews.class, FrMessage.class, FrUser.class, NewAssignment.class};
+        button_id = Arrays.asList(
+                R.id.main_select_main
+                , R.id.main_select_news
+                , R.id.main_select_message
+                , R.id.main_select_client
+                , R.id.main_new_assign);
+        selector = new ImageView[button_id.size()];
         ButterKnife.bind(this);
         toolbar = findViewById(R.id.toolbar);
         initSelector();

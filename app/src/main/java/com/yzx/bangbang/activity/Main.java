@@ -1,24 +1,23 @@
 package com.yzx.bangbang.activity;
 
-import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Message;
 import android.view.KeyEvent;
 import android.view.Window;
 import android.widget.Toast;
+
 import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
-import com.yzx.bangbang.fragment.Main.FrMain;
 import com.yzx.bangbang.model.SimpleIndividualInfo;
 import com.yzx.bangbang.R;
 import com.yzx.bangbang.model.User;
-import com.yzx.bangbang.utils.FrMetro;
 import com.yzx.bangbang.utils.util;
 import com.yzx.bangbang.presenter.MainPresenter;
+
 import java.lang.ref.WeakReference;
+
 import io.reactivex.functions.Consumer;
 import model.Assignment;
-
 
 /**
  * 此Activity与各个子界面交互
@@ -26,21 +25,11 @@ import model.Assignment;
  * 中的类全是和数据库字段契合的类
  */
 public class Main extends RxAppCompatActivity {
-    public static User user;
-    public static WeakReference<Main> ref;
-    public static final int ACTION_SHOW_DETAIL = 1;
-    public static final int ACTION_EXIT_LOG_IN = 2;
-    public static final int ACTION_CLICK_PORTRAIT = 3;
-    public static final int ACTION_NEW_ASSIGNMENT = 4;
-    public static final int RESULT_UPLOAD_SUCCESS = 5;
-    public MainPresenter.Listener listener;
-    private MainPresenter presenter = new MainPresenter(this);
-
+    //解耦
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        //prepare(View.inflate(this, R.layout.main_layout, null));
         setContentView(R.layout.main_layout);
         init();
     }
@@ -62,7 +51,6 @@ public class Main extends RxAppCompatActivity {
             case ACTION_SHOW_DETAIL:
                 intent = new Intent(Main.this, AssignmentDetail.class);
                 intent.putExtra("assignment", (Assignment) msg.obj);
-                startActivity(intent);
                 break;
             case ACTION_NEW_ASSIGNMENT:
                 intent = new Intent(this, NewAssignment.class);
@@ -81,20 +69,7 @@ public class Main extends RxAppCompatActivity {
             startActivityForResult(intent, msg.what);
     };
 
-    @Override
-    protected void onDestroy() {
-        presenter.detach();
-        super.onDestroy();
-    }
-
     long exit_time_record = System.currentTimeMillis();
-
-//    @Override
-//    public void onRefresh() {
-//        if (fm.getCurrent() instanceof FrMain) {
-//            ((FrMain) fm.findFragmentByClass(FrMain.class)).refresh();
-//        } else onFinishRefresh();
-//    }
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
@@ -113,4 +88,20 @@ public class Main extends RxAppCompatActivity {
     public static Main get() {
         return ref.get();
     }
+
+    @Override
+    protected void onDestroy() {
+        presenter.detach();
+        super.onDestroy();
+    }
+
+    public static User user;
+    public static WeakReference<Main> ref;
+    public static final int ACTION_SHOW_DETAIL = 1;
+    public static final int ACTION_EXIT_LOG_IN = 2;
+    public static final int ACTION_CLICK_PORTRAIT = 3;
+    public static final int ACTION_NEW_ASSIGNMENT = 4;
+    public static final int RESULT_UPLOAD_SUCCESS = 5;
+    public MainPresenter.Listener listener;
+    private MainPresenter presenter = new MainPresenter(this);
 }

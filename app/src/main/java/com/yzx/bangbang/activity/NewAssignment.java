@@ -9,11 +9,8 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
-import android.view.WindowManager;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.FrameLayout;
-import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.amap.api.maps.model.LatLng;
@@ -25,9 +22,7 @@ import com.yzx.bangbang.Interface.network.IMain;
 import com.yzx.bangbang.model.User;
 import com.yzx.bangbang.R;
 import com.yzx.bangbang.utils.sql.DAO;
-import com.yzx.bangbang.utils.sql.SqlUtil;
 import com.yzx.bangbang.utils.NetWork.Retro;
-import com.yzx.bangbang.utils.Params;
 import com.yzx.bangbang.utils.sql.SpUtil;
 import com.yzx.bangbang.utils.util;
 
@@ -55,10 +50,8 @@ public class NewAssignment extends RxAppCompatActivity {
 
     private void init() {
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         setContentView(R.layout.new_asm_layout);
         ButterKnife.bind(this);
-        //setMargin();
     }
 
     private void pickLocalImage() {
@@ -198,45 +191,12 @@ public class NewAssignment extends RxAppCompatActivity {
         } else toast("上传失败");
     }
 
-//    private List<File> addImageFile() {
-//        List<File> images = new ArrayList<>();
-//        for (int i = 0; i < num_images; i++) {
-//            try {
-//                ByteArrayOutputStream baos = util.compress(util.loadBitmapFromView(vector_image_view[i]), 200);
-//                File file = new File(Params.TEMP_DIR + util.getRandomString(8) + ".png");
-//                InputStream in = new ByteArrayInputStream(baos.toByteArray());
-//                FileOutputStream fos = new FileOutputStream(file);
-//                byte[] buffer = new byte[1024];
-//                int len;
-//                while ((len = in.read(buffer)) > 0) {
-//                    fos.write(buffer, 0, len);
-//                }
-//                images.add(file);
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            }
-//        }
-//        return images;
-//    }
-
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
             finish();
         }
         return super.onKeyDown(keyCode, event);
-    }
-
-    //?
-    private void setMargin() {
-        //RelativeLayout mainLayout = (RelativeLayout) findViewById(R.parent_id.new_asm_layout);
-        FrameLayout frameLayout = (FrameLayout) findViewById(R.id.new_asm_status_bar);
-        //magic
-        if (frameLayout == null)
-            return;
-        RelativeLayout.LayoutParams param = (RelativeLayout.LayoutParams) frameLayout.getLayoutParams();
-        param.height = Params.statusHeight;
-        frameLayout.setLayoutParams(param);
     }
 
     private void toast(String toShow) {

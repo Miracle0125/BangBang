@@ -144,80 +144,74 @@
         </LinearLayout>
     </RelativeLayout>
 
-    <LinearLayout
-        android:layout_gravity="center_vertical"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:gravity="end"
-        android:orientation="horizontal">
-
-        <Button
-            android:id="@+id/subscribe"
-            style="@style/Widget.AppCompat.Button.Colored"
-            android:layout_width="82dp"
-            android:layout_height="40dp"
-            android:layout_marginEnd="15dp"
-            android:textSize="12sp"
-            android:text="接受需求"
-            android:theme="@style/GreenButton" />
-
-        <Button
-            android:id="@+id/collect"
-            style="@style/Widget.AppCompat.Button.Colored"
-            android:layout_width="82dp"
-            android:layout_height="40dp"
-            android:layout_marginEnd="15dp"
-            android:text="收藏"
-            android:theme="@style/GreenButton" />
-
-
-    </LinearLayout>
-
-    <include layout="@layout/divider1" />
-
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <TextView
-            android:id="@+id/num_servants"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginStart="15dp"
-            android:text="还没人来" />
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginTop="15dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="end"
-            android:orientation="horizontal"
-            android:paddingBottom="15dp"
-            android:paddingTop="15dp">
+            android:layout_centerVertical="true"
+            android:orientation="horizontal">
 
-            <com.facebook.drawee.view.SimpleDraweeView
-                android:id="@+id/servant2"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_marginEnd="12dp"
-                fresco:roundAsCircle="true" />
+            <FrameLayout
+                android:id="@+id/button_servants"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:padding="10dp">
 
-            <com.facebook.drawee.view.SimpleDraweeView
-                android:id="@+id/servant1"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_marginEnd="12dp"
-                fresco:roundAsCircle="true" />
+                <TextView
+                    android:id="@+id/num_servants"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0人接受需求" />
+            </FrameLayout>
 
-            <com.facebook.drawee.view.SimpleDraweeView
-                android:id="@+id/servant0"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_marginEnd="12dp"
-                fresco:roundAsCircle="true" />
+
+            <TextView
+                android:id="@+id/num_comments"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="10dp"
+                android:text="0条评论" />
+
+
         </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/subscribe"
+                style="@style/Widget.AppCompat.Button.Colored"
+                android:layout_width="82dp"
+                android:layout_height="40dp"
+                android:layout_marginEnd="10dp"
+                android:text="接受需求"
+                android:textSize="12sp"
+                android:theme="@style/GreenButton" />
+
+            <Button
+                android:id="@+id/collect"
+                style="@style/Widget.AppCompat.Button.Colored"
+                android:layout_width="82dp"
+                android:layout_height="40dp"
+                android:layout_marginEnd="10dp"
+                android:text="收藏"
+                android:theme="@style/GreenButton" />
+        </LinearLayout>
+
+
     </RelativeLayout>
+
+    <include layout="@layout/divider1" />
 </LinearLayout>
 
 

@@ -9,7 +9,6 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.google.gson.Gson;
 import com.trello.rxlifecycle2.android.ActivityEvent;
 import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
 import com.yzx.bangbang.fragment.Common.FormFragment;
@@ -19,7 +18,6 @@ import com.yzx.bangbang.model.receiver.RSignIn;
 import com.yzx.bangbang.model.User;
 import com.yzx.bangbang.R;
 import com.yzx.bangbang.utils.sql.DAO;
-import com.yzx.bangbang.utils.sql.SqlUtil;
 import com.yzx.bangbang.utils.FrMetro;
 import com.yzx.bangbang.utils.NetWork.Retro;
 import com.yzx.bangbang.utils.Params;
@@ -133,8 +131,7 @@ public class SignIn extends RxAppCompatActivity {
         if (state == SIGN_UP_SUCCESS) {
             post(inputs, ACTION_SIGN_IN);
         } else if (state == SIGN_IN_SUCCESS) {
-            mIntent.putExtra("user", user);
-            DAO.insert(DAO.TYPE_USER, user);
+            DAO.insert(user);
             startActivity(mIntent);
         }
     }

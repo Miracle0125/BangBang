@@ -1,6 +1,7 @@
 package com.yzx.bangbang.presenter;
 
 
+import android.os.AsyncTask;
 import android.util.Log;
 
 import com.amap.api.location.AMapLocationClient;
@@ -38,7 +39,9 @@ public class MainPresenter {
 
             @Override
             public void init() {
-                getLocation();
+                AsyncTask.execute(()->{
+                    getLocation();
+                });
                 //testPush();
             }
         };

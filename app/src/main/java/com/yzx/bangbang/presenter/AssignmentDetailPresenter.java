@@ -1,5 +1,6 @@
 package com.yzx.bangbang.presenter;
 
+import com.google.gson.Gson;
 import com.trello.rxlifecycle2.android.ActivityEvent;
 import com.yzx.bangbang.Interface.network.IAssignmentDetail;
 import com.yzx.bangbang.activity.AssignmentDetail;
@@ -59,9 +60,9 @@ public class AssignmentDetailPresenter {
             }
 
             @Override
-            public void post_comment(Comment comment,Consumer<Integer> consumer) {
+            public void post_comment(Comment comment, Consumer<Integer> consumer) {
                 Retro.inst().create(IAssignmentDetail.class)
-                        .post_comment(comment)
+                        .post_comment(new Gson().toJson(comment))
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .compose(context.<Integer>bindUntilEvent(ActivityEvent.DESTROY))
@@ -81,6 +82,6 @@ public class AssignmentDetailPresenter {
 
         void get_sub_comment(int id, Consumer<List<Comment>> consumer);
 
-        void post_comment(Comment comment,Consumer<Integer> consumer);
+        void post_comment(Comment comment, Consumer<Integer> consumer);
     }
 }

@@ -7,6 +7,7 @@
 
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/swipe_refresh"
+        android:layout_above="@+id/place_holder"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -17,8 +18,13 @@
 
     </android.support.v4.widget.SwipeRefreshLayout>
 
+    <FrameLayout
+        android:id="@+id/place_holder"
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"/>
+
     <RelativeLayout
-        android:visibility="gone"
         android:id="@+id/edit_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -36,16 +42,17 @@
                 android:id="@+id/edit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="回复" />
+                android:hint="不说点什么吗" />
         </com.yzx.floatlabelededittext.FloatLabeledEditText>
 
         <com.facebook.drawee.view.SimpleDraweeView
             android:id="@+id/button_send"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:layout_alignBottom="@id/inner_edit_wrapper"
             android:layout_alignParentEnd="true"
             android:layout_marginEnd="10dp"
+            android:layout_marginBottom="5dp"
             app:placeholderImage="@drawable/icon_send" />
 
     </RelativeLayout>

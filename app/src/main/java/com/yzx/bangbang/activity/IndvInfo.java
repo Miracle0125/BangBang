@@ -19,7 +19,6 @@ import com.yzx.bangbang.model.SimpleIndividualInfo;
 import com.yzx.bangbang.model.User;
 import com.yzx.bangbang.model.UserRecord;
 import com.yzx.bangbang.R;
-import com.yzx.bangbang.utils.ActivityManager;
 import com.yzx.bangbang.utils.FrMetro;
 import com.yzx.bangbang.utils.NetWork.OkHttpUtil;
 import com.yzx.bangbang.utils.Params;
@@ -61,7 +60,7 @@ public class IndvInfo extends AppCompatActivity implements View.OnClickListener 
         if (data != null) {
             info = (SimpleIndividualInfo) data.getSerializable("info");
             if (info == null)
-                info = gson.fromJson(SpUtil.getString(SpUtil.SAVED_INFO, String.valueOf(ActivityManager.getLayer())), SimpleIndividualInfo.class);
+                //info = gson.fromJson(SpUtil.getString(SpUtil.SAVED_INFO, String.valueOf(ActivityManager.getLayer())), SimpleIndividualInfo.class);
             if (info == null) return;
         }
         indv_id = info.id;
@@ -76,7 +75,7 @@ public class IndvInfo extends AppCompatActivity implements View.OnClickListener 
         new Thread(this::getIndvInfo).start();
         if (!isUser)
             checkIfHasConcerned();
-        SpUtil.putString(SpUtil.SAVED_INFO, String.valueOf(ActivityManager.getLayer()), gson.toJson(info));
+        //SpUtil.putString(SpUtil.SAVED_INFO, String.valueOf(ActivityManager.getLayer()), gson.toJson(info));
     }
 
     private void initView() {
@@ -335,12 +334,12 @@ public class IndvInfo extends AppCompatActivity implements View.OnClickListener 
     private boolean finishFlag;
 
     private void onFinish() {
-        ActivityManager.inst.onFinish();
+        //ActivityManager.inst.onFinish();
         finishFlag = true;
-        Class<?> cls = ActivityManager.getTop();
-        if (cls != null)
-            startActivity(new Intent(this, cls));
-        else finish();
+        //Class<?> cls = ActivityManager.getTop();
+//        if (cls != null)
+//            startActivity(new Intent(this, cls));
+//        else finish();
     }
 
     private class Receive {

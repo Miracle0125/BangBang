@@ -5,8 +5,6 @@ import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -17,9 +15,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
-import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -33,15 +31,15 @@ import com.yzx.bangbang.fragment.AD.FrReplierInfo;
 import com.yzx.bangbang.model.Comment;
 import com.yzx.bangbang.model.Msg;
 import com.yzx.bangbang.model.ReplierInfo;
-import com.yzx.bangbang.model.Reply;
-import com.yzx.bangbang.model.User;
 import com.yzx.bangbang.R;
-import com.yzx.bangbang.Service.NetworkService;
+import com.yzx.bangbang.model.User;
 import com.yzx.bangbang.presenter.AssignmentDetailPresenter;
 import com.yzx.bangbang.utils.FrMetro;
 import com.yzx.bangbang.utils.NetWork.UniversalImageDownloader;
 import com.yzx.bangbang.utils.NetWork.OkHttpUtil;
 import com.yzx.bangbang.utils.Params;
+import com.yzx.bangbang.utils.sql.DAO;
+import com.yzx.bangbang.utils.ui.LayoutParamUtil;
 import com.yzx.bangbang.utils.util;
 import com.yzx.bangbang.view.ad.AdLayout;
 import com.yzx.bangbang.view.ad.CommentView;
@@ -51,18 +49,19 @@ import java.lang.ref.WeakReference;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Function;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import model.Assignment;
 
 
-public class AssignmentDetail extends RxAppCompatActivity implements View.OnClickListener, CommentView.Listener, SubCommentView.Listener {
+public class AssignmentDetail extends RxAppCompatActivity implements CommentView.Listener, SubCommentView.Listener {
     public Assignment assignment;
     TextView replier_info_text, btn_clct_tv;
     View decorView, bottomBar, placeHolder, replier_info_bar, btn_clct, btn_back;
     SimpleDraweeView portrait;
-    EditText edit;
     private static final int ACCEPT_ASSIGN = 0;
     private static final int POST_COMMENT = 1;
     public static final int ACTION_REMOVE_FRAGMENT = 2;
@@ -106,30 +105,66 @@ public class AssignmentDetail extends RxAppCompatActivity implements View.OnClic
     private void init() {
         listener = presenter.getListener();
         initView();
-        //initEdit();
-        //currentLines = 1;
+        refresh(REFRESH_ONLY_COMMENT);
     }
 
-    //    @BindView(R.id.subscribe)
     Button btn_subscribe;
-    //    @BindView(R.id.collect)
-    Button btn_collect;
-    //    @BindView(R.id.button_comment)
-    Button btn_comment;
-    SwipeRefreshLayout swipeRefreshLayout;
+    @BindView(R.id.swipe_refresh)
+    SwipeRefreshLayout sr;
     @BindView(R.id.list)
     RecyclerView list;
+    @BindView(R.id.place_holder)
+    FrameLayout holder;
+    @BindView(R.id.edit_bar)
+    RelativeLayout edit_bar;
+    @BindView(R.id.edit)
+    EditText edit;
+    @BindView(R.id.button_send)
+    SimpleDraweeView button_send;
 
+    View decor_view;
 
     private void initView() {
         ButterKnife.bind(this);
         adapter.setAssignment(assignment);
+        adapter.setClickListener(this::onClick);
         list.setLayoutManager(new LinearLayoutManager(this));
         list.setAdapter(adapter);
+        edit_bar.getViewTreeObserver().addOnPreDrawListener(() -> {
+            LayoutParamUtil.wh(holder, -1, edit_bar.getHeight());
+            return true;
+        });
+        decor_view = getWindow().getDecorView();
+        decor_view.getViewTreeObserver().addOnGlobalLayoutListener(() ->
+                LayoutParamUtil.trans_y(edit_bar, util.get_visible_bottom(decor_view) - Params.screenHeight));
+        sr.setOnRefreshListener(() -> refresh(REFRESH_ALL));
+    }
+
+
+    private int refresh_flag = 0;
+    private static final int REFRESH_ONLY_COMMENT = 1;
+    private static final int REFRESH_ALL = 2;
+
+    //首次调用只获取评论
+    private void refresh(int mode) {
+        if (mode == REFRESH_ALL)
+            listener.get_assignment_by_id(assignment.getId(), r -> {
+                adapter.setAssignment(r);
+                adapter.notifyDataSetChanged();
+                finish_refresh(mode);
+            });
         listener.get_comment(assignment.getId(), r -> {
             adapter.setComments(r);
             adapter.notifyDataSetChanged();
+            finish_refresh(mode);
         });
+    }
+
+    private void finish_refresh(int mode) {
+        if (++refresh_flag == mode) {
+            sr.setRefreshing(false);
+            refresh_flag = 0;
+        }
     }
 
     Map<Integer, ViewGroup> commentMap;
@@ -294,29 +329,17 @@ public class AssignmentDetail extends RxAppCompatActivity implements View.OnClic
         replier_info_text.setText("已有" + index + "个帮众");
     }
 
-    util.KeyBoardDetector detector;
-
-
-    @Override
+    @OnClick({R.id.button_send})
     public void onClick(View v) {
+        String[] res = {"发送失败", "发送成功"};
         switch (v.getId()) {
-            case R.id.btn_send:
-                if (state == ACCEPT_ASSIGN) {
-                    requestAcceptAsm();
-                } else if (state == POST_COMMENT) {
-                }
-                break;
-            case R.id.ad_btn_delete:
-                break;
-            case R.id.ad_btn_clct:
-                if (!already_collected)
-                    break;
-            case R.id.replier_info_bar:
-                if (!isOwner) return;
-                showReplierInfo();
-                break;
-            case R.id.btn_back:
-                finish();
+            case R.id.button_send:
+                User user = (User) DAO.query(DAO.TYPE_USER);
+                listener.post_comment(new Comment(0, assignment.getId(),
+                        user.getId(), user.getName(),
+                        assignment.getEmployer_id(), assignment.getEmployer_name(),
+                        edit.getText().toString(), util.getDate(),
+                        0, adapter.getComments().size(), 0), r -> toast(res[r]));
                 break;
         }
     }
@@ -421,6 +444,9 @@ public class AssignmentDetail extends RxAppCompatActivity implements View.OnClic
             findViewById(R.id.fragment_container).setBackgroundColor(getResources().getColor(R.color.opaque));
     }
 
+    private void toast(String s) {
+        Toast.makeText(this, s, Toast.LENGTH_SHORT).show();
+    }
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {

@@ -140,6 +140,12 @@ public class util {
         return ((double) (rect.bottom - rect.top) / Params.screenHeight) < 0.8;
     }
 
+    public static float get_visible_bottom(View decorView) {
+        Rect rect = new Rect();
+        decorView.getWindowVisibleDisplayFrame(rect);
+        return rect.bottom;
+    }
+
     public static void rise_keyboard(Activity activity) {
         InputMethodManager imm = (InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE);
         if (imm != null)

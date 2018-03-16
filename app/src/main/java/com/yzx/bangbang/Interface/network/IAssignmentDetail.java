@@ -25,7 +25,7 @@ public interface IAssignmentDetail {
     Flowable<List<Comment>> get_sub_comment(@Query("id") int id);
 
     @POST("post_comment")
-    Flowable<Integer> post_comment(@Query("comment") Comment comment);
+    Flowable<Integer> post_comment(@Query("comment") String comment);
 
 
 }

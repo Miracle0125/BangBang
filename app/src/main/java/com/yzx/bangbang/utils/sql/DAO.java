@@ -1,7 +1,7 @@
 package com.yzx.bangbang.utils.sql;
 
-import com.google.gson.Gson;
-import com.yzx.bangbang.model.User;
+import android.os.AsyncTask;
+import android.util.SparseArray;
 
 import model.Assignment;
 
@@ -11,15 +11,30 @@ import model.Assignment;
 
 public class DAO {
     public static final int TYPE_USER = 0;
-    public static final int TYPE_ASSIGNMENT = 1;
-    private static final Class[] cls = {User.class, Assignment.class};
-    private static final String[] keys = {"user", "assignment"};
+    //public static final int TYPE_ASSIGNMENT = 1;
+  //  private static Map<Class, Integer> map;
+  //  private static final Class[] cls = {User.class, Assignment.class};
+  //  private static final String[] keys = {"user", "assignment"};
+    private static SparseArray sa;
 
-    public static Object query(int t) {
-        return SqlUtil.queryString(SqlUtil.TABLE_JSON, keys[t]);
+    public static void init() {
+        sa = new SparseArray();
+//        map = new HashMap<>();
+//        for (int i = 0; i < cls.length; i++)
+//            map.put(cls[i], i);
     }
 
-    public static void insert(int t, Object o) {
-        SqlUtil.insert(SqlUtil.TABLE_JSON, keys[t], new Gson().toJson(o, cls[t]));
+    public static Object query(int t) {
+        return sa.get(t);
+        //return SqlUtil.queryString(SqlUtil.TABLE_JSON, keys[t]);
+    }
+    @SuppressWarnings("unchecked")
+    public static void insert(Object o) {
+        AsyncTask.execute(()->{
+            int key = TYPE_USER;
+            if (o instanceof Assignment) key = ((Assignment) o).getId();
+            sa.append(key, o);
+        });
+        //SqlUtil.insert(SqlUtil.TABLE_JSON, keys[t], new Gson().toJson(o, cls[t]));
     }
 }

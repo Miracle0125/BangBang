@@ -3,9 +3,11 @@ package com.yzx.bangbang.activity;
 import android.app.Application;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
+import android.os.AsyncTask;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.squareup.leakcanary.LeakCanary;
+import com.yzx.bangbang.utils.sql.DAO;
 import com.yzx.bangbang.utils.sql.SqlUtil;
 import com.yzx.bangbang.utils.Params;
 import com.yzx.bangbang.utils.sql.SpUtil;
@@ -19,16 +21,20 @@ public class BangBangApp extends Application {
     public void onCreate() {
         super.onCreate();
         Fresco.initialize(this);
-        clearDir(Params.TEMP_DIR);
-        clearSp();
-        init();
+        //initLeakCanary();
+        AsyncTask.execute(()->{
+            clearDir(Params.TEMP_DIR);
+            clearSp();
+            init();
+        });
     }
 
     private void init() {
         r = getResources();
         SpUtil.init(this);
-        SqlUtil.init();
-        //initLeakCanary();
+        DAO.init();
+        //SqlUtil.init();
+
     }
 
     private void initLeakCanary() {
