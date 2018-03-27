@@ -165,6 +165,7 @@ public class NewAssignment extends RxAppCompatActivity {
                 0,
                 num_images,
                 0,
+                0,
                 latLng == null ? 0 : latLng.latitude,
                 latLng == null ? 0 : latLng.longitude));
         List<File> image_files = new ArrayList<>();

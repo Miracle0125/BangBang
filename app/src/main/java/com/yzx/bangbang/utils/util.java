@@ -146,10 +146,10 @@ public class util {
         return rect.bottom;
     }
 
-    public static void rise_keyboard(Activity activity) {
+    public static void toggle_keyboard(Activity activity){
         InputMethodManager imm = (InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE);
         if (imm != null)
-            imm.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
+            imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
     }
 
     public static String getRandomString(int length) {

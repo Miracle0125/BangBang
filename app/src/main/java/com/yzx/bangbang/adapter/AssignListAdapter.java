@@ -57,7 +57,7 @@ public class AssignListAdapter extends BaseAdapter {
         h.title.setText(list.get(i).getTitle());
         h.date.setText(util.transform_date(list.get(i).getDate()));
         h.price.setText(""+list.get(i).getPrice());
-        h.repliers.setText("帮众  "+list.get(i).getRepliers());
+        h.repliers.setText("帮众  "+list.get(i).getServants());
         return v;
     }
 

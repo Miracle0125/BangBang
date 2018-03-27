@@ -51,7 +51,7 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
         h.tv_title.setText(data.get(i).getTitle());
         h.tv_price.setText(util.s(data.get(i).getPrice()));
         h.tv_price.setTextColor(util.price_color(data.get(i).getPrice()));
-        h.tv_replies.setText(util.s(data.get(i).getRepliers()));
+        h.tv_replies.setText(util.s(data.get(i).getServants()));
         if (FrMain.distance != 0) {
             LatLng user_pos = (LatLng) SpUtil.getObject(SpUtil.LATLNG);
             if (user_pos != null) {

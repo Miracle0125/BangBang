@@ -44,6 +44,18 @@
             android:textColor="#242424"
             android:textSize="20sp" />
 
+        <TextView
+            android:id="@+id/status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignTop="@id/title"
+            android:layout_marginEnd="15dp"
+            android:text="打开"
+            android:textColor="@color/green1"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
         <com.yzx.bangbang.view.mainView.Portrait
             android:id="@+id/host_portrait"
             android:layout_width="45dp"
@@ -88,6 +100,7 @@
 
 
         <TextView
+
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignBottom="@+id/price"
@@ -161,7 +174,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
-                android:padding="10dp">
+                android:padding="7dp">
 
                 <TextView
                     android:id="@+id/num_servants"
@@ -176,7 +189,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:layout_marginStart="10dp"
+                android:layout_marginStart="7dp"
                 android:text="0条评论" />
 
 
@@ -210,6 +223,7 @@
 
 
     </RelativeLayout>
+
 
     <include layout="@layout/divider1" />
 </LinearLayout>

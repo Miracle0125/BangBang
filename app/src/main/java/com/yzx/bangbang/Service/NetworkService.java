@@ -144,7 +144,7 @@ public class NetworkService extends Service {
     public static void updateCount(int asm_id, int count) {
         OkHttpUtil okHttpUtil = OkHttpUtil.inst(s -> {
         });
-        okHttpUtil.addPart("sql", "", "update explore_record set repliers = " + count + " where user_id = " + Main.user.getId() + " and asm_id = " + asm_id, OkHttpUtil.MEDIA_TYPE_JSON);
+        okHttpUtil.addPart("sql", "", "update explore_record set servants = " + count + " where user_id = " + Main.user.getId() + " and asm_id = " + asm_id, OkHttpUtil.MEDIA_TYPE_JSON);
         okHttpUtil.post("update_data_common");
     }
 
@@ -168,7 +168,7 @@ public class NetworkService extends Service {
     private static void insertRecord(int asm_id, int count) {
         OkHttpUtil okHttpUtil = OkHttpUtil.inst(s -> {
         });
-        okHttpUtil.addPart("sql", "insert into explore_record (`user_id`,`asm_id`,`repliers`) values ('" + Main.user.getId() + "','" + asm_id + "','" + count + "')");
+        okHttpUtil.addPart("sql", "insert into explore_record (`user_id`,`asm_id`,`servants`) values ('" + Main.user.getId() + "','" + asm_id + "','" + count + "')");
         okHttpUtil.post("update_data_common");
     }
 
