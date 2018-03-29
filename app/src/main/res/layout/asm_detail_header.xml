@@ -193,7 +193,7 @@
             android:layout_width="16dp"
             android:layout_height="52dp"
             android:layout_centerVertical="true"
-            android:layout_marginStart="160dp" />
+            android:layout_marginStart="150dp" />
 
         <LinearLayout
             android:layout_width="wrap_content"

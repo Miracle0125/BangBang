@@ -6,11 +6,8 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.KeyEvent;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.FrameLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,12 +21,9 @@ import com.yzx.bangbang.presenter.AssignmentDetailPresenter;
 import com.yzx.bangbang.utils.FrMetro;
 import com.yzx.bangbang.utils.NetWork.NetworkFunctions;
 import com.yzx.bangbang.utils.NetWork.Retro;
-import com.yzx.bangbang.utils.Params;
 import com.yzx.bangbang.utils.sql.DAO;
-import com.yzx.bangbang.utils.ui.LayoutParamUtil;
 import com.yzx.bangbang.utils.util;
 import com.yzx.bangbang.widget.EvaluateView;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;

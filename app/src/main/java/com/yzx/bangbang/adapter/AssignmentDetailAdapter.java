@@ -169,7 +169,7 @@ public class AssignmentDetailAdapter extends RecyclerView.Adapter<ViewHolder> {
         @BindView(R.id.button_all_comment)
         TextView button_all_comment;
 
-        @OnClick({R.id.button_all_comment})
+        @OnClick({R.id.button_all_comment, R.id.button_send_comment})
         public void click(View v) {
             if (listener != null)
                 listener.click(v);
