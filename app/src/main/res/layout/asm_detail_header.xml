@@ -48,49 +48,31 @@
             android:id="@+id/status"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_alignTop="@id/title"
-            android:layout_marginEnd="15dp"
-            android:text="打开"
-            android:textColor="@color/green1"
-            android:textSize="18sp"
-            android:textStyle="bold" />
-
-        <com.yzx.bangbang.view.mainView.Portrait
-            android:id="@+id/host_portrait"
-            android:layout_width="45dp"
-            android:layout_height="45dp"
             android:layout_alignStart="@id/title"
-            android:layout_below="@+id/title"
-            android:layout_marginTop="10dp"
-            fresco:roundAsCircle="true" />
-
-        <TextView
-            android:id="@+id/host_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignTop="@+id/host_portrait"
-            android:layout_marginStart="10dp"
-            android:layout_toEndOf="@+id/host_portrait"
-            android:text="UserName"
-            android:textSize="14sp"
+            android:layout_below="@id/title"
+            android:layout_marginEnd="15dp"
+            android:layout_marginTop="5dp"
+            android:text="打开"
+            android:textColor="#2FBBC2"
+            android:textSize="17sp"
             android:textStyle="bold" />
 
         <TextView
             android:id="@+id/date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignStart="@+id/host_name"
-            android:layout_below="@+id/host_name"
-            android:layout_marginTop="1dp"
-            android:text="2016.4.05"
-            android:textSize="12sp" />
+            android:layout_alignTop="@+id/status"
+            android:layout_toEndOf="@+id/status"
+            android:text="/ 3天前"
+            android:textColor="#5FCBD0"
+            android:textSize="16sp" />
+
 
         <TextView
             android:id="@+id/content"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/host_portrait"
+            android:layout_below="@+id/status"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:layout_marginTop="10dp"
@@ -98,35 +80,11 @@
             android:textColor="#242424"
             android:textSize="14sp" />
 
-
-        <TextView
-
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/price"
-            android:layout_marginEnd="5dp"
-            android:layout_toStartOf="@+id/price"
-            android:text="¥"
-            android:textColor="#A8A8A8"
-            android:textSize="15sp" />
-
-        <TextView
-            android:id="@+id/price"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_alignTop="@+id/host_portrait"
-            android:layout_marginEnd="20dp"
-            android:text="30"
-            android:textColor="#006000"
-            android:textSize="20sp"
-            android:textStyle="bold" />
-
         <LinearLayout
             android:id="@+id/image_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/host_portrait"
+            android:layout_below="@id/content"
             android:orientation="horizontal"
             android:visibility="gone">
 
@@ -157,75 +115,129 @@
         </LinearLayout>
     </RelativeLayout>
 
-    <RelativeLayout
+    <include layout="@layout/divider0" />
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
-        android:layout_marginTop="15dp">
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:text="项目预算" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:orientation="horizontal">
-
-            <FrameLayout
-                android:id="@+id/button_servants"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:padding="7dp">
-
-                <TextView
-                    android:id="@+id/num_servants"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="0人接受需求" />
-            </FrameLayout>
-
+            android:layout_marginTop="4dp">
 
             <TextView
-                android:id="@+id/num_comments"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_marginStart="7dp"
-                android:text="0条评论" />
+                android:layout_marginEnd="5dp"
+                android:layout_marginStart="20dp"
+                android:text="¥"
+                android:textColor="#A8A8A8"
+                android:textSize="25sp" />
 
+            <TextView
+                android:id="@+id/price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="20dp"
+                android:layout_marginStart="5dp"
+                android:text="30"
+                android:textColor="#006000"
+                android:textSize="27sp"
+                android:textStyle="bold" />
 
         </LinearLayout>
+    </LinearLayout>
+
+    <include layout="@layout/divider0" />
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp">
+
+        <TextView
+            android:id="@+id/inner_text_avg_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="平均报价" />
+
+        <TextView
+            android:id="@+id/inner_text_currency_symbol"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/inner_text_avg_price"
+            android:layout_marginTop="4dp"
+            android:text="¥"
+            android:textSize="25sp" />
+
+        <TextView
+            android:id="@+id/avg_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/inner_text_currency_symbol"
+            android:layout_marginStart="5dp"
+            android:layout_toEndOf="@+id/inner_text_currency_symbol"
+            android:text="- -"
+            android:textSize="27sp" />
+
+        <com.yzx.bangbang.view.ad.Diagonal
+            android:layout_marginStart="160dp"
+            android:layout_width="20dp"
+            android:layout_height="54dp" />
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
-            android:orientation="horizontal">
+            android:layout_marginEnd="60dp"
+            android:orientation="vertical">
 
-            <Button
-                android:id="@+id/subscribe"
-                style="@style/Widget.AppCompat.Button.Colored"
-                android:layout_width="82dp"
-                android:layout_height="40dp"
-                android:layout_marginEnd="10dp"
-                android:text="接受需求"
-                android:textSize="12sp"
-                android:theme="@style/GreenButton" />
+            <TextView
+                android:id="@+id/inner_text_bidders"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="竞标" />
 
-            <Button
-                android:id="@+id/collect"
-                style="@style/Widget.AppCompat.Button.Colored"
-                android:layout_width="82dp"
-                android:layout_height="40dp"
-                android:layout_marginEnd="10dp"
-                android:text="收藏"
-                android:theme="@style/GreenButton" />
+            <TextView
+                android:id="@+id/num_servants"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="4dp"
+                android:text="0"
+                android:textSize="27sp" />
+
         </LinearLayout>
-
-
     </RelativeLayout>
 
+    <include layout="@layout/divider0" />
 
-    <include layout="@layout/divider1" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/button_all_bid"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="15dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:padding="5dp"
+            android:text="查看全部"
+            android:textColor="@color/colorPrimary"
+            android:visibility="gone" />
+    </RelativeLayout>
 </LinearLayout>
 
 

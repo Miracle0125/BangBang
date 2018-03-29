@@ -1,4 +1,4 @@
-package com.yzx.bangbang.Widget.Ptr;
+package com.yzx.bangbang.widget.Ptr;
 
 import android.content.Context;
 import android.graphics.Canvas;
@@ -10,7 +10,7 @@ import android.view.animation.Animation;
 import android.view.animation.Transformation;
 
 import com.yzx.bangbang.utils.util;
-import com.yzx.bangbang.Widget.PtrUIListener;
+import com.yzx.bangbang.widget.PtrUIListener;
 
 import in.srain.cube.views.ptr.PtrFrameLayout;
 

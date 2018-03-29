@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="15dp">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0.7dp"
+        android:layout_gravity="center_vertical"
+        android:layout_marginEnd="20dp"
+        android:layout_marginStart="20dp"
+        android:background="#DCDCDC" />
+
+</FrameLayout>

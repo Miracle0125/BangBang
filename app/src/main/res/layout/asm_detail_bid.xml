@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:ignore="HardcodedText">
+
+    <com.facebook.drawee.view.SimpleDraweeView
+        android:id="@+id/host_portrait"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        fresco:placeholderImage="@drawable/main_icon_portrait" />
+
+
+    <TextView
+        android:id="@+id/host_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="7dp"
+        android:layout_marginTop="30dp"
+        android:layout_toEndOf="@+id/host_portrait"
+        android:text="host_name" />
+
+    <include
+        android:id="@+id/inner_evaluate"
+        layout="@layout/evaluate_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/host_name"
+        android:layout_below="@+id/host_name" />
+
+    <TextView
+        android:id="@+id/day_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/inner_evaluate"
+        android:layout_below="@+id/inner_evaluate"
+        android:layout_marginTop="7dp"
+        android:text="在30天内" />
+
+    <TextView
+        android:id="@+id/price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/day_time"
+        android:layout_toEndOf="@+id/day_time"
+        android:text="¥300" />
+
+
+    <include
+        layout="@layout/divider0_thin"
+        android:layout_width="match_parent"
+        android:layout_height="15dp"
+        android:layout_below="@+id/day_time" />
+
+</RelativeLayout>

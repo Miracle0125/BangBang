@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.yzx.bangbang.widget.EvaluateView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    tools:ignore="HardcodedText"
+    android:id="@+id/evaluate_view">
+
+
+    <TextView
+        android:id="@+id/text_no_evaluate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="没有评价"
+        android:visibility="gone" />
+
+    <LinearLayout
+        android:id="@+id/evaluate_container"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <FrameLayout
+            android:id="@+id/inner_evaluate_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:background="@drawable/round_rect">
+
+            <TextView
+                android:id="@+id/evaluate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingEnd="3dp"
+                android:paddingStart="3dp"
+                android:text="5.0"
+                android:textColor="@color/white"
+                android:textSize="12sp" />
+
+        </FrameLayout>
+
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:id="@+id/evaluate_star"
+            android:layout_width="60dp"
+            android:layout_height="15dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="2dp"
+            fresco:placeholderImage="@drawable/stars_5" />
+    </LinearLayout>
+
+
+</com.yzx.bangbang.widget.EvaluateView>

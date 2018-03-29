@@ -4,8 +4,8 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.widget.RelativeLayout;
 import com.yzx.bangbang.activity.common.PtrActivity;
-import com.yzx.bangbang.Widget.Ptr.MaterialHeader;
-import com.yzx.bangbang.Widget.PtrUIListener;
+import com.yzx.bangbang.widget.Ptr.MaterialHeader;
+import com.yzx.bangbang.widget.PtrUIListener;
 
 public class PtrLayout extends RelativeLayout {
     PtrActivity ptrActivity;

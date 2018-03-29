@@ -10,21 +10,20 @@ import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
+
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
 import com.yzx.bangbang.adapter.AssignmentDetailAdapter;
 import com.yzx.bangbang.model.Comment;
-import com.yzx.bangbang.model.ReplierInfo;
 import com.yzx.bangbang.R;
 import com.yzx.bangbang.model.User;
 import com.yzx.bangbang.presenter.AssignmentDetailPresenter;
 import com.yzx.bangbang.utils.FrMetro;
-import com.yzx.bangbang.utils.NetWork.UniversalImageDownloader;
 import com.yzx.bangbang.utils.Params;
 import com.yzx.bangbang.utils.sql.DAO;
 import com.yzx.bangbang.utils.ui.LayoutParamUtil;
 import com.yzx.bangbang.utils.util;
-import java.util.List;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -32,10 +31,6 @@ import model.Assignment;
 
 
 public class AssignmentDetail extends RxAppCompatActivity {
-    public UniversalImageDownloader downloader;
-    public boolean chosen;
-    public boolean fulfill;
-    public List<ReplierInfo> replierInfoList;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -61,7 +56,7 @@ public class AssignmentDetail extends RxAppCompatActivity {
 
     private void init() {
         initView();
-        refresh(REFRESH_ONLY_COMMENT);
+        refresh(REFRESH_WITH_OUT_ASSIGNMENT);
     }
 
     private void initView() {
@@ -99,6 +94,11 @@ public class AssignmentDetail extends RxAppCompatActivity {
             adapter.notifyDataSetChanged();
             finish_refresh(mode);
         });
+        listener.get_bids(assignment.getId(),r->{
+            adapter.setBids(r);
+            adapter.notifyDataSetChanged();
+            finish_refresh(mode);
+        });
     }
 
     private void finish_refresh(int mode) {
@@ -131,6 +131,12 @@ public class AssignmentDetail extends RxAppCompatActivity {
     }
 
     @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        presenter.detach();
+    }
+
+    @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
             if (fm != null) {
@@ -144,8 +150,8 @@ public class AssignmentDetail extends RxAppCompatActivity {
     }
 
     private int refresh_flag = 0;
-    private static final int REFRESH_ONLY_COMMENT = 1;
-    private static final int REFRESH_ALL = 2;
+    private static final int REFRESH_WITH_OUT_ASSIGNMENT = 2;
+    private static final int REFRESH_ALL = 3;
     FrMetro fm;
     public Assignment assignment;
     AssignmentDetailPresenter presenter = new AssignmentDetailPresenter(this);

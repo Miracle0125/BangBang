@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.trello.rxlifecycle2.android.ActivityEvent;
 import com.yzx.bangbang.Interface.network.IAssignmentDetail;
 import com.yzx.bangbang.activity.AssignmentDetail;
+import com.yzx.bangbang.model.Bid;
 import com.yzx.bangbang.model.Comment;
 import com.yzx.bangbang.utils.NetWork.Retro;
 
@@ -68,6 +69,16 @@ public class AssignmentDetailPresenter {
                         .compose(context.<Integer>bindUntilEvent(ActivityEvent.DESTROY))
                         .subscribe(consumer);
             }
+
+            @Override
+            public void get_bids(int id, Consumer<List<Bid>> consumer) {
+                Retro.withList().create(IAssignmentDetail.class)
+                        .get_bids(id)
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .compose(context.<List<Bid>>bindUntilEvent(ActivityEvent.DESTROY))
+                        .subscribe(consumer);
+            }
         };
     }
 
@@ -83,5 +94,7 @@ public class AssignmentDetailPresenter {
         void get_sub_comment(int id, Consumer<List<Comment>> consumer);
 
         void post_comment(Comment comment, Consumer<Integer> consumer);
+
+        void get_bids(int id, Consumer<List<Bid>> consumer);
     }
 }

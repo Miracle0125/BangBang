@@ -1,4 +1,4 @@
-package com.yzx.bangbang.Widget;
+package com.yzx.bangbang.widget;
 
 /**
  * Created by Administrator on 2016/8/1.

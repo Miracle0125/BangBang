@@ -1,5 +1,6 @@
 package com.yzx.bangbang.Interface.network;
 
+import com.yzx.bangbang.model.Bid;
 import com.yzx.bangbang.model.Comment;
 
 import java.util.List;
@@ -27,5 +28,7 @@ public interface IAssignmentDetail {
     @POST("post_comment")
     Flowable<Integer> post_comment(@Query("comment") String comment);
 
+    @GET("get_bids")
+    Flowable<List<Bid>> get_bids(@Query("id") int id);
 
 }
