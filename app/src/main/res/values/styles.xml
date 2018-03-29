@@ -51,9 +51,10 @@
         <item name="android:colorPressedHighlight">@color/pink</item>
     </style>
 
-    <style name="BlueButton" parent="Theme.AppCompat.Light" >
-        <item name="colorButtonNormal">#99cc33</item>
-        <item name="android:colorPressedHighlight">@color/pink</item>
+    <style name="BlueButton" parent="Widget.AppCompat.Button.Colored" >
+        <item name="colorButtonNormal">#0086DF</item>
+        <item name="android:colorPressedHighlight">#007ED1</item>
+        <item name="android:textColor">@color/white</item>
     </style>
 
 </resources>

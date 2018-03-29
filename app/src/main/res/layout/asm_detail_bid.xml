@@ -25,7 +25,7 @@
         android:text="host_name" />
 
     <include
-        android:id="@+id/inner_evaluate"
+        android:id="@+id/evaluate_view"
         layout="@layout/evaluate_layout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -36,8 +36,8 @@
         android:id="@+id/day_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/inner_evaluate"
-        android:layout_below="@+id/inner_evaluate"
+        android:layout_alignStart="@+id/evaluate_view"
+        android:layout_below="@+id/evaluate_view"
         android:layout_marginTop="7dp"
         android:text="在30天内" />
 

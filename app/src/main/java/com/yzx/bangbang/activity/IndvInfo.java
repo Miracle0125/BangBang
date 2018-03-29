@@ -134,11 +134,11 @@ public class IndvInfo extends AppCompatActivity implements View.OnClickListener 
     private void loadData() {
         if (isUser) {
             num_accepted_asm.setText(String.valueOf(userRecord.num_accept));
-            num_clct.setText(String.valueOf(userRecord.num_coll));
+            num_clct.setText(String.valueOf(userRecord.num_collect));
         }
-        num_concern.setText(String.valueOf(userRecord.num_concern));
-        num_follower.setText(String.valueOf(userRecord.num_follower));
-        num_his_asm.setText(String.valueOf(userRecord.num_asm));
+        num_concern.setText(String.valueOf(userRecord.num_concerns));
+        num_follower.setText(String.valueOf(userRecord.num_be_concerned));
+        num_his_asm.setText(String.valueOf(userRecord.num_assignment));
         bb_contact.setText(user.getBbContact());
         signature.setText(user.getSignature());
         name.setText(user.getName());
