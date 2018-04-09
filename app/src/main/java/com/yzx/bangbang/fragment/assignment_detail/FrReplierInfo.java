@@ -41,11 +41,11 @@
 //    @Override
 //    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 //        v = inflater.inflate(R.layout.common_template0, container, false);
-//        init();
+//        connect();
 //        return v;
 //    }
 //
-//    private void init() {
+//    private void connect() {
 //        replierInfoList = ((AssignmentDetail) getActivity()).replierInfoList;
 //        if (replierInfoList == null) return;
 //        adapter = new Adapter(getActivity().getLayoutInflater(), (ViewGroup) v.findViewById(R.id.scroll_view_container));

@@ -1,4 +1,4 @@
-package com.yzx.bangbang.fragment.AD;
+package com.yzx.bangbang.fragment.assignment_detail;
 
 import android.app.Fragment;
 import android.graphics.Color;

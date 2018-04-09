@@ -11,15 +11,16 @@ import android.widget.Toast;
 
 import com.trello.rxlifecycle2.android.ActivityEvent;
 import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
+import com.yzx.bangbang.Service.NetworkService;
 import com.yzx.bangbang.fragment.Common.FormFragment;
-import com.yzx.bangbang.Interface.network.ISignIn;
-import com.yzx.bangbang.Interface.network.ISignUp;
+import com.yzx.bangbang.interfaces.network.ISignIn;
+import com.yzx.bangbang.interfaces.network.ISignUp;
 import com.yzx.bangbang.model.receiver.RSignIn;
 import com.yzx.bangbang.model.User;
 import com.yzx.bangbang.R;
 import com.yzx.bangbang.utils.sql.DAO;
 import com.yzx.bangbang.utils.FrMetro;
-import com.yzx.bangbang.utils.NetWork.Retro;
+import com.yzx.bangbang.utils.netWork.Retro;
 import com.yzx.bangbang.utils.Params;
 
 import butterknife.ButterKnife;
@@ -59,6 +60,7 @@ public class SignIn extends RxAppCompatActivity {
         ButterKnife.bind(this);
         metro = new FrMetro(getFragmentManager(), R.id.sign_in_frag_container);
         mIntent = new Intent(this, Main.class);
+        startService(new Intent(this, NetworkService.class));
     }
 
     @OnClick({R.id.button_sign_in, R.id.button_sign_up})
@@ -79,7 +81,7 @@ public class SignIn extends RxAppCompatActivity {
     }
 
     public int judge(String[] s, int type) {
-        if (Params.use_default_account) {
+        if (s[0].equals("") && Params.use_default_account) {
             post(new String[]{"n", "0"}, type);
             return -1;
         }
@@ -108,14 +110,14 @@ public class SignIn extends RxAppCompatActivity {
             Retro.inst().create(ISignIn.class)
                     .impl(src[0], src[1])
                     .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
+                    //.observeOn(AndroidSchedulers.mainThread())
                     .compose(this.<RSignIn>bindUntilEvent(ActivityEvent.DESTROY))
                     .subscribe(r -> handleState(r.state, r.user));
         } else {
             Retro.inst().create(ISignUp.class)
                     .impl(src[0], src[1], src[2])
                     .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
+                    //.observeOn(AndroidSchedulers.mainThread())
                     .compose(this.<Integer>bindUntilEvent(ActivityEvent.DESTROY))
                     .subscribe(this::handleState);
         }
@@ -127,11 +129,11 @@ public class SignIn extends RxAppCompatActivity {
 
     private void handleState(int state, User user) {
         if (state == -1) return;
-        Toast.makeText(this, code[state], Toast.LENGTH_SHORT).show();
+        runOnUiThread(() -> Toast.makeText(this, code[state], Toast.LENGTH_SHORT).show());
         if (state == SIGN_UP_SUCCESS) {
             post(inputs, ACTION_SIGN_IN);
         } else if (state == SIGN_IN_SUCCESS) {
-            DAO.insert(user);
+            DAO.insert(user, DAO.TYPE_USER);
             startActivity(mIntent);
         }
     }

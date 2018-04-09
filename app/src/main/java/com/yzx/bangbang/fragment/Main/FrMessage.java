@@ -17,8 +17,8 @@ import com.yzx.bangbang.activity.Main;
 import com.yzx.bangbang.model.Mysql.ChatRecord;
 import com.yzx.bangbang.model.SimpleIndividualInfo;
 import com.yzx.bangbang.R;
-import com.yzx.bangbang.utils.NetWork.OkHttpUtil;
-import com.yzx.bangbang.utils.NetWork.UniversalImageDownloader;
+import com.yzx.bangbang.utils.netWork.OkHttpUtil;
+import com.yzx.bangbang.utils.netWork.UniversalImageDownloader;
 import com.yzx.bangbang.utils.util;
 
 import java.util.List;

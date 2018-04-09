@@ -2,7 +2,6 @@ package com.yzx.bangbang.view.mainView;
 
 
 import android.content.Context;
-import android.os.AsyncTask;
 import android.os.Message;
 import android.util.AttributeSet;
 import android.view.View;
@@ -15,7 +14,7 @@ import com.yzx.bangbang.activity.Main;
 import com.yzx.bangbang.activity.NewAssignment;
 import com.yzx.bangbang.fragment.Main.FrMain;
 import com.yzx.bangbang.fragment.Main.FrMessage;
-import com.yzx.bangbang.fragment.Main.FrNews;
+import com.yzx.bangbang.fragment.Main.FrNotify;
 import com.yzx.bangbang.fragment.Main.FrUser;
 import com.yzx.bangbang.R;
 import com.yzx.bangbang.utils.FrMetro;
@@ -25,7 +24,6 @@ import com.yzx.bangbang.utils.util;
 import java.util.Arrays;
 import java.util.List;
 
-import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.reactivex.Flowable;
@@ -49,8 +47,8 @@ public class MainLayout extends RelativeLayout {
 
     private static int current_index = 0;
     List<Integer> button_id;
-    String[] fragment_name;
-    Class[] target_class;
+    String[] fragment_name = new String[]{"主页", "通知", "私信", "用户", ""};
+    Class[] target_class = new Class[]{FrMain.class, FrNotify.class, FrMessage.class, FrUser.class, NewAssignment.class};
     ImageView[] selector;
     TextView toolbar;
     public FrMetro metro;
@@ -62,8 +60,6 @@ public class MainLayout extends RelativeLayout {
     }
 
     void init() {
-        fragment_name = new String[]{"主页", "消息", "私信", "用户", ""};
-        target_class = new Class[]{FrMain.class, FrNews.class, FrMessage.class, FrUser.class, NewAssignment.class};
         button_id = Arrays.asList(
                 R.id.main_select_main
                 , R.id.main_select_news

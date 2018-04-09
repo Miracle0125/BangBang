@@ -15,13 +15,13 @@ import android.widget.TextView;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.google.gson.Gson;
 import com.trello.rxlifecycle2.android.ActivityEvent;
+import com.yzx.bangbang.Service.DeprecatedService;
 import com.yzx.bangbang.activity.IndvInfo;
 import com.yzx.bangbang.activity.Main;
 import com.yzx.bangbang.model.SimpleIndividualInfo;
 import com.yzx.bangbang.model.User;
 import com.yzx.bangbang.R;
-import com.yzx.bangbang.Service.NetworkService;
-import com.yzx.bangbang.utils.NetWork.OkHttpUtil;
+import com.yzx.bangbang.utils.netWork.OkHttpUtil;
 import com.yzx.bangbang.utils.Params;
 import com.yzx.bangbang.utils.sql.SpUtil;
 import com.yzx.bangbang.utils.util;
@@ -67,7 +67,7 @@ public class FrUser extends Fragment implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.main_fr_user_exit:
-                //NetworkService.inst.close();
+                //DeprecatedService.inst.close();
                 Flowable.just(util.obtain_message(Main.ACTION_EXIT_LOG_IN))
                         .delay(500, TimeUnit.MILLISECONDS)
                         .compose(context().<Message>bindUntilEvent(ActivityEvent.DESTROY))
@@ -132,7 +132,7 @@ public class FrUser extends Fragment implements View.OnClickListener {
                 image_base64 = s;
                 if (s.length() < 10)
                     return;
-                NetworkService.CommonImageReceiver receiver = gson.fromJson(s, NetworkService.CommonImageReceiver.class);
+                DeprecatedService.CommonImageReceiver receiver = gson.fromJson(s, DeprecatedService.CommonImageReceiver.class);
                 if (receiver.code != code)
                     return;
                 image_path = Params.TEMP_DIR + util.getRandomString(8) + ".png";

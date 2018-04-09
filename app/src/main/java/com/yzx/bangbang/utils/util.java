@@ -2,6 +2,8 @@ package com.yzx.bangbang.utils;
 
 
 import android.app.Activity;
+import android.app.ActivityManager;
+import android.content.ComponentName;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -21,6 +23,7 @@ import com.balysv.materialripple.MaterialRippleLayout;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -32,7 +35,10 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Random;
+import java.util.Scanner;
 import java.util.UUID;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 
 public class util {
@@ -42,10 +48,6 @@ public class util {
     public static final String DATA_OBSERVER = "DataObserver";
     public static final int DATA_CHANGED = 0;
     public static final int DATA_NOT_CHANGED = 1;
-
-    public static void setMaterialRipple(View view) {
-        setMaterialRipple(view, 0);
-    }
 
     //第三方库的动画效果
     public static void setMaterialRipple(View view, int color) {
@@ -117,23 +119,6 @@ public class util {
         return UUID.randomUUID().toString();
     }
 
-    public static class KeyBoardDetector {
-        private Rect rect;
-
-        public KeyBoardDetector(View decorView) {
-            rect = new Rect();
-            decorView.getWindowVisibleDisplayFrame(rect);
-        }
-
-        public int get_key_board_top() {
-            return rect.bottom;
-        }
-
-        public boolean isKeyBoardRose() {
-            return ((double) (rect.bottom - rect.top) / Params.screenHeight) < 0.8;
-        }
-    }
-
     public static boolean is_keyboard_rose(View decorView) {
         Rect rect = new Rect();
         decorView.getWindowVisibleDisplayFrame(rect);
@@ -146,7 +131,7 @@ public class util {
         return rect.bottom;
     }
 
-    public static void toggle_keyboard(Activity activity){
+    public static void toggle_keyboard(Activity activity) {
         InputMethodManager imm = (InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE);
         if (imm != null)
             imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
@@ -187,7 +172,6 @@ public class util {
         return String.valueOf(f);
     }
 
-    private static SimpleDateFormat format0, format1;
 
     public static ByteArrayOutputStream compress(Bitmap image, int size) {
         int times = 0;
@@ -262,9 +246,13 @@ public class util {
         }
     }
 
+
     public interface writeFileCallback {
         void onFinish();
     }
+
+
+    private static SimpleDateFormat format0, format1;
 
     //将日期变成几天前或者几小时前
     public static String transform_date(String raw_date) {
@@ -305,12 +293,60 @@ public class util {
         return msg;
     }
 
-    public static void AppExit() {
+    public static void exit_app() {
         try {
             android.os.Process.killProcess(android.os.Process.myPid());
             System.exit(0);
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public static boolean isForeground(Context context, String className) {
+        if (context == null || className == null)
+            return false;
+        ActivityManager am = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
+        if (am == null)
+            return false;
+        List<ActivityManager.RunningTaskInfo> list = am.getRunningTasks(1);
+        if (list != null && list.size() > 0) {
+            ComponentName name = list.get(0).topActivity;
+            if (className.equals(name.getClassName())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static boolean isNumeric(String str) {
+        Pattern pattern = Pattern.compile("[0-9]*");
+        Matcher isNum = pattern.matcher(str);
+        return isNum.matches();
+    }
+
+    public static int count_file_lines(File file) {
+        if (file == null) {
+            return 0;
+        }
+        int count = 0;
+        try {
+            Scanner scanner = new Scanner(file);
+            while (scanner.hasNext()) {
+                count++;
+                scanner.next();
+            }
+            scanner.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        return count;
+    }
+
+    public static String pack_json(String s) {
+        return "[" + s + "]";
+    }
+
+    public static String unpack_json(String s) {
+        return s.substring(1, s.length() - 2);
     }
 }

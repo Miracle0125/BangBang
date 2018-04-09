@@ -12,7 +12,7 @@
         android:background="@color/colorPrimary">
         <com.facebook.drawee.view.SimpleDraweeView
             android:clickable="true"
-            android:id="@+id/btn_back"
+            android:id="@+id/button_back"
             android:layout_centerVertical="true"
             android:layout_marginLeft="20dp"
             android:layout_width="25dp"

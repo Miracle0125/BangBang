@@ -1,4 +1,4 @@
-package com.yzx.bangbang.Interface.network;
+package com.yzx.bangbang.interfaces.network;
 import com.yzx.bangbang.model.receiver.RSignIn;
 import io.reactivex.Flowable;
 import retrofit2.http.GET;

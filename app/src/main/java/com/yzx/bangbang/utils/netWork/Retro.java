@@ -1,4 +1,4 @@
-package com.yzx.bangbang.utils.NetWork;
+package com.yzx.bangbang.utils.netWork;
 
 import android.net.Uri;
 

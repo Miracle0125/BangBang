@@ -1,4 +1,4 @@
-package com.yzx.bangbang.Interface.network;
+package com.yzx.bangbang.interfaces.network;
 
 import com.yzx.bangbang.model.Bid;
 import com.yzx.bangbang.model.Comment;
@@ -31,4 +31,12 @@ public interface IAssignmentDetail {
     @GET("get_bids")
     Flowable<List<Bid>> get_bids(@Query("id") int id);
 
+    @POST("post_bid")
+    Flowable<Integer> post_bid(@Query("bid") String bid);
+
+    @POST("choose_bid")
+    Flowable<Integer> choose_bid(@Query("bid") String bid);
+
+    @GET("get_on_going_bid")
+    Flowable<List<Bid>> get_on_going_bid(@Query("asm_id") int asm_id);
 }

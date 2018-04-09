@@ -1,9 +1,10 @@
-package com.yzx.bangbang.adapter;
+package com.yzx.bangbang.adapter.assignment_detail;
 
 import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -12,7 +13,7 @@ import com.yzx.bangbang.R;
 import com.yzx.bangbang.activity.AssignmentDetail;
 import com.yzx.bangbang.model.Bid;
 import com.yzx.bangbang.model.Comment;
-import com.yzx.bangbang.utils.NetWork.Retro;
+import com.yzx.bangbang.utils.netWork.Retro;
 import com.yzx.bangbang.utils.util;
 import com.yzx.bangbang.widget.EvaluateView;
 
@@ -61,20 +62,19 @@ public class AssignmentDetailAdapter extends RecyclerView.Adapter<ViewHolder> {
             h.date.setText(util.transform_date(assignment.getDate()));
             h.price.setText(util.s(assignment.getPrice()));
             h.price.setTextColor(util.price_color(assignment.getPrice()));
+            if (assignment.getAvg_price() != 0)
+                h.avg_price.setText(assignment.getAvg_price() + "");
             h.num_servants.setText(assignment.getServants() + "");
             h.status.setText(asm_status[assignment.getStatus()]);
-            if (bids.size() > MAX_BID_SHOWED) {
+            if (assignment.getStatus() == 0) {
+                h.text_bids.setText("总报价数(" + assignment.getServants() + ")");
+            } else if (assignment.getStatus() != 3) h.text_bids.setText("正在进行");
+            if (bids.size() > MAX_BID_SHOWED && assignment.getStatus() != 0)
                 h.button_all_bid.setVisibility(View.VISIBLE);
-            }
-            //h.status.setTextColor(status_color[assignment.getStatus()]);
+            h.status.setTextColor(status_color[assignment.getStatus()]);
         } else if (holder instanceof BidHolder) {
             BidHolder h = (BidHolder) holder;
-            Bid bid = bids.get(i - 1);
-            h.host_name.setText(bid.host_name);
-            h.evaluate_view.setEvaluate(bid.evaluate);
-            h.day_time.setText("在" + bid.day_time + "天内");
-            h.price.setText("¥" + bid.price);
-            h.host_portrait.setImageURI(Retro.get_portrait_uri(bid.host_id));
+            h.bind(bids.get(i - 1), context.IS_USER_SAME_WITH_HOST);
         } else if (holder instanceof AboveCommentHolder) {
             AboveCommentHolder h = (AboveCommentHolder) holder;
             if (comments.size() > MAX_COMMENT_SHOWED)
@@ -105,8 +105,8 @@ public class AssignmentDetailAdapter extends RecyclerView.Adapter<ViewHolder> {
         else return position == bids.size() + 1 ? TYPE_ABOVE_COMMENT : TYPE_COMMENT;
     }
 
-    public static class HeaderHolder extends ViewHolder {
-        public HeaderHolder(View v) {
+    public class HeaderHolder extends ViewHolder {
+        HeaderHolder(View v) {
             super(v);
             ButterKnife.bind(this, v);
         }
@@ -121,41 +121,25 @@ public class AssignmentDetailAdapter extends RecyclerView.Adapter<ViewHolder> {
         TextView num_servants;
         @BindView(R.id.price)
         TextView price;
+        @BindView(R.id.avg_price)
+        TextView avg_price;
         @BindView(R.id.status)
         TextView status;
+        @BindView(R.id.text_bids)
+        TextView text_bids;
         @BindView(R.id.button_all_bid)
         TextView button_all_bid;
 
         @OnClick({R.id.button_all_bid})
         public void click(View v) {
-            if (listener != null)
-                listener.click(v);
+            if (onClickListener != null)
+                onClickListener.onClick(v);
         }
     }
 
-    public static class BidHolder extends ViewHolder {
+    public class AboveCommentHolder extends ViewHolder {
 
-        public BidHolder(View v) {
-            super(v);
-            ButterKnife.bind(this, v);
-        }
-
-        @BindView(R.id.host_name)
-        TextView host_name;
-        @BindView(R.id.host_portrait)
-        SimpleDraweeView host_portrait;
-        @BindView(R.id.day_time)
-        TextView day_time;
-        @BindView(R.id.price)
-        TextView price;
-        @BindView(R.id.evaluate_view)
-        EvaluateView evaluate_view;
-    }
-
-
-    public static class AboveCommentHolder extends ViewHolder {
-
-        public AboveCommentHolder(View v) {
+        AboveCommentHolder(View v) {
             super(v);
             ButterKnife.bind(this, v);
         }
@@ -171,15 +155,15 @@ public class AssignmentDetailAdapter extends RecyclerView.Adapter<ViewHolder> {
 
         @OnClick({R.id.button_all_comment, R.id.button_send_comment})
         public void click(View v) {
-            if (listener != null)
-                listener.click(v);
+            if (onClickListener != null)
+                onClickListener.onClick(v);
         }
     }
 
 
     public static class CommentHolder extends ViewHolder {
 
-        public CommentHolder(View v) {
+        CommentHolder(View v) {
             super(v);
             ButterKnife.bind(this, v);
         }
@@ -194,21 +178,6 @@ public class AssignmentDetailAdapter extends RecyclerView.Adapter<ViewHolder> {
         TextView num_comments;
         @BindView(R.id.host_portrait)
         SimpleDraweeView host_portrait;
-    }
-
-
-//    private static class HeaderHolder extends ViewHolder{
-//
-//        public HeaderHolder(View itemView) {
-//            super(itemView);
-//        }
-//    }
-
-
-    public static ClickListener listener;
-
-    public interface ClickListener {
-        void click(View v);
     }
 
     private List<Comment> comments = new ArrayList<>();
@@ -227,7 +196,7 @@ public class AssignmentDetailAdapter extends RecyclerView.Adapter<ViewHolder> {
             Color.parseColor("#F6F6F6"),
             Color.parseColor("#FF0000")};
     private AssignmentDetail context;
-    AboveCommentHolder aboveCommentHolder;
+    private AboveCommentHolder aboveCommentHolder;
 
     //setter getter
     public void setAssignment(Assignment assignment) {
@@ -242,9 +211,12 @@ public class AssignmentDetailAdapter extends RecyclerView.Adapter<ViewHolder> {
         this.comments = comments;
     }
 
-    public void setClickListener(ClickListener listener) {
-        this.listener = listener;
+
+    public void setOnClickListener(View.OnClickListener onClickListener) {
+        this.onClickListener = onClickListener;
     }
+
+    private View.OnClickListener onClickListener;
 
     public void setBids(List<Bid> bids) {
         this.bids = bids;

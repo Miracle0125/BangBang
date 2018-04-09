@@ -1,4 +1,6 @@
-package com.yzx.bangbang.Interface.network;
+package com.yzx.bangbang.interfaces.network;
+
+import com.yzx.bangbang.model.Notify;
 
 import java.util.List;
 
@@ -16,5 +18,11 @@ public interface IMain {
 
     @POST("new_assignment")
     Flowable<Integer> new_assignment(@Query("assignment") String s, @Body MultipartBody body);
+
+    @GET("get_notify")
+    Flowable<List<Notify>> get_notify(@Query("user_id") int user_id);
+
+    @POST("read_notify")
+    Flowable<Integer> read_notify(@Query("id") int id);
 }
 

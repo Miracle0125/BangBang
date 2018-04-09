@@ -18,11 +18,11 @@ import com.facebook.drawee.view.SimpleDraweeView;
 import com.google.gson.Gson;
 import com.trello.rxlifecycle2.android.ActivityEvent;
 import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
-import com.yzx.bangbang.Interface.network.IMain;
+import com.yzx.bangbang.interfaces.network.IMain;
 import com.yzx.bangbang.model.User;
 import com.yzx.bangbang.R;
 import com.yzx.bangbang.utils.sql.DAO;
-import com.yzx.bangbang.utils.NetWork.Retro;
+import com.yzx.bangbang.utils.netWork.Retro;
 import com.yzx.bangbang.utils.sql.SpUtil;
 import com.yzx.bangbang.utils.util;
 
@@ -162,6 +162,7 @@ public class NewAssignment extends RxAppCompatActivity {
                 user.getId(), user.getName(),
                 util.getDate(),
                 Float.valueOf(price.getText().toString()),
+                0,
                 0,
                 num_images,
                 0,

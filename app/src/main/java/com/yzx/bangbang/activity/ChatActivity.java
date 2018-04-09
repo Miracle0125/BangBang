@@ -22,8 +22,8 @@ import com.google.gson.Gson;
 import com.yzx.bangbang.model.Mysql.ChatRecord;
 import com.yzx.bangbang.model.SimpleIndividualInfo;
 import com.yzx.bangbang.R;
-import com.yzx.bangbang.utils.NetWork.OkHttpUtil;
-import com.yzx.bangbang.utils.NetWork.UniversalImageDownloader;
+import com.yzx.bangbang.utils.netWork.OkHttpUtil;
+import com.yzx.bangbang.utils.netWork.UniversalImageDownloader;
 import com.yzx.bangbang.utils.Params;
 import com.yzx.bangbang.utils.util;
 import com.yzx.bangbang.view.mainView.Portrait;
@@ -93,7 +93,7 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
         toolbar_title = (TextView) findViewById(R.id.toolbar_title);
         toolbar_title.setText("与" + obj_info.name + "的私信");
         scroll_view_container = (LinearLayout) findViewById(R.id.scroll_view_container);
-        btn_back = findViewById(R.id.btn_back);
+        btn_back = findViewById(R.id.button_back);
         btn_back.setOnClickListener(this);
     }
 
@@ -379,7 +379,7 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.btn_back:
+            case R.id.button_back:
                 finish();
                 isActivityAlive = false;
                 break;

@@ -1,4 +1,4 @@
-package com.yzx.bangbang.Interface.network;
+package com.yzx.bangbang.interfaces.network;
 
 import com.yzx.bangbang.model.UserRecord;
 

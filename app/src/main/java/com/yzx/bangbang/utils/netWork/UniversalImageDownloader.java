@@ -1,4 +1,4 @@
-package com.yzx.bangbang.utils.NetWork;
+package com.yzx.bangbang.utils.netWork;
 
 import android.app.Activity;
 import android.content.Context;
@@ -8,7 +8,7 @@ import android.util.Log;
 
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.google.gson.Gson;
-import com.yzx.bangbang.Service.NetworkService;
+import com.yzx.bangbang.Service.DeprecatedService;
 import com.yzx.bangbang.utils.Params;
 import com.yzx.bangbang.utils.util;
 
@@ -37,7 +37,7 @@ public class UniversalImageDownloader {
 
     public void downLoadPortrait(final int user_id, final SimpleDraweeView view) {
         if (portraitCache.get(user_id) == null)
-            NetworkService.inst.DownloadImage("select image from portrait where user_id = " + user_id, user_id, new Callback() {
+            DeprecatedService.inst.DownloadImage("select image from portrait where user_id = " + user_id, user_id, new Callback() {
                 @Override
                 public void onFailure(Call call, IOException e) {
 
@@ -51,7 +51,7 @@ public class UniversalImageDownloader {
                         //((Activity) context).runOnUiThread(() -> view.setImageURI(Uri.parse("android.resource://" + context.getPackageName() + "/" + R.drawable.main_icon_portrait)));
                         return;
                     }
-                    NetworkService.CommonImageReceiver receiver = gson.fromJson(s, NetworkService.CommonImageReceiver.class);
+                    DeprecatedService.CommonImageReceiver receiver = gson.fromJson(s, DeprecatedService.CommonImageReceiver.class);
                     if (view != null) {
                         final String path = Params.TEMP_DIR + util.getRandomString(8) + ".png";
                         util.writeFile(Base64.decode(receiver.image_base64, Base64.DEFAULT), path, () -> loadPortrait(view, path, context));

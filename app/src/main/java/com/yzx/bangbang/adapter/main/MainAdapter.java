@@ -12,7 +12,7 @@ import com.facebook.drawee.view.SimpleDraweeView;
 import com.yzx.bangbang.fragment.Main.FrMain;
 import com.yzx.bangbang.R;
 import com.yzx.bangbang.activity.Main;
-import com.yzx.bangbang.utils.NetWork.Retro;
+import com.yzx.bangbang.utils.netWork.Retro;
 import com.yzx.bangbang.utils.sql.SpUtil;
 import com.yzx.bangbang.utils.util;
 

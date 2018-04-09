@@ -15,8 +15,8 @@ import com.yzx.bangbang.activity.Main;
 import com.yzx.bangbang.model.EventModule;
 import com.yzx.bangbang.model.SimpleIndividualInfo;
 import com.yzx.bangbang.R;
-import com.yzx.bangbang.utils.NetWork.OkHttpUtil;
-import com.yzx.bangbang.utils.NetWork.UniversalImageDownloader;
+import com.yzx.bangbang.utils.netWork.OkHttpUtil;
+import com.yzx.bangbang.utils.netWork.UniversalImageDownloader;
 
 import java.util.List;
 
@@ -51,7 +51,7 @@ public class FrConcern extends Fragment implements View.OnClickListener {
 
     private void initView() {
         scroll_view_container = (RelativeLayout) v.findViewById(R.id.scroll_view_container);
-        btn_back = v.findViewById(R.id.btn_back);
+        btn_back = v.findViewById(R.id.button_back);
         btn_back.setOnClickListener(view -> {
             ((IndvInfo) getActivity()).fm.removeCurrent();
             ((IndvInfo) getActivity()).updateFragmentBackground();

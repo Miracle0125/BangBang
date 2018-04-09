@@ -29,31 +29,11 @@ import io.reactivex.Flowable;
  * 我既讨厌写注释，又讨厌看别人不写注释的代码。好了我现在开始看一年前的代码了。
  */
 public class FrMain extends Fragment {
-    public static final int IMAGE_DOWNLOAD_COMPLETE = 10;
-    public static final int MODE_DEFAULT = 0;
-    public static final int MODE_PRICE_ASC = 1;
-    public static final int MODE_PRICE_DESC = 2;
-
-    int sort_type = MODE_DEFAULT;
-    public static int distance = 0;
-
-    @BindView(R.id.main_list)
-    RecyclerView recyclerView;
-    @BindView(R.id.fr_main_spinner_distance)
-    Spinner spinner_distance;
-    @BindView(R.id.fr_main_spinner_sort)
-    Spinner spinner_sort;
-    @BindView(R.id.swipe_refresh)
-    SwipeRefreshLayout swipeRefreshLayout;
-    private View v;
-    //Map<Integer, View> Id_View;
-    MainAdapter adapter;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         v = inflater.inflate(R.layout.main_fr_main, container, false);
-        // v.getViewTreeObserver().addOnGlobalLayoutListener(() -> ((Main) getActivity()).setScrollView(scrollView));
         init();
         return v;
     }
@@ -72,7 +52,7 @@ public class FrMain extends Fragment {
     private void refresh() {
         if (!swipeRefreshLayout.isRefreshing())
             swipeRefreshLayout.setRefreshing(true);
-        context().listener.getAssignment((r) -> {
+        context().presenter.getAssignment((r) -> {
             adapter.setData(r);
             adapter.notifyDataSetChanged();
             if (recyclerView.getLayoutManager() == null)
@@ -117,20 +97,26 @@ public class FrMain extends Fragment {
 
     float[][] dis_scope = {{0, 1000f}, {1000f, 2000f}, {2000f, 5000f}, {5000f, 200000f}};
 
-//    private void LoadImage(Bundle data) {
-//        int[] imageId = {R.id.image0, R.id.image1, R.id.image2};
-//        SimpleDraweeView draweeView;
-//        View parent = Id_View.get(data.getInt("asm_id"));
-//        if (parent == null)
-//            return;
-//        draweeView = parent.findViewById(imageId[data.getInt("pos")]);
-//        if (draweeView == null)
-//            return;
-//        draweeView.setImageURI(Uri.fromFile(new File(data.getString("path"))));
-//    }
-
-
     public Main context() {
         return (Main) super.getActivity();
     }
+
+    public static final int IMAGE_DOWNLOAD_COMPLETE = 10;
+    public static final int MODE_DEFAULT = 0;
+    public static final int MODE_PRICE_ASC = 1;
+    public static final int MODE_PRICE_DESC = 2;
+
+    int sort_type = MODE_DEFAULT;
+    public static int distance = 0;
+
+    @BindView(R.id.main_list)
+    RecyclerView recyclerView;
+    @BindView(R.id.fr_main_spinner_distance)
+    Spinner spinner_distance;
+    @BindView(R.id.fr_main_spinner_sort)
+    Spinner spinner_sort;
+    @BindView(R.id.swipe_refresh)
+    SwipeRefreshLayout swipeRefreshLayout;
+    private View v;
+    MainAdapter adapter;
 }

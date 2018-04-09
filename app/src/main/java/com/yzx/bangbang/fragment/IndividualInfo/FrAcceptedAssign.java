@@ -13,7 +13,7 @@ import com.yzx.bangbang.activity.AssignmentDetail;
 import com.yzx.bangbang.activity.IndvInfo;
 import com.yzx.bangbang.model.EventModule;
 import com.yzx.bangbang.R;
-import com.yzx.bangbang.utils.NetWork.OkHttpUtil;
+import com.yzx.bangbang.utils.netWork.OkHttpUtil;
 import com.yzx.bangbang.utils.Params;
 import com.yzx.bangbang.view.indvInfo.AcceptedAssignItem;
 
@@ -41,7 +41,7 @@ public class FrAcceptedAssign extends Fragment implements View.OnClickListener{
         toolbar_title = (TextView) v.findViewById(R.id.toolbar_title);
         toolbar_title.setText("已接需求");
         scroll_view_container = (RelativeLayout) v.findViewById(R.id.scroll_view_container);
-        btn_back = v.findViewById(R.id.btn_back);
+        btn_back = v.findViewById(R.id.button_back);
         btn_back.setOnClickListener(this);
         new Thread(this::getData).start();
     }
@@ -63,7 +63,7 @@ public class FrAcceptedAssign extends Fragment implements View.OnClickListener{
     @Override
     public void onClick(View view) {
         switch ( view.getId()){
-            case R.id.btn_back:
+            case R.id.button_back:
                 ((IndvInfo)getActivity()).fm.removeCurrent();
                 ((IndvInfo)getActivity()).updateFragmentBackground();
                 break;

@@ -56,4 +56,15 @@
         android:layout_height="15dp"
         android:layout_below="@+id/day_time" />
 
+
+    <Button
+        android:id="@+id/button_choose"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:layout_marginEnd="20dp"
+        android:text="选择"
+        android:theme="@style/BlueButton" />
+
 </RelativeLayout>

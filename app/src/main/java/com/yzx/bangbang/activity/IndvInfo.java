@@ -20,9 +20,9 @@ import com.yzx.bangbang.model.User;
 import com.yzx.bangbang.model.UserRecord;
 import com.yzx.bangbang.R;
 import com.yzx.bangbang.utils.FrMetro;
-import com.yzx.bangbang.utils.NetWork.OkHttpUtil;
+import com.yzx.bangbang.utils.netWork.OkHttpUtil;
 import com.yzx.bangbang.utils.Params;
-import com.yzx.bangbang.utils.NetWork.UniversalImageDownloader;
+import com.yzx.bangbang.utils.netWork.UniversalImageDownloader;
 import com.yzx.bangbang.utils.sql.SpUtil;
 import com.yzx.bangbang.utils.util;
 

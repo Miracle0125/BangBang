@@ -1,5 +1,6 @@
 package com.yzx.bangbang.activity;
 
+import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Message;
@@ -11,19 +12,19 @@ import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
 import com.yzx.bangbang.model.SimpleIndividualInfo;
 import com.yzx.bangbang.R;
 import com.yzx.bangbang.model.User;
+import com.yzx.bangbang.utils.sql.DAO;
 import com.yzx.bangbang.utils.util;
 import com.yzx.bangbang.presenter.MainPresenter;
+import com.yzx.bangbang.view.mainView.MainLayout;
 
 import java.lang.ref.WeakReference;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import io.reactivex.functions.Consumer;
 import model.Assignment;
 
-/**
- * 此Activity与各个子界面交互
- * 后期为了提高(xiang)开(yao)发(tou)速(lan)度，许多与数据库的交互不通过特定的Servlet，而是直接通过通用的Servlet直接查询SQL语句，返回类拥有数据库所有的字段，在module/mysql
- * 中的类全是和数据库字段契合的类
- */
+
 public class Main extends RxAppCompatActivity {
     //解耦
     @Override
@@ -31,25 +32,25 @@ public class Main extends RxAppCompatActivity {
         super.onCreate(savedInstanceState);
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.main_layout);
+        ButterKnife.bind(this);
         init();
     }
 
-    public void init() {
-        listener = presenter.getListener();
-        listener.init();
+    @Override
+    protected void onResume() {
+        super.onResume();
+        presenter.check_notify();
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        //if (resultCode == RESULT_UPLOAD_SUCCESS)
-        super.onActivityResult(requestCode, resultCode, data);
+    public void init() {
+        presenter.init(user.getId());
     }
 
     public Consumer<Message> consumer = (msg) -> {
         Intent intent = null;
         switch (msg.what) {
             case ACTION_SHOW_DETAIL:
-                intent = new Intent(Main.this, AssignmentDetail.class);
+                intent = new Intent(this, AssignmentDetail.class);
                 intent.putExtra("assignment", (Assignment) msg.obj);
                 break;
             case ACTION_NEW_ASSIGNMENT:
@@ -69,13 +70,14 @@ public class Main extends RxAppCompatActivity {
             startActivityForResult(intent, msg.what);
     };
 
-    long exit_time_record = System.currentTimeMillis();
+    private long exit_time_record = System.currentTimeMillis();
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
             if (System.currentTimeMillis() - exit_time_record < 2000)
-                util.AppExit();
+                finish();
+                //util.exit_app();
             else {
                 Toast.makeText(Main.this, "再点一次退出", Toast.LENGTH_SHORT).show();
 
@@ -89,19 +91,27 @@ public class Main extends RxAppCompatActivity {
         return ref.get();
     }
 
+    public Fragment get_current_fragment() {
+        return mainLayout.metro.getCurrent();
+    }
+
     @Override
     protected void onDestroy() {
         presenter.detach();
         super.onDestroy();
     }
 
-    public static User user;
+    @BindView(R.id.main_layout)
+    MainLayout mainLayout;
+
+    public static User user = (User) DAO.query(DAO.TYPE_USER);
     public static WeakReference<Main> ref;
     public static final int ACTION_SHOW_DETAIL = 1;
     public static final int ACTION_EXIT_LOG_IN = 2;
     public static final int ACTION_CLICK_PORTRAIT = 3;
     public static final int ACTION_NEW_ASSIGNMENT = 4;
     public static final int RESULT_UPLOAD_SUCCESS = 5;
-    public MainPresenter.Listener listener;
-    private MainPresenter presenter = new MainPresenter(this);
+    // public static boolean
+    //public MainPresenter.Listener listener;
+    public MainPresenter presenter = new MainPresenter(this);
 }

@@ -14,7 +14,7 @@ import com.yzx.bangbang.activity.IndvInfo;
 import com.yzx.bangbang.adapter.AssignListAdapter;
 import com.yzx.bangbang.model.SimpleIndividualInfo;
 import com.yzx.bangbang.R;
-import com.yzx.bangbang.utils.NetWork.OkHttpUtil;
+import com.yzx.bangbang.utils.netWork.OkHttpUtil;
 import java.util.List;
 
 import model.Assignment;
@@ -42,7 +42,7 @@ public class FrAssignList extends Fragment {
     }
 
     private void initView() {
-        btn_back = v.findViewById(R.id.btn_back);
+        btn_back = v.findViewById(R.id.button_back);
         btn_back.setOnClickListener(view -> {
             ((IndvInfo) getActivity()).fm.removeCurrent();
             ((IndvInfo) getActivity()).updateFragmentBackground();
