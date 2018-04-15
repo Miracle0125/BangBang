@@ -114,12 +114,12 @@ public class ClassifyView extends ClassifyViewHelper {
 
         rows = getParamList().size();
         RowHeight = getChildAt(0).getMeasuredHeight();
-        RowMargin = util.px(8);
-        TextMargin = util.px(3);
+        RowMargin = util.dp2px(8);
+        TextMargin = util.dp2px(3);
         int calcHeight = (RowMargin * 2 + RowHeight) * rows;
 
 
-        int width = (widthMode == MeasureSpec.EXACTLY) ? sizeWidth : util.px(150);
+        int width = (widthMode == MeasureSpec.EXACTLY) ? sizeWidth : util.dp2px(150);
         int height = (heightMode == MeasureSpec.EXACTLY) ? sizeHeight : calcHeight;
 
         ViewHeight = height;
@@ -127,7 +127,7 @@ public class ClassifyView extends ClassifyViewHelper {
         setMeasuredDimension(width, height);
     }
 
-/*    private int px(int dipValue) {
+/*    private int dp2px(int dipValue) {
         return (int) (dipValue * scale + 0.5f);
     }*/
 

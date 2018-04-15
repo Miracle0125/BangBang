@@ -1,21 +1,17 @@
 package com.yzx.bangbang.activity;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
-import android.view.KeyEvent;
-import android.view.View;
-import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.trello.rxlifecycle2.android.ActivityEvent;
 import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
 import com.yzx.bangbang.Service.NetworkService;
-import com.yzx.bangbang.fragment.Common.FormFragment;
+import com.yzx.bangbang.fragment.sign_in.FrSignIn;
+import com.yzx.bangbang.fragment.sign_in.TestUtils;
 import com.yzx.bangbang.interfaces.network.ISignIn;
-import com.yzx.bangbang.interfaces.network.ISignUp;
-import com.yzx.bangbang.model.receiver.RSignIn;
 import com.yzx.bangbang.model.User;
 import com.yzx.bangbang.R;
 import com.yzx.bangbang.utils.sql.DAO;
@@ -23,74 +19,91 @@ import com.yzx.bangbang.utils.FrMetro;
 import com.yzx.bangbang.utils.netWork.Retro;
 import com.yzx.bangbang.utils.Params;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
-
 public class SignIn extends RxAppCompatActivity {
+    public static final int UNKNOWN_WRONG = 0;
     public static final int SIGN_IN_SUCCESS = 1;
-    public static final int PASS_WRONG = 2;
-    public static final int PASS_NOT_MATCH = 3;
-    public static final int ACCOUNT_NOT_EXIST = 4;
-    public static final int NULL_PASSWORD = 5;
-    public static final int SIGN_UP_SUCCESS = 6;
-    public static final int NULL_ACCOUNT = 7;
+    public static final int SIGN_UP_SUCCESS = 2;
+    public static final int NULL_ACCOUNT = 3;
+    public static final int NULL_PASSWORD = 4;
+    public static final int NULL_NAME = 5;
+    public static final int PASS_WRONG = 6;
+    public static final int PASS_NOT_MATCH = 7;
     public static final int ACCOUNT_EXIST = 8;
-    public static final int NULL_NAME = 9;
+    public static final int ACCOUNT_NOT_EXIST = 9;
     public static final int NAME_EXIST = 10;
+
+
     public static final int ACTION_SIGN_IN = 20;
     public static final int ACTION_SIGN_UP = 21;
 
-    Intent mIntent;
-    FrMetro metro;
-    String[] inputs, code = new String[]{"", "登陆成功", "注册成功", "密码错误", "密码不一致", "密码为空", "账号为空", "用户名为空", "账号已存在", "账号不存在", "用户名已存在"};
 
+    private static final int STATE_NORMAL = -1;
+    private static final String TAG_SIGN_IN = "0";
+    private static final String TAG_SIGN_UP = "1";
+    private static final int layout[] = {R.layout.sign_in_fr_sign_in, R.layout.sign_in_fr_sign_up};
+    private static final String[] hints = new String[]{"Don't you have an account?", "I have an account already."};
+    private static final String[] code = new String[]{"未知错误", "登陆成功", "注册成功", "账号为空", "密码为空", "用户名为空", "密码错误", "密码不一致", "账号已存在", "账号不存在", "用户名已存在"};
+    private String[] inputs;
+    private int current_fragment;
+    private AlertDialog dialog;
+    private FrMetro fm;
+    @BindView(R.id.text_hint)
+    TextView text_hint;
+    @BindView(R.id.button_change_fragment)
+    TextView button_change_fragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.sign_in_content);
+        setContentView(R.layout.sign_in_layout);
         init();
         Params.initParams(this);
     }
 
     void init() {
         ButterKnife.bind(this);
-        metro = new FrMetro(getFragmentManager(), R.id.sign_in_frag_container);
-        mIntent = new Intent(this, Main.class);
+        fm = new FrMetro(getFragmentManager(), R.id.fragment_container);
+        go_to_fragment(0);
         startService(new Intent(this, NetworkService.class));
     }
 
-    @OnClick({R.id.button_sign_in, R.id.button_sign_up})
-    public void onclick(View v) {
-        metro.setCallBack((fragment) -> {
-            switch (v.getId()) {
-                case R.id.button_sign_up:
-                    ((FormFragment) fragment).setRes(R.layout.sign_in_fragment_sign_up);
-                    ((FormFragment) fragment).setConsumer(o -> handleState(judge((String[]) o, ACTION_SIGN_UP)));
-                    break;
-                case R.id.button_sign_in:
-                    ((FormFragment) fragment).setRes(R.layout.sign_in_fragment_sign_in);
-                    ((FormFragment) fragment).setConsumer(o -> handleState(judge((String[]) o, ACTION_SIGN_IN)));
-                    break;
-            }
-        });
-        metro.goToFragment(FormFragment.class);
+    @OnClick({R.id.button_change_fragment})
+    void click() {
+        if (++current_fragment > 1) current_fragment = 0;
+        text_hint.setText(hints[current_fragment]);
+        button_change_fragment.setText(current_fragment == 1 ? "Login" : "Sign Up");
+        go_to_fragment(current_fragment);
     }
 
-    public int judge(String[] s, int type) {
-        if (s[0].equals("") && Params.use_default_account) {
-            post(new String[]{"n", "0"}, type);
-            return -1;
+    @OnClick(R.id.button_test_account)
+    void show_test_account() {
+        dialog = TestUtils.show_test_account(this, v -> post(new String[]{(String) v.getTag(), "0"}, ACTION_SIGN_IN));
+    }
+
+    private void go_to_fragment(int type) {
+        fm.setCallBack(fragment -> {
+            ((FrSignIn) fragment).res = layout[type];
+            ((FrSignIn) fragment).consumer = o -> handle_response(judge(o, type + ACTION_SIGN_IN));
+        });
+        fm.goToFragment(FrSignIn.class, type == 0 ? TAG_SIGN_IN : TAG_SIGN_UP);
+    }
+
+    public int judge(String[] s, int action) {
+        if (s[0].equals("") && Params.use_default_account && action == ACTION_SIGN_IN) {
+            post(new String[]{"n", "0"}, action);
+            return STATE_NORMAL;
         }
-        if (type == 0) {
+        if (action == ACTION_SIGN_IN) {
             if (s[0].equals(""))
-                return SignIn.NULL_ACCOUNT;
+                return NULL_ACCOUNT;
             if (s[1].equals(""))
-                return SignIn.NULL_PASSWORD;
-        } else if (type == 1) {
+                return NULL_PASSWORD;
+        } else if (action == ACTION_SIGN_UP) {
             if (s[0].equals(""))
                 return NULL_NAME;
             if (s[1].equals(""))
@@ -101,75 +114,51 @@ public class SignIn extends RxAppCompatActivity {
                 return PASS_NOT_MATCH;
         }
         inputs = s;
-        post(s, type);
-        return -1;
+        post(s, action);
+        return STATE_NORMAL;
     }
 
-    private void post(String[] src, int type) {
-        if (type == ACTION_SIGN_IN) {
+    private void post(String[] src, int action) {
+        if (action == ACTION_SIGN_IN) {
             Retro.inst().create(ISignIn.class)
-                    .impl(src[0], src[1])
+                    .sign_in(src[0], src[1])
                     .subscribeOn(Schedulers.io())
                     //.observeOn(AndroidSchedulers.mainThread())
-                    .compose(this.<RSignIn>bindUntilEvent(ActivityEvent.DESTROY))
-                    .subscribe(r -> handleState(r.state, r.user));
-        } else {
-            Retro.inst().create(ISignUp.class)
-                    .impl(src[0], src[1], src[2])
+                    .compose(bindUntilEvent(ActivityEvent.DESTROY))
+                    .subscribe(r -> handle_response(r.state, r.user));
+        } else if (action == ACTION_SIGN_UP) {
+            Retro.inst().create(ISignIn.class)
+                    .sign_up(src[0], src[1], src[2])
                     .subscribeOn(Schedulers.io())
                     //.observeOn(AndroidSchedulers.mainThread())
-                    .compose(this.<Integer>bindUntilEvent(ActivityEvent.DESTROY))
-                    .subscribe(this::handleState);
+                    .compose(bindUntilEvent(ActivityEvent.DESTROY))
+                    .subscribe(this::handle_response);
         }
     }
 
-    private void handleState(int state) {
-        handleState(state, null);
+    private void handle_response(int state) {
+        handle_response(state, null);
     }
 
-    private void handleState(int state, User user) {
+    private void handle_response(int state, User user) {
         if (state == -1) return;
         runOnUiThread(() -> Toast.makeText(this, code[state], Toast.LENGTH_SHORT).show());
         if (state == SIGN_UP_SUCCESS) {
-            post(inputs, ACTION_SIGN_IN);
+            post(new String[]{inputs[1], inputs[2]}, ACTION_SIGN_IN);
         } else if (state == SIGN_IN_SUCCESS) {
             DAO.insert(user, DAO.TYPE_USER);
-            startActivity(mIntent);
+            startActivity(new Intent(this, Main.class));
         }
-    }
-
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_BACK) {
-            if (metro.getCurrent() != null) {
-                metro.removeCurrent();
-                return false;
-            }
-        }
-        return super.onKeyDown(keyCode, event);
-    }
-
-    public void change(View view) {
-        View v = getLayoutInflater().inflate(R.layout.edit_layout, null);
-        EditText changeEdit = (EditText) v.findViewById(R.id.sign_in_edit);
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage("改变设置？");
-        builder.setNegativeButton("取消", null);
-        builder.setPositiveButton("确定", null);
-        builder.setView(v);
-        AlertDialog dialog = builder.create();
-        dialog.show();
-        dialog.getButton(DialogInterface.BUTTON_POSITIVE).setOnClickListener(view1 -> {
-            Params.ip = changeEdit.getText().toString();
-            Toast.makeText(this, "IP改变成功", Toast.LENGTH_SHORT).show();
-            dialog.cancel();
-        });
     }
 
     @Override
     protected void onStop() {
         super.onStop();
+        if (dialog != null) {
+            dialog.cancel();
+        }
         finish();
     }
+
 
 }

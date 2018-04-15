@@ -25,6 +25,7 @@ import com.yzx.bangbang.Service.INetworkService;
 import com.yzx.bangbang.Service.NetworkService;
 import com.yzx.bangbang.activity.Main;
 import com.yzx.bangbang.interfaces.network.IMain;
+import com.yzx.bangbang.model.Contact;
 import com.yzx.bangbang.model.Notify;
 import com.yzx.bangbang.utils.Params;
 import com.yzx.bangbang.utils.netWork.Retro;
@@ -40,8 +41,9 @@ import io.reactivex.schedulers.Schedulers;
 import model.Assignment;
 
 public class MainPresenter {
-    private static Main main;
+    private Main main;
     private int user_id;
+    private boolean is_service_bind;
 
     public void init(int user_id) {
         this.user_id = user_id;
@@ -53,9 +55,9 @@ public class MainPresenter {
         //testPush();
     }
 
-    public void getAssignment(Consumer<List<Assignment>> consumer, int mode) {
+    public void getAssignment(int mode, int what, Consumer<List<Assignment>> consumer) {
         Retro.withList().create(IMain.class)
-                .get_assignment(mode)
+                .get_assignment(mode, what)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .compose(main.<List<Assignment>>bindUntilEvent(ActivityEvent.DESTROY))
@@ -115,6 +117,7 @@ public class MainPresenter {
                 }
             }
         };
+        is_service_bind = true;
         main.bindService(new Intent(main, NetworkService.class), connection, Context.BIND_AUTO_CREATE);
     }
 
@@ -131,8 +134,18 @@ public class MainPresenter {
         }
     };
 
+    public void get_contacts(int user_id, Consumer<List<Contact>> consumer) {
+        Retro.withList().create(IMain.class)
+                .get_contacts(user_id)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .compose(main.<List<Contact>>bindUntilEvent(ActivityEvent.DESTROY))
+                .subscribe(consumer);
+    }
+
+
     public MainPresenter(Main main) {
-        MainPresenter.main = main;
+        this.main = main;
     }
 
     private void getLocation() {
@@ -173,7 +186,10 @@ public class MainPresenter {
     }
 
     public void detach() {
-        main.unbindService(connection);
+        if (is_service_bind && main != null) {
+            main.unbindService(connection);
+            is_service_bind = false;
+        }
         main = null;
     }
 }

@@ -111,7 +111,7 @@ public class util {
         return list;
     }
 
-    public static int px(int dp) {
+    public static int dp2px(int dp) {
         return (int) (dp * Params.scale + 0.5f);
     }
 

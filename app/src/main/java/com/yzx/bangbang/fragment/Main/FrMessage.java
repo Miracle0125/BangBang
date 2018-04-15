@@ -1,35 +1,22 @@
 package com.yzx.bangbang.fragment.Main;
 
-
 import android.app.Fragment;
-import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.TextView;
-
-import com.facebook.drawee.view.SimpleDraweeView;
-import com.google.gson.Gson;
-import com.yzx.bangbang.activity.ChatActivity;
 import com.yzx.bangbang.activity.Main;
-import com.yzx.bangbang.model.Mysql.ChatRecord;
-import com.yzx.bangbang.model.SimpleIndividualInfo;
 import com.yzx.bangbang.R;
-import com.yzx.bangbang.utils.netWork.OkHttpUtil;
-import com.yzx.bangbang.utils.netWork.UniversalImageDownloader;
-import com.yzx.bangbang.utils.util;
+import com.yzx.bangbang.utils.FrMetro;
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 
-import java.util.List;
-
-public class FrMessage extends Fragment implements View.OnClickListener {
-
-    Gson gson = new Gson();
-    UniversalImageDownloader downloader;
-    ViewGroup container;
+public class FrMessage extends Fragment {
     View v;
-    Adapter adapter;
+    FrMetro fm;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         v = inflater.inflate(R.layout.main_fr_message, container, false);
@@ -37,115 +24,56 @@ public class FrMessage extends Fragment implements View.OnClickListener {
         return v;
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        if (container != null)
-            container.removeAllViews();
-        get_convr_id();
-    }
-
     private void init() {
-        downloader = new UniversalImageDownloader(get());
-        container = (ViewGroup) v.findViewById(R.id.main_fr_msg_container);
-        adapter = new Adapter(get().getLayoutInflater(), container, get());
+        ButterKnife.bind(this, v);
+        fm = new FrMetro(getFragmentManager(), R.id.fragment_container);
+        fm.goToFragment(fragments[0]);
+        toggle_background = new FrameLayout[]{toggle_message, toggle_contacts};
+        toggle_tv = new TextView[]{text_message, text_contacts};
     }
 
 
-    private void get_convr_id() {
-        OkHttpUtil okhttp = OkHttpUtil.inst((s) -> {
-            if (s.length() == 0 || s.charAt(0) == '<') return;
-            TempList tempList = gson.fromJson(s, TempList.class);
-            for (Convr convr : tempList.list) {
-                getChatRecord(convr.convr_id);
-            }
-        });
-        okhttp.addPart("sql", "select distinct(convr_id) from `chat_record` where `user_id` = '" + Main.user.getId() + "' or `obj_user_id` = '" + Main.user.getId() + "'");
-        okhttp.post("query_data_common");
-    }
-
-//    class ss(val name:String){
-//
-//    }
-
-    private void getChatRecord(String convr_id) {
-        OkHttpUtil okhttp = OkHttpUtil.inst((s) -> {
-            if (s.length() == 0 || s.charAt(0) == '<') return;
-            ChatRecordContainer container = gson.fromJson(s, ChatRecordContainer.class);
-            get().runOnUiThread(() -> {
-                addItem(container.list.get(0));
-            });
-        });
-        okhttp.addPart("sql", "select * from `chat_record` where `convr_id` = '" + convr_id + "' order by date desc limit 1");
-        okhttp.post("query_data_common");
-    }
-
-    private void addItem(ChatRecord chatRecord) {
-        container.addView(adapter.inflate(chatRecord));
-    }
-
-    private class Adapter {
-        LayoutInflater inflater;
-        Context context;
-        ViewGroup parent;
-
-        public Adapter(LayoutInflater inflater, ViewGroup parent, Context context) {
-            this.inflater = inflater;
-            this.context = context;
-            this.parent = parent;
-        }
-
-        public View inflate(ChatRecord chatRecord) {
-            View v = inflater.from(context).inflate(R.layout.main_fr_message_item, parent, false);
-            TextView tv = (TextView) v.findViewById(R.id.main_fr_msg_name);
-            String obj_user_name;
-            if (chatRecord.user_name.equals(Main.user.getName())) {
-                tv.setText(chatRecord.obj_user_name);
-                obj_user_name = chatRecord.obj_user_name;
-            } else {
-                tv.setText(chatRecord.user_name);
-                obj_user_name = chatRecord.user_name;
-            }
-            tv = (TextView) v.findViewById(R.id.main_fr_msg_date);
-            tv.setText(util.transform_date(util.getDate(chatRecord.date)));
-            tv = (TextView) v.findViewById(R.id.main_fr_msg_content);
-            tv.setText(chatRecord.message);
-            int obj_user_id;
-            if (chatRecord.user_id == Main.user.getId())
-                obj_user_id = chatRecord.obj_user_id;
-            else
-                obj_user_id = chatRecord.user_id;
-            downloader.downLoadPortrait(obj_user_id, (SimpleDraweeView) v.findViewById(R.id.main_fr_msg_portrait));
-            v.setTag(new SimpleIndividualInfo(obj_user_id, obj_user_name));
-            v.setOnClickListener(FrMessage.this);
-            return v;
+    @OnClick({R.id.toggle_message, R.id.toggle_contacts})
+    void toggle(View v) {
+        if (v.getId() == R.id.toggle_message) {
+            if (toggle_flag == 0) return;
+            high_light(0);
+            fm.goToFragment(fragments[0]);
+        } else {
+            if (toggle_flag == 1) return;
+            high_light(1);
+            fm.goToFragment(fragments[1]);
         }
     }
 
-    @Override
-    public void onClick(View view) {
-        SimpleIndividualInfo info = (SimpleIndividualInfo) view.getTag();
-        if (info == null) return;
-        Intent i = new Intent(getActivity(), ChatActivity.class);
-        i.putExtra("info", info);
-        getActivity().startActivity(i);
+    private void high_light(int pos) {
+        toggle_flag = pos;
+        toggle_background[pos].setBackgroundColor(getResources().getColor(R.color.blue_button));
+        toggle_tv[pos].setTextColor(getResources().getColor(R.color.white));
+        if (++pos > 1) pos = 0;
+        toggle_background[pos].setBackgroundColor(getResources().getColor(R.color.white));
+        toggle_tv[pos].setTextColor(getResources().getColor(R.color.blue_button));
     }
 
-    private Main get() {
+    private void go_to_fragment(int pos) {
+
+    }
+
+    private Main context() {
         return ((Main) getActivity());
     }
 
-    private class ChatRecordContainer {
-        List<ChatRecord> list;
-    }
-
-    private class TempList {
-        List<Convr> list;
-    }
-
-    private class Convr {
-        String convr_id;
-    }
-
+    @BindView(R.id.toggle_message)
+    FrameLayout toggle_message;
+    @BindView(R.id.toggle_contacts)
+    FrameLayout toggle_contacts;
+    @BindView(R.id.text_message)
+    TextView text_message;
+    @BindView(R.id.text_contacts)
+    TextView text_contacts;
+    FrameLayout[] toggle_background;
+    TextView[] toggle_tv;
+    private static final Class[] fragments = new Class[]{FrChatRecords.class,FrContacts.class};
+    private int toggle_flag = 0;
 
 }

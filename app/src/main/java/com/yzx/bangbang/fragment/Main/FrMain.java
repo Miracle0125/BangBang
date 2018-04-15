@@ -6,7 +6,6 @@ import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,9 +24,7 @@ import butterknife.ButterKnife;
 import io.reactivex.Flowable;
 
 
-/**
- * 我既讨厌写注释，又讨厌看别人不写注释的代码。好了我现在开始看一年前的代码了。
- */
+
 public class FrMain extends Fragment {
 
     @Nullable
@@ -52,7 +49,7 @@ public class FrMain extends Fragment {
     private void refresh() {
         if (!swipeRefreshLayout.isRefreshing())
             swipeRefreshLayout.setRefreshing(true);
-        context().presenter.getAssignment((r) -> {
+        context().presenter.getAssignment(sort_type, 0, (r) -> {
             adapter.setData(r);
             adapter.notifyDataSetChanged();
             if (recyclerView.getLayoutManager() == null)
@@ -61,7 +58,7 @@ public class FrMain extends Fragment {
                 recyclerView.setAdapter(adapter);
 
             swipeRefreshLayout.setRefreshing(false);
-        }, sort_type);
+        });
     }
 
     private void initSpinner() {

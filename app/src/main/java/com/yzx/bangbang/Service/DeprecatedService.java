@@ -80,7 +80,7 @@ public class DeprecatedService extends Service {
             }
             initCountMap();
         });
-        okHttpUtil.addPart("sql", "", "select id from assignment where employer_id = " + Main.user.getId(), OkHttpUtil.MEDIA_TYPE_JSON);
+       // okHttpUtil.addPart("sql", "", "select id from assignment where employer_id = " + Main.user.getId(), OkHttpUtil.MEDIA_TYPE_JSON);
         okHttpUtil.post("query_data_common");
     }
 
@@ -106,13 +106,13 @@ public class DeprecatedService extends Service {
             };
             timer.schedule(task, 0, 3500);
         });
-        okHttpUtil.addPart("sql", "", "select * from explore_record where user_id = " + Main.user.getId(), OkHttpUtil.MEDIA_TYPE_JSON);
+        //okHttpUtil.addPart("sql", "", "select * from explore_record where user_id = " + Main.user.getId(), OkHttpUtil.MEDIA_TYPE_JSON);
         okHttpUtil.post("query_data_common");
     }
 
     //浏览消息后会更新Map的数据
     public void queryMessage(List<Integer> assignments) {
-        if (assignments == null || assignments.size() == 0 || Main.ref.get() == null || id_count.size() == 0)
+        if (assignments == null || assignments.size() == 0 || id_count.size() == 0)
             return;
         OkHttpClient client = new OkHttpClient();
         for (int id : assignments) {
@@ -132,45 +132,45 @@ public class DeprecatedService extends Service {
                     int count = util.parseString(s, "count(*)");
                     int diff = count - id_count.get(id);
                     id_diff.put(id, diff);
-                    if (Main.ref.get() != null)
-                        Flowable.just(util.obtain_message(6)).subscribe(Main.ref.get().consumer);
+//                    if (Main.ref.get() != null)
+//                        Flowable.just(util.obtain_message(6)).subscribe(Main.ref.get().consumer);
                         //Main.ref.get().getHandler().sendEmptyMessage(6);
 
                 }
             });
         }
     }
-
-    public static void updateCount(int asm_id, int count) {
-        OkHttpUtil okHttpUtil = OkHttpUtil.inst(s -> {
-        });
-        okHttpUtil.addPart("sql", "", "update explore_record set servants = " + count + " where user_id = " + Main.user.getId() + " and asm_id = " + asm_id, OkHttpUtil.MEDIA_TYPE_JSON);
-        okHttpUtil.post("update_data_common");
-    }
+//
+//    public static void updateCount(int asm_id, int count) {
+//        OkHttpUtil okHttpUtil = OkHttpUtil.inst(s -> {
+//        });
+//        okHttpUtil.addPart("sql", "", "update explore_record set servants = " + count + " where user_id = " + Main.user.getId() + " and asm_id = " + asm_id, OkHttpUtil.MEDIA_TYPE_JSON);
+//        okHttpUtil.post("update_data_common");
+//    }
 
     //查询是否有记录
-    public static void checkIfHasRecord(int asm_id, int count) {
-        OkHttpUtil okHttpUtil = OkHttpUtil.inst(s -> {
-            if (s.length() == 0 || s.charAt(0) == '<') return;
-            int c = util.parseString(s, "count(*)");
-            if (c > 0) {
-                updateCount(asm_id, count);
-            } else {
-                insertRecord(asm_id, count);
-            }
-            id_count.put(asm_id, count);
-        });
-        okHttpUtil.addPart("sql", "select count(*) from explore_record where user_id = " + Main.user.getId() + " and asm_id = " + asm_id);
-        okHttpUtil.post("query_data_common");
-    }
+//    public static void checkIfHasRecord(int asm_id, int count) {
+//        OkHttpUtil okHttpUtil = OkHttpUtil.inst(s -> {
+//            if (s.length() == 0 || s.charAt(0) == '<') return;
+//            int c = util.parseString(s, "count(*)");
+//            if (c > 0) {
+//                updateCount(asm_id, count);
+//            } else {
+//                insertRecord(asm_id, count);
+//            }
+//            id_count.put(asm_id, count);
+//        });
+//        okHttpUtil.addPart("sql", "select count(*) from explore_record where user_id = " + Main.user.getId() + " and asm_id = " + asm_id);
+//        okHttpUtil.post("query_data_common");
+//    }
 
     //当浏览过消息时，记录当时消息的帮众数量，如果以后帮众数量变得更多，消息为高亮
-    private static void insertRecord(int asm_id, int count) {
-        OkHttpUtil okHttpUtil = OkHttpUtil.inst(s -> {
-        });
-        okHttpUtil.addPart("sql", "insert into explore_record (`user_id`,`asm_id`,`servants`) values ('" + Main.user.getId() + "','" + asm_id + "','" + count + "')");
-        okHttpUtil.post("update_data_common");
-    }
+//    private static void insertRecord(int asm_id, int count) {
+//        OkHttpUtil okHttpUtil = OkHttpUtil.inst(s -> {
+//        });
+//        okHttpUtil.addPart("sql", "insert into explore_record (`user_id`,`asm_id`,`servants`) values ('" + Main.user.getId() + "','" + asm_id + "','" + count + "')");
+//        okHttpUtil.post("update_data_common");
+//    }
 
     private String getUrl(String servlet) {
         return "http://" + Params.ip + ":8080/BangBang/" + servlet;

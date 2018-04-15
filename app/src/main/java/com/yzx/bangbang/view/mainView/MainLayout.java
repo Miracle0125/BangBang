@@ -2,31 +2,28 @@ package com.yzx.bangbang.view.mainView;
 
 
 import android.content.Context;
-import android.os.Message;
+import android.graphics.Color;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.trello.rxlifecycle2.android.ActivityEvent;
 import com.yzx.bangbang.activity.Main;
-import com.yzx.bangbang.activity.NewAssignment;
 import com.yzx.bangbang.fragment.Main.FrMain;
 import com.yzx.bangbang.fragment.Main.FrMessage;
+import com.yzx.bangbang.fragment.Main.FrMyProject;
 import com.yzx.bangbang.fragment.Main.FrNotify;
 import com.yzx.bangbang.fragment.Main.FrUser;
 import com.yzx.bangbang.R;
 import com.yzx.bangbang.utils.FrMetro;
-import com.yzx.bangbang.utils.Params;
-import com.yzx.bangbang.utils.util;
 
 import java.util.Arrays;
 import java.util.List;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import io.reactivex.Flowable;
 
 
 public class MainLayout extends RelativeLayout {
@@ -45,11 +42,18 @@ public class MainLayout extends RelativeLayout {
         this.context = (Main) context;
     }
 
-    private static int current_index = 0;
-    List<Integer> button_id;
-    String[] fragment_name = new String[]{"主页", "通知", "私信", "用户", ""};
-    Class[] target_class = new Class[]{FrMain.class, FrNotify.class, FrMessage.class, FrUser.class, NewAssignment.class};
-    ImageView[] selector;
+    private int current_index = 0;
+    private final static List<Integer> button_id = Arrays.asList(
+            R.id.main_select_home
+            , R.id.main_select_notify
+            , R.id.main_select_my_project
+            , R.id.main_select_message
+            , R.id.main_select_user
+    );
+    private final static String[] fragment_name = new String[]{"主页", "通知", "我的项目", "私信", "用户"};
+    private final static Class[] target_class = new Class[]{FrMain.class, FrNotify.class, FrMyProject.class, FrMessage.class, FrUser.class};
+    ImageView[] selector = new ImageView[button_id.size()];
+    @BindView(R.id.toolbar)
     TextView toolbar;
     public FrMetro metro;
 
@@ -60,47 +64,36 @@ public class MainLayout extends RelativeLayout {
     }
 
     void init() {
-        button_id = Arrays.asList(
-                R.id.main_select_main
-                , R.id.main_select_news
-                , R.id.main_select_message
-                , R.id.main_select_client
-                , R.id.main_new_assign);
-        selector = new ImageView[button_id.size()];
         ButterKnife.bind(this);
-        toolbar = findViewById(R.id.toolbar);
         initSelector();
         metro = new FrMetro(context.getFragmentManager(), R.id.main_fr_container);
         metro.goToFragment(FrMain.class);
     }
 
-    @OnClick({R.id.main_select_main
-            , R.id.main_select_news
+    @OnClick({R.id.main_select_home
+            , R.id.main_select_notify
             , R.id.main_select_message
-            , R.id.main_select_client
-            , R.id.main_new_assign})
+            , R.id.main_select_user
+            , R.id.main_select_my_project})
     public void onClick(View v) {
-        if (v.getId() == R.id.main_new_assign) {
-            Flowable.just(util.obtain_message(Main.ACTION_NEW_ASSIGNMENT))
-                    .compose(context.<Message>bindUntilEvent(ActivityEvent.DESTROY))
-                    .subscribe(context.consumer);
-        } else {
-            int idx = button_id.indexOf(v.getId());
-            toolbar.setText(fragment_name[idx]);
-            changeFocus(idx);
-            metro.goToFragment(target_class[idx]);
-        }
+//        if (v.getId() == R.id.main_select_my_project) {
+//            Flowable.just(util.obtain_message(Main.ACTION_NEW_ASSIGNMENT))
+//                    .compose(context.<Message>bindUntilEvent(ActivityEvent.DESTROY))
+//                    .subscribe(context.consumer);
+//        } else {
+        int idx = button_id.indexOf(v.getId());
+        toolbar.setText(fragment_name[idx]);
+        changeFocus(idx);
+        metro.goToFragment(target_class[idx]);
     }
 
     private void initSelector() {
         for (int i = 0; i < button_id.size(); i++)
-            selector[i] = ((ImageView) findViewById(button_id.get(i)));
-        for (ImageView imageView : selector)
-            imageView.setClickable(true);
-//            ntf_news = (TextView) findViewById(R.id.main_ntf_circle0);
-//            ntf_message = (TextView) findViewById(R.id.main_ntf_circle1);
-        selector[0].setColorFilter(Params.COLOR_BLUE_MAIN);
-        changeFocus(current_index);
+            selector[i] = (findViewById(button_id.get(i)));
+//        for (ImageView imageView : selector)
+//            imageView.setClickable(true);
+        selector[0].setColorFilter(getResources().getColor(R.color.blue_button));
+       // changeFocus(current_index);
     }
 
     //改变颜色
@@ -108,7 +101,7 @@ public class MainLayout extends RelativeLayout {
         if (i == current_index) return;
         int old = current_index;
         current_index = i;
-        selector[current_index].setColorFilter(Params.COLOR_BLUE_MAIN);
-        selector[old].setColorFilter(Params.COLOR_GRAY);
+        selector[current_index].setColorFilter(getResources().getColor(R.color.blue_button));
+        selector[old].setColorFilter(Color.parseColor("#bdc3c7"));
     }
 }

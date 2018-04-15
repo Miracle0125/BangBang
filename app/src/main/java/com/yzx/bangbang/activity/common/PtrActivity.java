@@ -27,7 +27,7 @@ public abstract class PtrActivity extends RxAppCompatActivity {
         ViewGroup ptrLayout = (ViewGroup) View.inflate(this, R.layout.common_ptr, null);
         header = ptrLayout.findViewById(R.id.ptr_header);
         header.setColorSchemeColors(getResources().getIntArray(R.array.ptr_colors));
-        header.setPadding(0, util.px(15), 0, util.px(10));
+        header.setPadding(0, util.dp2px(15), 0, util.dp2px(10));
         ptrUIListener = header.getUIListener();
         //ptrLayout.registerPtrUIListener(ptrUIListener);
         ptrLayout.addView(v, rl);

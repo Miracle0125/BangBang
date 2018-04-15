@@ -24,7 +24,7 @@ import java.lang.ref.WeakReference;
  */
 public class Params {
     //public static String ip = "192.168.23.1";
-    public static String ip = "222.210.2.86";
+    public static String ip = "222.210.1.121";
     public static boolean use_default_account = true;
     public static final String DATABASE = "DateBase";
     public static int screenHeight, screenWidth, statusHeight;
@@ -112,7 +112,7 @@ public class Params {
         COLOR_DEEP_BLUE = resources.getColor(R.color.deep_blue);
         COLOR_GREEN = Color.parseColor("#006000");
         COLOR_RED = Color.parseColor("#CC0000");
-        COLOR_WHITE = Color.parseColor("#ffffff");
+        COLOR_WHITE = Color.parseColor("#FAFAFA");
         COLOR_LIGHT_BLUE = resources.getColor(R.color.light_blue);
     }
 }

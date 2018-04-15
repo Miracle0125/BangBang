@@ -94,7 +94,7 @@ public class FrBids extends Fragment {
             Bid bid = bids.get(i);
             h.setOnClickListener(onClickListener);
             h.button_choose.setTag(bid);
-            h.bind(bid, context.IS_USER_SAME_WITH_HOST);
+            h.bind(bid, context.IS_USER_SAME_WITH_HOST, context.assignment.getStatus());
         }
 
         @Override

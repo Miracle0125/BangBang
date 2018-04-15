@@ -657,7 +657,7 @@ public class MaterialProgressDrawable extends Drawable implements Animatable {
         }
 
         /**
-         * @param centerRadius Inner radius in px of the circle the progress
+         * @param centerRadius Inner radius in dp2px of the circle the progress
          *                     spinner arc traces.
          */
         public void setCenterRadius(double centerRadius) {

@@ -168,7 +168,8 @@ public class NewAssignment extends RxAppCompatActivity {
                 0,
                 0,
                 latLng == null ? 0 : latLng.latitude,
-                latLng == null ? 0 : latLng.longitude));
+                latLng == null ? 0 : latLng.longitude,
+                0));
         List<File> image_files = new ArrayList<>();
         Flowable.fromIterable(paths).map(File::new)
                 .doOnComplete(() -> upload(assignment, image_files))

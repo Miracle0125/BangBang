@@ -57,35 +57,35 @@ public class FrConcern extends Fragment implements View.OnClickListener {
             ((IndvInfo) getActivity()).updateFragmentBackground();
         });
         toolbar_title = (TextView) v.findViewById(R.id.toolbar_title);
-        if (info != null) {
-            if (isHisConcernList) {
-                if (info.id == Main.user.getId()) {
-                    toolbar_title.setText("我关注的人");
-                } else {
-                    toolbar_title.setText("他关注的人");
-                }
-            }else{
-                if (info.id == Main.user.getId()) {
-                    toolbar_title.setText("关注我的人");
-                } else {
-                    toolbar_title.setText("关注他的人");
-                }
-            }
-        }
+//        if (info != null) {
+//            if (isHisConcernList) {
+//                if (info.id == Main.user.getId()) {
+//                    toolbar_title.setText("我关注的人");
+//                } else {
+//                    toolbar_title.setText("他关注的人");
+//                }
+//            }else{
+//                if (info.id == Main.user.getId()) {
+//                    toolbar_title.setText("关注我的人");
+//                } else {
+//                    toolbar_title.setText("关注他的人");
+//                }
+//            }
+//        }
     }
 
     private void loadList(){
-        String sql1 = "select * from event where user_id = " + Main.user.getId() + " and type = 2";
-        String sql2 = "select * from event where obj_user_id = " + Main.user.getId() + " and type = 2";
-        OkHttpUtil okhttp = OkHttpUtil.inst(s->{
-            if(s.length()==0||s.charAt(0)=='<') return;
-            Receiver receiver = gson.fromJson(s,Receiver.class);
-            addItem(receiver.list);
-        });
-        if (isHisConcernList)
-        okhttp.addPart("sql",sql1 );
-        else okhttp.addPart("sql",sql2 );
-        okhttp.post("query_data_common");
+//        String sql1 = "select * from event where user_id = " + Main.user.getId() + " and type = 2";
+//        String sql2 = "select * from event where obj_user_id = " + Main.user.getId() + " and type = 2";
+//        OkHttpUtil okhttp = OkHttpUtil.inst(s->{
+//            if(s.length()==0||s.charAt(0)=='<') return;
+//            Receiver receiver = gson.fromJson(s,Receiver.class);
+//            addItem(receiver.list);
+//        });
+//        if (isHisConcernList)
+//        okhttp.addPart("sql",sql1 );
+//        else okhttp.addPart("sql",sql2 );
+//        okhttp.post("query_data_common");
     }
 
     private void addItem(List<EventModule> list){

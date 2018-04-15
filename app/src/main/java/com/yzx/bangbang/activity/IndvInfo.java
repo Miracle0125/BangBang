@@ -73,8 +73,8 @@ public class IndvInfo extends AppCompatActivity implements View.OnClickListener 
         }
         initView();
         new Thread(this::getIndvInfo).start();
-        if (!isUser)
-            checkIfHasConcerned();
+        //if (!isUser)
+           // checkIfHasConcerned();
         //SpUtil.putString(SpUtil.SAVED_INFO, String.valueOf(ActivityManager.getLayer()), gson.toJson(info));
     }
 
@@ -188,36 +188,36 @@ public class IndvInfo extends AppCompatActivity implements View.OnClickListener 
             findViewById(R.id.fragment_container).setBackgroundColor(getResources().getColor(R.color.opaque));
     }
 
-    private void concernUser() {
-        OkHttpUtil okhttp = OkHttpUtil.inst((s) -> {
-            if (s.equals("success"))
-                updateNumConcern(true);
-        });
-        String sql1 = "insert into `event` (`user_id`, `user_name`, `date`, `type`, `obj_user_id`, `obj_user_name`) values ('" + Main.user.getId() + "','" + Main.user.getName() + "','" + util.getDate() + "','" + String.valueOf(Params.EVENT_TYPE_CONCERN_PERSON) + "','" + indv_id + "','" + indv_name + "');";
-        okhttp.addPart("sql", "", sql1, OkHttpUtil.MEDIA_TYPE_JSON);
-        okhttp.post("update_data_common");
-    }
+//    private void concernUser() {
+//        OkHttpUtil okhttp = OkHttpUtil.inst((s) -> {
+//            if (s.equals("success"))
+//                updateNumConcern(true);
+//        });
+//        String sql1 = "insert into `event` (`user_id`, `user_name`, `date`, `type`, `obj_user_id`, `obj_user_name`) values ('" + Main.user.getId() + "','" + Main.user.getName() + "','" + util.getDate() + "','" + String.valueOf(Params.EVENT_TYPE_CONCERN_PERSON) + "','" + indv_id + "','" + indv_name + "');";
+//        okhttp.addPart("sql", "", sql1, OkHttpUtil.MEDIA_TYPE_JSON);
+//        okhttp.post("update_data_common");
+//    }
 
-    private void cancelConcern() {
-        OkHttpUtil okhttp = OkHttpUtil.inst((s) -> {
-            if (s.equals("success"))
-                updateNumConcern(false);
-        });
-        String sql1 = "delete from `event` where user_id = '" + Main.user.getId() + "' and obj_user_id = '" + indv_id + "' and type = 2";
-        okhttp.addPart("sql", "", sql1, OkHttpUtil.MEDIA_TYPE_JSON);
-        okhttp.post("update_data_common");
-    }
+//    private void cancelConcern() {
+//        OkHttpUtil okhttp = OkHttpUtil.inst((s) -> {
+//            if (s.equals("success"))
+//                updateNumConcern(false);
+//        });
+//        String sql1 = "delete from `event` where user_id = '" + Main.user.getId() + "' and obj_user_id = '" + indv_id + "' and type = 2";
+//        okhttp.addPart("sql", "", sql1, OkHttpUtil.MEDIA_TYPE_JSON);
+//        okhttp.post("update_data_common");
+//    }
 
-    private void updateNumConcern(boolean isIncrease) {
-        String symbol = isIncrease ? "+" : "-";
-        String sql2 = "update `user_record` set `num_concern`  = num_concern " + symbol + " '1' where user_id = '" + Main.user.getId() + "';";
-        OkHttpUtil okhttp = OkHttpUtil.inst((s) -> {
-            if (s.equals("success"))
-                updateNumFollower(isIncrease);
-        });
-        okhttp.addPart("sql", "", sql2, OkHttpUtil.MEDIA_TYPE_JSON);
-        okhttp.post("update_data_common");
-    }
+//    private void updateNumConcern(boolean isIncrease) {
+//        String symbol = isIncrease ? "+" : "-";
+//        String sql2 = "update `user_record` set `num_concern`  = num_concern " + symbol + " '1' where user_id = '" + Main.user.getId() + "';";
+//        OkHttpUtil okhttp = OkHttpUtil.inst((s) -> {
+//            if (s.equals("success"))
+//                updateNumFollower(isIncrease);
+//        });
+//        okhttp.addPart("sql", "", sql2, OkHttpUtil.MEDIA_TYPE_JSON);
+//        okhttp.post("update_data_common");
+//    }
 
     //the last method of 3
     private void updateNumFollower(boolean isIncrease) {
@@ -231,28 +231,28 @@ public class IndvInfo extends AppCompatActivity implements View.OnClickListener 
                     else
                         Toast.makeText(IndvInfo.this, "已取消关注", Toast.LENGTH_SHORT).show();
                 });
-                checkIfHasConcerned();
+               // checkIfHasConcerned();
             }
         });
         okhttp.addPart("sql", "", sql3, OkHttpUtil.MEDIA_TYPE_JSON);
         okhttp.post("update_data_common");
     }
 
-    private void checkIfHasConcerned() {
-        OkHttpUtil okhttp = OkHttpUtil.inst((s) -> {
-            if (s.length() == 0 || s.charAt(0) == '<') return;
-            int i = util.parseString(s, "count(*)");
-            if (i == 1) {
-                hasConcernUser = true;
-                runOnUiThread(() -> updateConcernButton(true));
-            } else if (i == 0) {
-                hasConcernUser = false;
-                runOnUiThread(() -> updateConcernButton(false));
-            }
-        });
-        okhttp.addPart("sql", "select count(*) from event where user_id = '" + Main.user.getId() + "' and type = 2 and obj_user_id = '" + indv_id + "'");
-        okhttp.post("query_data_common");
-    }
+//    private void checkIfHasConcerned() {
+//        OkHttpUtil okhttp = OkHttpUtil.inst((s) -> {
+//            if (s.length() == 0 || s.charAt(0) == '<') return;
+//            int i = util.parseString(s, "count(*)");
+//            if (i == 1) {
+//                hasConcernUser = true;
+//                runOnUiThread(() -> updateConcernButton(true));
+//            } else if (i == 0) {
+//                hasConcernUser = false;
+//                runOnUiThread(() -> updateConcernButton(false));
+//            }
+//        });
+//        okhttp.addPart("sql", "select count(*) from event where user_id = '" + Main.user.getId() + "' and type = 2 and obj_user_id = '" + indv_id + "'");
+//        okhttp.post("query_data_common");
+//    }
 
     private void updateConcernButton(boolean concern) {
         if (concern) {
@@ -292,9 +292,9 @@ public class IndvInfo extends AppCompatActivity implements View.OnClickListener 
                 startChatActivity();
                 break;
             case R.id.indv_btn_concern:
-                if (hasConcernUser) cancelConcern();
-                else
-                    concernUser();
+               // if (hasConcernUser) cancelConcern();
+               // else
+                //    concernUser();
                 break;
             case R.id.indv_block_concern:
                 showConcernFragment(true);

@@ -1,5 +1,6 @@
 package com.yzx.bangbang.interfaces.network;
 
+import com.yzx.bangbang.model.Contact;
 import com.yzx.bangbang.model.Notify;
 
 import java.util.List;
@@ -14,7 +15,7 @@ import retrofit2.http.Query;
 
 public interface IMain {
     @GET("get_assignment")
-    Flowable<List<Assignment>> get_assignment(@Query("mode") int mode);
+    Flowable<List<Assignment>> get_assignment(@Query("mode") int mode, @Query("what") int what);
 
     @POST("new_assignment")
     Flowable<Integer> new_assignment(@Query("assignment") String s, @Body MultipartBody body);
@@ -24,5 +25,8 @@ public interface IMain {
 
     @POST("read_notify")
     Flowable<Integer> read_notify(@Query("id") int id);
+
+    @GET("get_contacts")
+    Flowable<List<Contact>> get_contacts(@Query("user_id") int user_id);
 }
 

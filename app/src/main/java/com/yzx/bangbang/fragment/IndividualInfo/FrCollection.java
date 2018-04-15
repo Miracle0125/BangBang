@@ -58,7 +58,7 @@ public class FrCollection extends Fragment implements View.OnClickListener {
             assignmentId = util.parseSingleColumnJsonInteger(s, "asm_id");
             downloadAssignment(assignmentId);
         });
-        okhttp.addPart("sql", "select asm_id from event where user_id = '" + Main.user.getId() + "' and type = 3");
+       // okhttp.addPart("sql", "select asm_id from event where user_id = '" + Main.user.getId() + "' and type = 3");
         okhttp.post("query_data_common");
     }
 

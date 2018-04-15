@@ -16,6 +16,7 @@
     <color name="bright_red">#FF0000</color>
     <color name="red">#FFCC0000</color>
     <color name="blue">#FF375BF1</color>
+    <color name="blue_button">#0086DF</color>
     <color name="yellow">#FFF7D23E</color>
     <color name="green">#99cc33</color>
     <color name="green1">#2AB049</color>
@@ -25,6 +26,8 @@
     <color name="gray">#808080</color>
     <color name="blue_mainTheme">#6498c8</color>
     <color name="deep_blue">#3366cc</color>
+    <color name="transparent">#00FFFFFF</color>
+    <color name="alphabet_high_light">#88808080</color>
 
 
 

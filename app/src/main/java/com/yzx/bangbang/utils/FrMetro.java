@@ -1,7 +1,9 @@
 package com.yzx.bangbang.utils;
+
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+
 import java.util.Stack;
 
 //用于快速跳转管理FRAGMENT的工具类
@@ -22,14 +24,23 @@ public class FrMetro {
         this.goToFragment(cls, 0);
     }
 
-    public void goToFragment(Class<?> cls, int Res) {
+    public void goToFragment(Class<?> cls, int res) {
+        this.goToFragment(cls, res, null);
+    }
+
+    public void goToFragment(Class<?> cls, String tag) {
+        this.goToFragment(cls, 0, tag);
+    }
+
+    public void goToFragment(Class<?> cls, int Res, String tag) {
         if (cls == null)
             return;
         if (Res == 0)
             Res = container;
         FragmentTransaction ft = fm.beginTransaction();
         try {
-            String Tag = cls.toString();
+
+            String Tag = tag == null ? cls.toString() : tag;
             Fragment fragment = fm.findFragmentByTag(Tag);
             if (current != null) {
                 ft.hide(current);
@@ -37,7 +48,7 @@ public class FrMetro {
             }
             if (fragment == null) {
                 fragment = (Fragment) cls.newInstance();
-                if (iFrMetro!=null){
+                if (iFrMetro != null) {
                     iFrMetro.onCreate(fragment);
                     iFrMetro = null;
                 }

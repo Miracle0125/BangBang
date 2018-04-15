@@ -17,4 +17,5 @@ class Assignment(var id: Int,
                  var comments: Int,
                  var status: Int,
                  var latitude: Double,
-                 var longitude: Double) : Serializable
+                 var longitude: Double,
+                 var what: Int) : Serializable

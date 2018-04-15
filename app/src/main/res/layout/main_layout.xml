@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.yzx.bangbang.view.mainView.MainLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:ignore="HardcodedText">
 
     <TextView
         android:id="@+id/toolbar"
@@ -14,68 +16,73 @@
         android:gravity="center"
         android:text="主页"
         android:textColor="@color/white"
-        android:textSize="16dp" />
+        android:textSize="16sp" />
 
     <FrameLayout
         android:id="@+id/main_fr_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/main_navigationBar"
+        android:layout_above="@+id/main_navigation_bar"
         android:layout_below="@+id/toolbar" />
 
-    <RelativeLayout
-        android:id="@+id/main_navigationBar"
+    <LinearLayout
+        android:id="@+id/main_navigation_bar"
         android:layout_width="match_parent"
-        android:layout_height="70dp"
-        android:layout_alignParentBottom="true">
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="vertical">
 
-        <com.facebook.drawee.view.SimpleDraweeView
-            android:id="@+id/main_new_assign"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
-            android:layout_centerHorizontal="true"
+        <include layout="@layout/divider2" />
 
-            app:placeholderImage="@drawable/main_new_assign" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="12dp">
 
-        <com.facebook.drawee.view.SimpleDraweeView
-            android:id="@+id/main_select_news"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_alignParentBottom="true"
-            android:layout_marginEnd="10dp"
-            android:layout_toStartOf="@+id/main_new_assign"
-            android:padding="20dp"
-            app:placeholderImage="@drawable/main_news" />
+            <ImageView
+                android:id="@+id/main_select_home"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_marginEnd="10dp"
+                android:layout_weight="1"
+                android:gravity="center_horizontal"
+                android:src="@drawable/icon_home_96" />
 
-        <com.facebook.drawee.view.SimpleDraweeView
-            android:id="@+id/main_select_main"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_alignParentBottom="true"
-            android:layout_marginEnd="10dp"
-            android:layout_toStartOf="@+id/main_select_news"
-            android:padding="20dp"
-            app:placeholderImage="@drawable/main_mainicon" />
+            <ImageView
+                android:id="@+id/main_select_notify"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_marginEnd="10dp"
+                android:layout_weight="1"
+                android:gravity="center_horizontal"
+                android:src="@drawable/icon_notify" />
 
-        <com.facebook.drawee.view.SimpleDraweeView
-            android:id="@+id/main_select_message"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_alignParentBottom="true"
-            android:layout_marginStart="10dp"
-            android:layout_toEndOf="@+id/main_new_assign"
-            android:padding="20dp"
-            app:placeholderImage="@drawable/main_message" />
+            <ImageView
+                android:id="@+id/main_select_my_project"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_weight="1"
+                android:gravity="center_horizontal"
+                android:src="@drawable/icon_list" />
 
-        <com.facebook.drawee.view.SimpleDraweeView
-            android:id="@+id/main_select_client"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_alignParentBottom="true"
-            android:layout_marginStart="10dp"
-            android:layout_toEndOf="@+id/main_select_message"
-            android:padding="20dp"
-            app:placeholderImage="@drawable/main_client" />
-    </RelativeLayout>
+            <ImageView
+                android:id="@+id/main_select_message"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_marginStart="10dp"
+                android:layout_weight="1"
+                android:gravity="center_horizontal"
+                android:src="@drawable/icon_message" />
 
+            <ImageView
+                android:id="@+id/main_select_user"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_marginStart="10dp"
+                android:layout_weight="1"
+                android:gravity="center_horizontal"
+                android:src="@drawable/icon_user" />
+        </LinearLayout>
+    </LinearLayout>
 </com.yzx.bangbang.view.mainView.MainLayout>

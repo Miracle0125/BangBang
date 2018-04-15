@@ -56,5 +56,18 @@
         <item name="android:colorPressedHighlight">#007ED1</item>
         <item name="android:textColor">@color/white</item>
     </style>
+    <style name="RedButton" parent="Widget.AppCompat.Button.Colored" >
+        <item name="colorButtonNormal">#ff2525</item>
+        <item name="android:colorPressedHighlight">#ff3a3a</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+    <style name="WhiteButton" parent="Widget.AppCompat.Button.Colored" >
+        <item name="colorButtonNormal">#FAFAFA</item>
+        <item name="android:colorPressedHighlight">#f1f1f1</item>
+    </style>
+    <style name="SignInEditText" parent="Theme.AppCompat.Light">
+        <item name="colorControlNormal">@color/white</item>
+        <item name="colorControlActivated">@color/colorPrimary</item>
+    </style>
 
 </resources>

@@ -2,6 +2,7 @@ package com.yzx.bangbang.interfaces.network;
 import com.yzx.bangbang.model.receiver.RSignIn;
 import io.reactivex.Flowable;
 import retrofit2.http.GET;
+import retrofit2.http.POST;
 import retrofit2.http.Query;
 
 /**
@@ -10,7 +11,11 @@ import retrofit2.http.Query;
 
 public interface ISignIn{
     @GET("sign_in")
-    Flowable<RSignIn> impl(@Query("account") String account, @Query("password") String password);
+    Flowable<RSignIn> sign_in(@Query("account") String account, @Query("password") String password);
+
+    @POST("sign_up")
+    Flowable<Integer> sign_up(@Query("username") String username, @Query("account") String account, @Query("password") String password);
+
 }
 
 

@@ -26,7 +26,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="2dp"
-            android:background="@drawable/round_rect">
+            android:background="@drawable/round_rect_blue">
 
             <TextView
                 android:id="@+id/evaluate"

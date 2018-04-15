@@ -26,13 +26,13 @@ public class BidHolder extends RecyclerView.ViewHolder {
         ButterKnife.bind(this, itemView);
     }
 
-    public void bind(Bid bid, boolean IS_USER_SAME_WITH_HOST) {
+    public void bind(Bid bid, boolean IS_USER_SAME_WITH_HOST, int status) {
         host_name.setText(bid.host_name);
         evaluate_view.setEvaluate(bid.evaluate);
         day_time.setText("在" + bid.day_time + "天内");
         price.setText("¥" + bid.price);
         host_portrait.setImageURI(Retro.get_portrait_uri(bid.host_id));
-        if (!IS_USER_SAME_WITH_HOST)
+        if (!IS_USER_SAME_WITH_HOST || status > 0)
             button_choose.setVisibility(View.GONE);
         else if (onClickListener != null)
             button_choose.setOnClickListener(v -> {
@@ -46,7 +46,7 @@ public class BidHolder extends RecyclerView.ViewHolder {
     }
 
     View.OnClickListener onClickListener;
-   public View v;
+    public View v;
     @BindView(R.id.host_name)
     TextView host_name;
     @BindView(R.id.host_portrait)
@@ -58,5 +58,5 @@ public class BidHolder extends RecyclerView.ViewHolder {
     @BindView(R.id.evaluate_view)
     EvaluateView evaluate_view;
     @BindView(R.id.button_choose)
-  public   Button button_choose;
+    public Button button_choose;
 }

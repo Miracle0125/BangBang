@@ -21,7 +21,11 @@ public class NetworkService extends Service {
         return binder;
     }
 
-
+    @Override
+    public boolean onUnbind(Intent intent) {
+        WebSocketManager.close();
+        return super.onUnbind(intent);
+    }
 
     private WebSocketListener webSocketListener = new WebSocketListener() {
         @Override
