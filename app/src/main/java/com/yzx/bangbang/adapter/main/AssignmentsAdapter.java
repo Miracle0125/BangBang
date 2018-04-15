@@ -9,6 +9,7 @@ import android.widget.TextView;
 import com.amap.api.maps.AMapUtils;
 import com.amap.api.maps.model.LatLng;
 import com.facebook.drawee.view.SimpleDraweeView;
+import com.yzx.bangbang.activity.BrowseAssignment;
 import com.yzx.bangbang.fragment.Main.FrMain;
 import com.yzx.bangbang.R;
 import com.yzx.bangbang.activity.Main;
@@ -21,24 +22,24 @@ import java.util.List;
 import model.Assignment;
 
 
-public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
+public class AssignmentsAdapter extends RecyclerView.Adapter<AssignmentsAdapter.ViewHolder> {
 
     private List<Assignment> data;
-    private Main main;
+    private BrowseAssignment context;
     private static int pos = 0;
     private static final int TYPE_DEFAULT = 0;
     private static final int TYPE_WITH_IMAGE = 1;
 
-    public MainAdapter(Context context) {
-        main = (Main) context;
+    public AssignmentsAdapter(Context context) {
+        this.context = (BrowseAssignment) context;
     }
 
     int layout[] = {R.layout.main_list_item, R.layout.main_list_item_with_images};
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
-        View v = main.getLayoutInflater().inflate(layout[i], viewGroup, false);
-        v.setOnClickListener(r -> listener.click(r));
+        View v = context.getLayoutInflater().inflate(R.layout.browse_assignment_item, viewGroup, false);
+        v.setOnClickListener(listener);
         return new ViewHolder(v, i);
     }
 
@@ -52,17 +53,17 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
         h.tv_price.setText(util.s(data.get(i).getPrice()));
         h.tv_price.setTextColor(util.price_color(data.get(i).getPrice()));
         h.tv_replies.setText(util.s(data.get(i).getServants()));
-        if (FrMain.distance != 0) {
-            LatLng user_pos = (LatLng) SpUtil.getObject(SpUtil.LATLNG);
-            if (user_pos != null) {
-                double lat = data.get(i).getLatitude();
-                double lng = data.get(i).getLongitude();
-                if (lat != 0 && lng != 0) {
-                    float dis = AMapUtils.calculateLineDistance(user_pos, new LatLng(lat, lng));
-                    h.tv_distance.setText("距离" + dis + "m");
-                }
-            }
-        }
+//        if (FrMain.distance != 0) {
+//            LatLng user_pos = (LatLng) SpUtil.getObject(SpUtil.LATLNG);
+//            if (user_pos != null) {
+//                double lat = data.get(i).getLatitude();
+//                double lng = data.get(i).getLongitude();
+//                if (lat != 0 && lng != 0) {
+//                    float dis = AMapUtils.calculateLineDistance(user_pos, new LatLng(lat, lng));
+//                    h.tv_distance.setText("距离" + dis + "m");
+//                }
+//            }
+//        }
         h.portrait.setImageURI(Retro.get_image_uri(String.valueOf(data.get(i).getEmployer_id()), Retro.IMAGE_PORTRAIT));
         int num_images = data.get(i).getImages();
         if (num_images > 0) {
@@ -107,12 +108,8 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
     }
 
 
+    View.OnClickListener listener;
 
-    public ClickListener listener;
-
-    public interface ClickListener {
-        void click(View v);
-    }
 
     @Override
     public int getItemViewType(int pos) {
@@ -123,7 +120,7 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
         this.data = data;
     }
 
-    public void setOnClickListener(ClickListener listener) {
+    public void setOnClickListener(View.OnClickListener listener) {
         this.listener = listener;
     }
 

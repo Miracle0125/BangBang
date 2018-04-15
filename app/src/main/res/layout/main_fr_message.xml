@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <include layout="@layout/main_fr_message_toggle" />
+    <include layout="@layout/widget_toggle_layout" />
 
     <FrameLayout
         android:layout_marginTop="15dp"

@@ -42,10 +42,6 @@ public class Main extends RxAppCompatActivity {
     public Consumer<Message> consumer = (msg) -> {
         Intent intent = null;
         switch (msg.what) {
-            case ACTION_SHOW_DETAIL:
-                intent = new Intent(this, AssignmentDetail.class);
-                intent.putExtra("assignment", (Assignment) msg.obj);
-                break;
             case ACTION_NEW_ASSIGNMENT:
                 intent = new Intent(this, NewAssignment.class);
                 break;

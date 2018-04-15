@@ -55,15 +55,6 @@ public class MainPresenter {
         //testPush();
     }
 
-    public void getAssignment(int mode, int what, Consumer<List<Assignment>> consumer) {
-        Retro.withList().create(IMain.class)
-                .get_assignment(mode, what)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .compose(main.<List<Assignment>>bindUntilEvent(ActivityEvent.DESTROY))
-                .subscribe(consumer);
-    }
-
     public void check_notify() {
         AsyncTask.execute(() -> begin_check_notify(r -> {
             DAO.insert(r, DAO.TYPE_NOTIFIES);

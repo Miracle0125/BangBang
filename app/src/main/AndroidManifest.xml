@@ -51,7 +51,9 @@
         <activity
             android:name=".activity.Main"
             android:screenOrientation="portrait" />
-
+        <activity
+            android:name=".activity.BrowseAssignment"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.NewAssignment"
             android:screenOrientation="portrait" />

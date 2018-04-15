@@ -24,7 +24,7 @@ import java.lang.ref.WeakReference;
  */
 public class Params {
     //public static String ip = "192.168.23.1";
-    public static String ip = "222.210.1.121";
+    public static String ip = "222.210.2.49";
     public static boolean use_default_account = true;
     public static final String DATABASE = "DateBase";
     public static int screenHeight, screenWidth, statusHeight;
@@ -49,6 +49,17 @@ public class Params {
 
     public static final String NOTIFY_ARRIVE = "0";
     public static final String[] request_result = {"未知错误", "成功"};
+    public static final String[] classification = new String[]{
+            "网页,IT &软件",
+            "写作",
+            "设计 & 架构",
+            "数据录入 & 管理",
+            "工程 & 科学",
+            "销售",
+            "商业,会计,HR & 法律",
+            "产品采购 & 制造",
+            "语言 & 翻译",
+            "其他"};
 
     public static void initParams(Context context) {
         AsyncTask.execute(() -> {

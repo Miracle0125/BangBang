@@ -1,46 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.yzx.bangbang.view.Common.ToggleLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/toggle_layout"
     android:layout_width="250dp"
     android:layout_height="wrap_content"
     android:layout_gravity="center_horizontal"
-    android:layout_marginTop="10dp"
     android:background="@drawable/round_rect_white"
     android:orientation="horizontal"
-    tools:ignore="HardcodedText">
+    tools:ignore="HardcodedText"
+    android:layout_marginTop="20dp">
 
 
     <FrameLayout
-        android:id="@+id/toggle_message"
+        android:id="@+id/toggle0"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:background="@color/blue_button">
 
         <TextView
-            android:id="@+id/text_message"
+            android:id="@+id/text0"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:padding="10dp"
-            android:text="私信"
+            android:text="text0"
             android:textColor="@color/white" />
     </FrameLayout>
 
     <FrameLayout
-        android:id="@+id/toggle_contacts"
+        android:id="@+id/toggle1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="1">
 
         <TextView
-            android:id="@+id/text_contacts"
+            android:id="@+id/text1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:padding="10dp"
-            android:text="联系人"
+            android:text="text1"
             android:textColor="@color/blue_button" />
     </FrameLayout>
 
-</LinearLayout>
+</com.yzx.bangbang.view.Common.ToggleLayout>

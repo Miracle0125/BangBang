@@ -45,11 +45,11 @@
                 fresco:placeholderImage="@drawable/main_icon_portrait" />
 
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
-                android:src="@drawable/icon_chevron_right_small" />
+                android:src="@drawable/icon_chevron_right_blue" />
         </RelativeLayout>
 
         <include layout="@layout/main_fr_user_balance" />

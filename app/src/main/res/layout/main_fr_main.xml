@@ -4,39 +4,40 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="38dp">
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:orientation="vertical">
 
-        <Spinner
-            android:id="@+id/fr_main_spinner_sort"
-            android:layout_width="120dp"
+        <TextView
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginStart="60dp"
-            android:entries="@array/sort" />
+            android:text="分类"
+            android:textColor="#444444"
+            android:textSize="32sp" />
 
-        <Spinner
-            android:id="@+id/fr_main_spinner_distance"
-            android:layout_width="120dp"
+        <TextView
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true"
-            android:layout_marginEnd="60dp"
-            android:entries="@array/distances" />
-    </RelativeLayout>
+            android:layout_marginTop="7dp"
+            android:text="按类别浏览项目" />
+    </LinearLayout>
 
-    <android.support.v4.widget.SwipeRefreshLayout
-        android:id="@+id/swipe_refresh"
+    <ScrollView
+        android:id="@+id/scroll"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp">
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/main_list"
+        <LinearLayout
+            android:id="@+id/scroll_content"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:overScrollMode="never" />
-    </android.support.v4.widget.SwipeRefreshLayout>
+            android:orientation="vertical" />
 
+
+    </ScrollView>
 
 </LinearLayout>
