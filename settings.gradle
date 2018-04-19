@@ -1,1 +1,1 @@
-include ':app', ':floatlabelededittext', ':MaterialRipple', ':ptr-lib'
+include ':app', ':floatlabelededittext'

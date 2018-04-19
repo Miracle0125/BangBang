@@ -177,11 +177,15 @@ public class NewAssignment extends RxAppCompatActivity {
     }
 
     private void upload(String assignment, List<File> image_files) {
-        Retro.inst().create(IMain.class)
-                .new_assignment(assignment, Retro.files2MultipartBody(image_files))
-                .subscribeOn(Schedulers.io())
+        Flowable<Integer> flowable = image_files.isEmpty() ?
+                Retro.single().create(IMain.class)
+                        .new_assignment(assignment) :
+                Retro.single().create(IMain.class)
+                        .new_assignment(assignment, Retro.files2MultipartBody(image_files));
+
+        flowable.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .compose(this.<Integer>bindUntilEvent(ActivityEvent.DESTROY))
+                .compose(this.bindUntilEvent(ActivityEvent.DESTROY))
                 .subscribe(this::res);
 
     }

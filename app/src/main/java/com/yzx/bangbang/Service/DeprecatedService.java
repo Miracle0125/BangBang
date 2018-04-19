@@ -142,7 +142,7 @@ public class DeprecatedService extends Service {
     }
 //
 //    public static void updateCount(int asm_id, int count) {
-//        OkHttpUtil okHttpUtil = OkHttpUtil.inst(s -> {
+//        OkHttpUtil okHttpUtil = OkHttpUtil.single(s -> {
 //        });
 //        okHttpUtil.addPart("sql", "", "update explore_record set servants = " + count + " where user_id = " + Main.user.getId() + " and asm_id = " + asm_id, OkHttpUtil.MEDIA_TYPE_JSON);
 //        okHttpUtil.post("update_data_common");
@@ -150,7 +150,7 @@ public class DeprecatedService extends Service {
 
     //查询是否有记录
 //    public static void checkIfHasRecord(int asm_id, int count) {
-//        OkHttpUtil okHttpUtil = OkHttpUtil.inst(s -> {
+//        OkHttpUtil okHttpUtil = OkHttpUtil.single(s -> {
 //            if (s.length() == 0 || s.charAt(0) == '<') return;
 //            int c = util.parseString(s, "count(*)");
 //            if (c > 0) {
@@ -166,7 +166,7 @@ public class DeprecatedService extends Service {
 
     //当浏览过消息时，记录当时消息的帮众数量，如果以后帮众数量变得更多，消息为高亮
 //    private static void insertRecord(int asm_id, int count) {
-//        OkHttpUtil okHttpUtil = OkHttpUtil.inst(s -> {
+//        OkHttpUtil okHttpUtil = OkHttpUtil.single(s -> {
 //        });
 //        okHttpUtil.addPart("sql", "insert into explore_record (`user_id`,`asm_id`,`servants`) values ('" + Main.user.getId() + "','" + asm_id + "','" + count + "')");
 //        okHttpUtil.post("update_data_common");

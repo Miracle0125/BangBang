@@ -38,7 +38,6 @@ import java.util.List;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
-import model.Assignment;
 
 public class MainPresenter {
     private Main main;
@@ -63,11 +62,11 @@ public class MainPresenter {
     }
 
     private void begin_check_notify(Consumer<List<Notify>> consumer) {
-        Retro.withList().create(IMain.class)
+        Retro.list().create(IMain.class)
                 .get_notify(user_id)
 //                .subscribeOn(Schedulers.io())
 //                .observeOn(AndroidSchedulers.mainThread())
-                .compose(main.<List<Notify>>bindUntilEvent(ActivityEvent.DESTROY))
+                .compose(main.bindUntilEvent(ActivityEvent.DESTROY))
                 .subscribe(consumer);
     }
 
@@ -126,7 +125,7 @@ public class MainPresenter {
     };
 
     public void get_contacts(int user_id, Consumer<List<Contact>> consumer) {
-        Retro.withList().create(IMain.class)
+        Retro.list().create(IMain.class)
                 .get_contacts(user_id)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

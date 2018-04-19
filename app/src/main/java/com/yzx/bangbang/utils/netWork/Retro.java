@@ -29,7 +29,7 @@ public class Retro {
     public static final int IMAGE_PORTRAIT = 1;
     private static final String[] image_dir = {"", "portrait/"};
 
-    private static Retrofit.Builder getBuilder() {
+    private static Retrofit.Builder getBaseBuilder() {
         return new Retrofit.Builder()
                 .baseUrl("http://" + Params.ip + ":8080/BangBang/")
                 .client(new OkHttpClient.Builder()
@@ -37,18 +37,23 @@ public class Retro {
                         .readTimeout(30, TimeUnit.SECONDS).build());
     }
 
-    public static Retrofit inst() {
-        return getBuilder()
-                .addConverterFactory(GsonConverterFactory.create())
+    private static Retrofit build(Converter.Factory factory) {
+        return getBaseBuilder()
+                .addConverterFactory(factory)
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build();
     }
 
-    public static Retrofit withList() {
-        return getBuilder()
-                .addConverterFactory(new ListFactoryConverter())
-                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                .build();
+    public static Retrofit single() {
+        return build(GsonConverterFactory.create());
+    }
+
+    public static Retrofit list() {
+        return build(new ListFactoryConverter());
+    }
+
+    public static Retrofit str() {
+        return build(new StringFactoryConverter());
     }
 
     public static Uri get_image_uri(String name, int type) {
@@ -64,6 +69,7 @@ public class Retro {
     }
 
     public static MultipartBody files2MultipartBody(List<File> files) {
+        if (files.isEmpty()) return null;
         MultipartBody.Builder builder = new MultipartBody.Builder().setType(MultipartBody.FORM);
         for (int i = 0; i < files.size(); i++) {
             builder.addPart(Headers.of("Content-Disposition", "form-data; name=\"image\";filename=\"image" + i + ".jpg\""), RequestBody.create(MediaType.parse("image/png"), files.get(i)));
@@ -75,6 +81,13 @@ public class Retro {
         @Override
         public Converter<ResponseBody, ?> responseBodyConverter(Type type, Annotation[] annotations, Retrofit retrofit) {
             return (Converter<ResponseBody, Object>) body -> new Gson().fromJson(body.string(), type);
+        }
+    }
+
+    private static class StringFactoryConverter extends Converter.Factory {
+        @Override
+        public Converter<ResponseBody, String> responseBodyConverter(Type type, Annotation[] annotations, Retrofit retrofit) {
+            return ResponseBody::string;
         }
     }
 }

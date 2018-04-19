@@ -5,6 +5,7 @@ import android.text.Html;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.yzx.bangbang.R;
 import com.yzx.bangbang.activity.Main;
@@ -12,8 +13,10 @@ import com.yzx.bangbang.model.Notify;
 import com.yzx.bangbang.utils.Params;
 import com.yzx.bangbang.utils.netWork.Retro;
 import com.yzx.bangbang.utils.util;
+
 import java.util.ArrayList;
 import java.util.List;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -24,7 +27,13 @@ import butterknife.OnClick;
 
 public class NotifyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-
+    private static final String[] model = {
+            "%s 投标了 %s",
+            "您赢得了 %s 的竞标",
+            "您的需求 %s 已被完成",
+            "您为 %s 提交的成果已通过",
+            "很遗憾，您为 %s 提交的成果未通过",
+            "很遗憾，您的威客不能完成需求 %s "};
     private List<Notify> notifies = new ArrayList<>();
     private View.OnClickListener onClickListener;
     private Main context;
@@ -45,7 +54,7 @@ public class NotifyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         NotifyViewHolder h = (NotifyViewHolder) holder;
         Notify notify = notifies.get(i);
         h.date.setText(util.transform_date(notify.date));
-        h.content.setText(Html.fromHtml(notify.person_name + " 投标了 " + bold_text(notify.relate_str)));
+        h.content.setText(Html.fromHtml(build_notify_text(notify)));
         if (notify.read == 1) {
             h.root_layout.setBackgroundColor(Params.COLOR_WHITE);
         }
@@ -53,6 +62,12 @@ public class NotifyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         if (onClickListener != null)
             h.root_layout.setOnClickListener(onClickListener);
         h.root_layout.setTag(i);
+    }
+
+    private String build_notify_text(Notify notify) {
+        if (notify.what == 0)
+            return String.format(model[0], notify.person_name, bold_text(notify.relate_str));
+        return String.format(model[notify.what], bold_text(notify.relate_str));
     }
 
     private String bold_text(String s) {

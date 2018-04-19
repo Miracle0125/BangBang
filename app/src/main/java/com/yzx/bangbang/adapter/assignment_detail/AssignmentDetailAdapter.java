@@ -66,10 +66,11 @@ public class AssignmentDetailAdapter extends RecyclerView.Adapter<ViewHolder> {
                 h.avg_price.setText(assignment.getAvg_price() + "");
             h.num_servants.setText(assignment.getServants() + "");
             h.status.setText(asm_status[assignment.getStatus()]);
-            if (assignment.getStatus() == 0) {
+            if (assignment.getStatus() == Assignment.STATUS_OPEN) {
                 h.text_bids.setText("总报价数(" + assignment.getServants() + ")");
-            } else if (assignment.getStatus() != 3) h.text_bids.setText("正在进行");
-            if (bids.size() > MAX_BID_SHOWED && assignment.getStatus() != 0)
+            } else if (assignment.getStatus() != Assignment.STATUS_FINISHED)
+                h.text_bids.setText("正在进行");
+            if (bids.size() > MAX_BID_SHOWED && assignment.getStatus() != Assignment.STATUS_OPEN)
                 h.button_all_bid.setVisibility(View.VISIBLE);
             h.status.setTextColor(status_color[assignment.getStatus()]);
         } else if (holder instanceof BidHolder) {
@@ -189,7 +190,7 @@ public class AssignmentDetailAdapter extends RecyclerView.Adapter<ViewHolder> {
     private static final int TYPE_COMMENT = 3;
     private static final int MAX_BID_SHOWED = 3;
     private static final int MAX_COMMENT_SHOWED = 5;
-    private static final String[] asm_status = {"打开", "进行中", "结束", "关闭"};
+    private static final String[] asm_status = {"打开", "进行中", "验收中", "结束", "关闭"};
     private static final int[] status_color = {
             Color.parseColor("#2AB049"),
             Color.parseColor("#2AB049"),

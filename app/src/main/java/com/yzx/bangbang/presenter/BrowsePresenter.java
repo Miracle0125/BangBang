@@ -24,7 +24,7 @@ public class BrowsePresenter {
     }
 
     public void getAssignment(int mode, int what, Consumer<List<Assignment>> consumer) {
-        Retro.withList().create(IMain.class)
+        Retro.list().create(IMain.class)
                 .get_assignment(mode, what)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

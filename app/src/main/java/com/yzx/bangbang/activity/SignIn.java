@@ -120,14 +120,14 @@ public class SignIn extends RxAppCompatActivity {
 
     private void post(String[] src, int action) {
         if (action == ACTION_SIGN_IN) {
-            Retro.inst().create(ISignIn.class)
+            Retro.single().create(ISignIn.class)
                     .sign_in(src[0], src[1])
                     .subscribeOn(Schedulers.io())
                     //.observeOn(AndroidSchedulers.mainThread())
                     .compose(bindUntilEvent(ActivityEvent.DESTROY))
                     .subscribe(r -> handle_response(r.state, r.user));
         } else if (action == ACTION_SIGN_UP) {
-            Retro.inst().create(ISignIn.class)
+            Retro.single().create(ISignIn.class)
                     .sign_up(src[0], src[1], src[2])
                     .subscribeOn(Schedulers.io())
                     //.observeOn(AndroidSchedulers.mainThread())

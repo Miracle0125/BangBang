@@ -17,6 +17,7 @@ import com.facebook.drawee.view.SimpleDraweeView;
 import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
 import com.yzx.bangbang.adapter.assignment_detail.AssignmentDetailAdapter;
 import com.yzx.bangbang.fragment.assignment_detail.FrBids;
+import com.yzx.bangbang.fragment.assignment_detail.FrOnGoing;
 import com.yzx.bangbang.model.Bid;
 import com.yzx.bangbang.model.Comment;
 import com.yzx.bangbang.R;
@@ -31,6 +32,8 @@ import com.yzx.bangbang.utils.util;
 import com.yzx.bangbang.widget.EvaluateView;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 
@@ -46,12 +49,11 @@ public class AssignmentDetail extends RxAppCompatActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.asm_detail);
-        check_data();
+        check_assignment();
     }
 
     //rxjava 写这里就是爽
-    private void check_data() {
+    private void check_assignment() {
         if (assignment == null)
             assignment = (Assignment) getIntent().getSerializableExtra("assignment");
         if (assignment == null) {
@@ -59,7 +61,7 @@ public class AssignmentDetail extends RxAppCompatActivity {
             if (asm_id == -1) return;
             presenter.get_assignment_by_id(asm_id, r -> {
                 assignment = r;
-                check_data();
+                check_assignment();
             });
             return;
         }
@@ -67,6 +69,13 @@ public class AssignmentDetail extends RxAppCompatActivity {
     }
 
     private void init() {
+        if (assignment.getStatus() == Assignment.STATUS_GOING || assignment.getStatus() == Assignment.STATUS_CHECKING) {
+            setContentView(R.layout.fragment_layout);
+            fm = new FrMetro(getFragmentManager(), R.id.fragment_container);
+            fm.goToFragment(FrOnGoing.class);
+            return;
+        }
+        setContentView(R.layout.asm_detail);
         IS_USER_SAME_WITH_HOST = user.getId() == assignment.getEmployer_id();
         fm = new FrMetro(getFragmentManager(), R.id.fragment_container);
         initView();
@@ -127,7 +136,11 @@ public class AssignmentDetail extends RxAppCompatActivity {
         if (assignment.getStatus() == 0)
             presenter.get_bids(assignment.getId(), c);
         else if (assignment.getStatus() != 3) {
-            presenter.get_on_going_bid(assignment.getId(), c);
+            presenter.get_on_going_bid(assignment.getId(), r -> {
+                bids = Collections.singletonList(r);
+                adapter.setBids(bids);
+                finish_refresh();
+            });
         }
     }
 
@@ -215,8 +228,9 @@ public class AssignmentDetail extends RxAppCompatActivity {
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
+
         if (keyCode == KeyEvent.KEYCODE_BACK) {
-            if (fm != null) {
+            if (assignment.getStatus() != 1 && fm != null) {
                 if (fm.getCurrent() != null) {
                     fm.removeCurrent();
                     return false;
@@ -229,6 +243,7 @@ public class AssignmentDetail extends RxAppCompatActivity {
     private int refresh_flag = 0;
     public static final int REFRESH_WITH_OUT_ASSIGNMENT = 2;
     public static final int REFRESH_ALL = 3;
+
     public boolean IS_USER_SAME_WITH_HOST;
 
     public FrMetro getFm() {
@@ -239,9 +254,9 @@ public class AssignmentDetail extends RxAppCompatActivity {
     public Assignment assignment;
     public List<Bid> bids = new ArrayList<>();
     public List<Comment> comments = new ArrayList<>();
-    private User user = (User) DAO.query(DAO.TYPE_USER);
+    public User user = (User) DAO.query(DAO.TYPE_USER);
     private AlertDialog bid_dialog;
-    AssignmentDetailPresenter presenter = new AssignmentDetailPresenter(this);
+    public AssignmentDetailPresenter presenter = new AssignmentDetailPresenter(this);
     AssignmentDetailAdapter adapter = new AssignmentDetailAdapter(this);
     @BindView(R.id.swipe_refresh)
     SwipeRefreshLayout sr;

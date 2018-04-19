@@ -3,10 +3,8 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/BangBang.iml" filepath="$PROJECT_DIR$/BangBang.iml" />
-      <module fileurl="file://$PROJECT_DIR$/MaterialRipple/MaterialRipple.iml" filepath="$PROJECT_DIR$/MaterialRipple/MaterialRipple.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/floatlabelededittext/floatlabelededittext.iml" filepath="$PROJECT_DIR$/floatlabelededittext/floatlabelededittext.iml" />
-      <module fileurl="file://$PROJECT_DIR$/ptr-lib/ptr-lib.iml" filepath="$PROJECT_DIR$/ptr-lib/ptr-lib.iml" />
     </modules>
   </component>
 </project>

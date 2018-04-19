@@ -46,6 +46,7 @@ public class BrowseAssignment extends RxAppCompatActivity {
     View.OnClickListener onClickListener = v -> {
         Intent intent = new Intent(this, AssignmentDetail.class);
         intent.putExtra("assignment", (Assignment) v.getTag());
+        startActivity(intent);
     };
 
     private void refresh() {
@@ -57,6 +58,12 @@ public class BrowseAssignment extends RxAppCompatActivity {
             adapter.notifyDataSetChanged();
             swipeRefreshLayout.setRefreshing(false);
         });
+    }
+
+    @Override
+    protected void onDestroy() {
+        clear();
+        super.onDestroy();
     }
 
     private void clear() {

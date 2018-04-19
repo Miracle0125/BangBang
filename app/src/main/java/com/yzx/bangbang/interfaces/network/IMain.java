@@ -1,5 +1,7 @@
 package com.yzx.bangbang.interfaces.network;
 
+import android.support.annotation.Nullable;
+
 import com.yzx.bangbang.model.Contact;
 import com.yzx.bangbang.model.Notify;
 
@@ -18,7 +20,10 @@ public interface IMain {
     Flowable<List<Assignment>> get_assignment(@Query("mode") int mode, @Query("what") int what);
 
     @POST("new_assignment")
-    Flowable<Integer> new_assignment(@Query("assignment") String s, @Body MultipartBody body);
+    Flowable<Integer> new_assignment(@Query("assignment") String s,@Body MultipartBody body);
+
+    @POST("new_assignment")
+    Flowable<Integer> new_assignment(@Query("assignment") String s);
 
     @GET("get_notify")
     Flowable<List<Notify>> get_notify(@Query("user_id") int user_id);

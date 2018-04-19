@@ -17,8 +17,7 @@ import android.view.View;
 import android.view.animation.DecelerateInterpolator;
 import android.view.animation.Interpolator;
 import android.view.inputmethod.InputMethodManager;
-
-import com.balysv.materialripple.MaterialRippleLayout;
+import android.widget.Toast;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -48,16 +47,6 @@ public class util {
     public static final String DATA_OBSERVER = "DataObserver";
     public static final int DATA_CHANGED = 0;
     public static final int DATA_NOT_CHANGED = 1;
-
-    //第三方库的动画效果
-    public static void setMaterialRipple(View view, int color) {
-        if (color == 0) color = Params.COLOR_WHITE;
-        MaterialRippleLayout.on(view)
-                .rippleColor(color)
-                .rippleAlpha(0.2f)
-                .rippleHover(true)
-                .create();
-    }
 
     //移动view
     public static void Animate(View v, float translation, int mode, int duration) {
@@ -348,5 +337,9 @@ public class util {
 
     public static String unpack_json(String s) {
         return s.substring(1, s.length() - 2);
+    }
+
+    public static void toast_binary(Context context,int i) {
+        Toast.makeText(context, i == 1 ? "操作成功" : "操作失败", Toast.LENGTH_SHORT).show();
     }
 }

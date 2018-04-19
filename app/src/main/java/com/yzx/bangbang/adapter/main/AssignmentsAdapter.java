@@ -1,5 +1,6 @@
 package com.yzx.bangbang.adapter.main;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -19,6 +20,8 @@ import com.yzx.bangbang.utils.util;
 
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import model.Assignment;
 
 
@@ -40,71 +43,44 @@ public class AssignmentsAdapter extends RecyclerView.Adapter<AssignmentsAdapter.
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
         View v = context.getLayoutInflater().inflate(R.layout.browse_assignment_item, viewGroup, false);
         v.setOnClickListener(listener);
-        return new ViewHolder(v, i);
+        return new ViewHolder(v);
     }
 
 
+    @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(ViewHolder h, int i) {
-        h.v.setTag(data.get(i));
-        h.tv_date.setText(util.transform_date(data.get(i).getDate()));
-        h.tv_employer.setText(data.get(i).getEmployer_name());
-        h.tv_title.setText(data.get(i).getTitle());
-        h.tv_price.setText(util.s(data.get(i).getPrice()));
-        h.tv_price.setTextColor(util.price_color(data.get(i).getPrice()));
-        h.tv_replies.setText(util.s(data.get(i).getServants()));
-//        if (FrMain.distance != 0) {
-//            LatLng user_pos = (LatLng) SpUtil.getObject(SpUtil.LATLNG);
-//            if (user_pos != null) {
-//                double lat = data.get(i).getLatitude();
-//                double lng = data.get(i).getLongitude();
-//                if (lat != 0 && lng != 0) {
-//                    float dis = AMapUtils.calculateLineDistance(user_pos, new LatLng(lat, lng));
-//                    h.tv_distance.setText("距离" + dis + "m");
-//                }
-//            }
-//        }
-        h.portrait.setImageURI(Retro.get_image_uri(String.valueOf(data.get(i).getEmployer_id()), Retro.IMAGE_PORTRAIT));
-        int num_images = data.get(i).getImages();
-        if (num_images > 0) {
-            SimpleDraweeView images[] = {h.image0, h.image1, h.image2};
-            for (int j = 0; j < num_images; j++)
-                images[j].setImageURI(Retro.get_image_uri(data.get(i).getId() + "_" + j));
-        }
+        Assignment assignment = data.get(i);
+        h.v.setTag(assignment);
+        h.date.setText(util.transform_date(assignment.getDate()));
+        h.title.setText(assignment.getTitle());
+        h.num_servants.setText(assignment.getServants() + " 竞标");
+        h.price.setText("¥" + assignment.getPrice());
     }
-
 
     @Override
     public int getItemCount() {
         return data == null ? 0 : data.size();
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder {
         View v;
-        TextView tv_employer,
-                tv_title,
-                tv_date,
-                tv_price,
-                tv_replies,
-                tv_distance;
-        SimpleDraweeView image0, image1, image2, portrait;
 
-        public ViewHolder(View v, int type) {
+        public ViewHolder(View v) {
             super(v);
+            ButterKnife.bind(this, v);
             this.v = v;
-            tv_date = v.findViewById(R.id.item_date);
-            tv_employer = v.findViewById(R.id.item_username);
-            tv_title = v.findViewById(R.id.item_title);
-            tv_price = v.findViewById(R.id.item_price);
-            tv_replies = v.findViewById(R.id.item_num_reply);
-            portrait = v.findViewById(R.id.host_portrait);
-            tv_distance = v.findViewById(R.id.distance);
-            if (type == TYPE_WITH_IMAGE) {
-                image0 = v.findViewById(R.id.image0);
-                image1 = v.findViewById(R.id.image1);
-                image2 = v.findViewById(R.id.image2);
-            }
         }
+
+        @BindView(R.id.title)
+        TextView title;
+        @BindView(R.id.num_servants)
+        TextView num_servants;
+        @BindView(R.id.date)
+        TextView date;
+        @BindView(R.id.price)
+        TextView price;
+
     }
 
 

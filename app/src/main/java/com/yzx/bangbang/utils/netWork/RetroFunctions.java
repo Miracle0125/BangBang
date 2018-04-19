@@ -16,7 +16,7 @@ import io.reactivex.schedulers.Schedulers;
 public class RetroFunctions {
 
     public static void get_user_record(RxAppCompatActivity context, int id, Consumer<UserRecord> consumer) {
-        Retro.inst().create(ICommon.class)
+        Retro.single().create(ICommon.class)
                 .get_user_record(id)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

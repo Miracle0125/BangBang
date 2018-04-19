@@ -63,7 +63,7 @@ public class FrBids extends Fragment {
     };
 
     private void choose_bid(Bid bid) {
-        Retro.inst().create(IAssignmentDetail.class)
+        Retro.single().create(IAssignmentDetail.class)
                 .choose_bid(new Gson().toJson(bid))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

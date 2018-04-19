@@ -189,7 +189,7 @@ public class IndvInfo extends AppCompatActivity implements View.OnClickListener 
     }
 
 //    private void concernUser() {
-//        OkHttpUtil okhttp = OkHttpUtil.inst((s) -> {
+//        OkHttpUtil okhttp = OkHttpUtil.single((s) -> {
 //            if (s.equals("success"))
 //                updateNumConcern(true);
 //        });
@@ -199,7 +199,7 @@ public class IndvInfo extends AppCompatActivity implements View.OnClickListener 
 //    }
 
 //    private void cancelConcern() {
-//        OkHttpUtil okhttp = OkHttpUtil.inst((s) -> {
+//        OkHttpUtil okhttp = OkHttpUtil.single((s) -> {
 //            if (s.equals("success"))
 //                updateNumConcern(false);
 //        });
@@ -211,7 +211,7 @@ public class IndvInfo extends AppCompatActivity implements View.OnClickListener 
 //    private void updateNumConcern(boolean isIncrease) {
 //        String symbol = isIncrease ? "+" : "-";
 //        String sql2 = "update `user_record` set `num_concern`  = num_concern " + symbol + " '1' where user_id = '" + Main.user.getId() + "';";
-//        OkHttpUtil okhttp = OkHttpUtil.inst((s) -> {
+//        OkHttpUtil okhttp = OkHttpUtil.single((s) -> {
 //            if (s.equals("success"))
 //                updateNumFollower(isIncrease);
 //        });
@@ -239,7 +239,7 @@ public class IndvInfo extends AppCompatActivity implements View.OnClickListener 
     }
 
 //    private void checkIfHasConcerned() {
-//        OkHttpUtil okhttp = OkHttpUtil.inst((s) -> {
+//        OkHttpUtil okhttp = OkHttpUtil.single((s) -> {
 //            if (s.length() == 0 || s.charAt(0) == '<') return;
 //            int i = util.parseString(s, "count(*)");
 //            if (i == 1) {
@@ -334,7 +334,7 @@ public class IndvInfo extends AppCompatActivity implements View.OnClickListener 
     private boolean finishFlag;
 
     private void onFinish() {
-        //ActivityManager.inst.onFinish();
+        //ActivityManager.single.onFinish();
         finishFlag = true;
         //Class<?> cls = ActivityManager.getTop();
 //        if (cls != null)

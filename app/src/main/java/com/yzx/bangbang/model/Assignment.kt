@@ -18,4 +18,13 @@ class Assignment(var id: Int,
                  var status: Int,
                  var latitude: Double,
                  var longitude: Double,
-                 var what: Int) : Serializable
+                 var what: Int) : Serializable{
+
+    companion object {
+        const val STATUS_OPEN = 0
+        const val STATUS_GOING = 1
+        const val STATUS_CHECKING = 2
+        const val STATUS_FINISHED = 3
+        const val STATUS_CLOSED = 4
+    }
+}
