@@ -50,15 +50,15 @@ public class Params {
     public static final String NOTIFY_ARRIVE = "0";
     public static final String[] request_result = {"未知错误", "成功"};
     public static final String[] classification = new String[]{
-            "网页,IT &软件",
-            "写作",
-            "设计 & 架构",
-            "数据录入 & 管理",
-            "工程 & 科学",
-            "销售",
-            "商业,会计,HR & 法律",
-            "产品采购 & 制造",
-            "语言 & 翻译",
+            "网页、IT 和 软件",
+            "写作 和 内容",
+            "设计、媒体 和 建筑",
+            "数据录入 和 管理",
+            "工程 和 科学",
+            "销售 和 市场推广",
+            "商业、会计、人力资源 和 法律",
+            "产品采购 和 生产",
+            "语言 和 翻译",
             "其他"};
 
     public static void initParams(Context context) {

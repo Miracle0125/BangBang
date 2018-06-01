@@ -137,9 +137,9 @@ public class AssignmentDetailPresenter {
                 .subscribe(consumer);
     }
 
-    public void check_evaluate(int asm_id, Consumer<Integer> consumer) {
+    public void check_evaluate(int asm_id, int user_id, Consumer<Integer> consumer) {
         Retro.single().create(IAssignmentDetail.class)
-                .check_evaluate(asm_id)
+                .check_evaluate(asm_id, user_id)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .compose(context.bindUntilEvent(ActivityEvent.DESTROY))

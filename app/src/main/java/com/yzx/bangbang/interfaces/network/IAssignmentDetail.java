@@ -53,7 +53,7 @@ public interface IAssignmentDetail {
     Flowable<Integer> evaluate(@Query("evaluate") String evaluate);
 
     @GET("check_evaluate")
-    Flowable<Integer> check_evaluate(@Query("asm_id") int asm_id);
+    Flowable<Integer> check_evaluate(@Query("asm_id") int asm_id,@Query("user_id") int user_id);
 
 
 }

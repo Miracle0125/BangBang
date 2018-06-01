@@ -17,6 +17,7 @@ import com.facebook.drawee.view.SimpleDraweeView;
 import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
 import com.yzx.bangbang.adapter.assignment_detail.AssignmentDetailAdapter;
 import com.yzx.bangbang.fragment.assignment_detail.FrBids;
+import com.yzx.bangbang.fragment.assignment_detail.FrEvaluate;
 import com.yzx.bangbang.fragment.assignment_detail.FrOnGoing;
 import com.yzx.bangbang.model.Bid;
 import com.yzx.bangbang.model.Comment;
@@ -68,16 +69,31 @@ public class AssignmentDetail extends RxAppCompatActivity {
         init();
     }
 
+
+    //if status==going||checking,go to FrOnGoing
+    //if status==finished  check if had evaluate
     private void init() {
-        if (assignment.getStatus() == Assignment.STATUS_GOING || assignment.getStatus() == Assignment.STATUS_CHECKING) {
+        fm = new FrMetro(getFragmentManager(), R.id.fragment_container);
+        if (assignment.getStatus() != Assignment.STATUS_OPEN
+                && assignment.getStatus() != Assignment.STATUS_CLOSED) {
             setContentView(R.layout.fragment_layout);
-            fm = new FrMetro(getFragmentManager(), R.id.fragment_container);
-            fm.goToFragment(FrOnGoing.class);
+            if (assignment.getStatus() == Assignment.STATUS_FINISHED) {
+                presenter.check_evaluate(assignment.getId(), user.getId(), r -> {
+                    if (r == 0) {
+                        fm.goToFragment(FrEvaluate.class);
+                    } else init_assignment_detail();
+                });
+            } else {
+                fm.goToFragment(FrOnGoing.class);
+            }
             return;
         }
+        init_assignment_detail();
+    }
+
+    private void init_assignment_detail() {
         setContentView(R.layout.asm_detail);
         IS_USER_SAME_WITH_HOST = user.getId() == assignment.getEmployer_id();
-        fm = new FrMetro(getFragmentManager(), R.id.fragment_container);
         initView();
         refresh();
     }
@@ -220,6 +236,14 @@ public class AssignmentDetail extends RxAppCompatActivity {
         Toast.makeText(this, s, Toast.LENGTH_SHORT).show();
     }
 
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        if (FINISH_WHEN_STOP)
+            finish();
+    }
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
@@ -240,15 +264,12 @@ public class AssignmentDetail extends RxAppCompatActivity {
         return super.onKeyDown(keyCode, event);
     }
 
+    public boolean FINISH_WHEN_STOP = false;
     private int refresh_flag = 0;
     public static final int REFRESH_WITH_OUT_ASSIGNMENT = 2;
     public static final int REFRESH_ALL = 3;
 
     public boolean IS_USER_SAME_WITH_HOST;
-
-    public FrMetro getFm() {
-        return fm;
-    }
 
     public FrMetro fm;
     public Assignment assignment;
