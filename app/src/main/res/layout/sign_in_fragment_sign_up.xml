@@ -17,60 +17,40 @@
         android:paddingLeft="20dp"
         android:paddingRight="20dp">
 
-        <com.yzx.floatlabelededittext.FloatLabeledEditText
+
+        <EditText
+            android:id="@+id/form_fr_input0"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="45dp"
-            float:fletPadding="10dp">
+            android:hint="用户名"
+            android:textSize="14sp" />
 
-            <EditText
-                android:textSize="14sp"
-                android:id="@+id/form_fr_input0"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="用户名" />
-        </com.yzx.floatlabelededittext.FloatLabeledEditText>
 
-        <com.yzx.floatlabelededittext.FloatLabeledEditText
+        <EditText
+            android:id="@+id/form_fr_input1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            float:fletPadding="10dp">
+            android:hint="账号"
+            android:textSize="14sp" />
 
-            <EditText
-                android:textSize="14sp"
-                android:id="@+id/form_fr_input1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="账号" />
-        </com.yzx.floatlabelededittext.FloatLabeledEditText>
 
-        <com.yzx.floatlabelededittext.FloatLabeledEditText
+        <EditText
+            android:id="@+id/form_fr_input2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            float:fletPadding="10dp">
+            android:hint="密码"
+            android:inputType="textPassword"
+            android:textSize="14sp" />
 
-            <EditText
-                android:textSize="14sp"
-                android:id="@+id/form_fr_input2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="密码"
-                android:inputType="textPassword" />
-        </com.yzx.floatlabelededittext.FloatLabeledEditText>
 
-        <com.yzx.floatlabelededittext.FloatLabeledEditText
+        <EditText
+            android:id="@+id/form_fr_input3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            float:fletPadding="10dp">
-
-            <EditText
-                android:textSize="14sp"
-                android:id="@+id/form_fr_input3"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="确认密码"
-                android:inputType="textPassword" />
-        </com.yzx.floatlabelededittext.FloatLabeledEditText>
+            android:hint="确认密码"
+            android:inputType="textPassword"
+            android:textSize="14sp" />
 
 
         <RelativeLayout

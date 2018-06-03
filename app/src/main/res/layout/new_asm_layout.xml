@@ -48,19 +48,14 @@
     </RelativeLayout>
 
 
-    <com.yzx.floatlabelededittext.FloatLabeledEditText
+    <EditText
+        android:id="@+id/new_asm_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="60dp"
         android:layout_marginEnd="20dp"
-        float:fletPadding="10dp">
+        android:layout_marginStart="60dp"
+        android:hint="需求" />
 
-        <EditText
-            android:id="@+id/new_asm_title"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="需求" />
-    </com.yzx.floatlabelededittext.FloatLabeledEditText>
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -98,21 +93,16 @@
             android:textColor="@color/red"
             android:textSize="17sp" />
 
-        <com.yzx.floatlabelededittext.FloatLabeledEditText
+
+        <EditText
+            android:id="@+id/new_asm_price"
             android:layout_width="80dp"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_alignParentEnd="true"
-            float:fletPadding="10dp">
-
-            <EditText
-                android:id="@+id/new_asm_price"
-                android:layout_width="60dp"
-                android:layout_height="wrap_content"
-                android:hint="赏金"
-                android:textColor="@color/red"
-                android:textSize="17sp" />
-        </com.yzx.floatlabelededittext.FloatLabeledEditText>
+            android:hint="赏金"
+            android:textColor="@color/red"
+            android:textSize="17sp" />
 
     </RelativeLayout>
 

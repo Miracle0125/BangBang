@@ -1,38 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:float="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:float="http://schemas.android.com/apk/res-auto"
     android:layout_marginEnd="30dp"
     android:layout_marginStart="30dp"
     android:layout_marginTop="10dp"
     android:orientation="vertical"
     tools:ignore="HardcodedText">
 
-    <com.yzx.floatlabelededittext.FloatLabeledEditText
-        float:fletPadding="10dp"
+
+    <EditText
+        android:id="@+id/edit_time"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <EditText
-            android:id="@+id/edit_time"
-            android:hint="日期(天)"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:hint="日期(天)" />
 
-    </com.yzx.floatlabelededittext.FloatLabeledEditText>
 
-    <com.yzx.floatlabelededittext.FloatLabeledEditText
+    <EditText
+        android:id="@+id/edit_price"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        float:fletPadding="10dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <EditText
-            android:id="@+id/edit_price"
-            android:hint="价格(¥)"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+        android:hint="价格(¥)" />
 
-    </com.yzx.floatlabelededittext.FloatLabeledEditText>
 
 </LinearLayout>

@@ -5,49 +5,39 @@
     android:layout_height="wrap_content">
 
     <LinearLayout
-        android:paddingLeft="20dp"
-        android:paddingRight="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="25dp"
         android:layout_marginRight="25dp"
         android:layout_marginTop="100dp"
         android:background="#F0F0F0"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp">
 
-        <com.yzx.floatlabelededittext.FloatLabeledEditText
+
+        <EditText
+            android:id="@+id/form_fr_input0"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginTop="60dp"
+            android:hint="账号" />
+
+
+        <EditText
+            android:id="@+id/form_fr_input1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            float:fletPadding="10dp">
-
-            <EditText
-                android:id="@+id/form_fr_input0"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="账号" />
-        </com.yzx.floatlabelededittext.FloatLabeledEditText>
-
-        <com.yzx.floatlabelededittext.FloatLabeledEditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            float:fletPadding="10dp">
-
-            <EditText
-                android:id="@+id/form_fr_input1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="密码"
-                android:inputType="textPassword" />
-        </com.yzx.floatlabelededittext.FloatLabeledEditText>
+            android:hint="密码"
+            android:inputType="textPassword" />
 
 
         <RelativeLayout
-            android:layout_marginBottom="30dp"
             android:id="@+id/form_fr_btn"
             android:layout_width="120dp"
             android:layout_height="45dp"
             android:layout_gravity="center"
+            android:layout_marginBottom="30dp"
             android:layout_marginTop="8dp">
 
             <TextView

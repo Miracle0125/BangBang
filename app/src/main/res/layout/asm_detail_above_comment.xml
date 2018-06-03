@@ -12,27 +12,24 @@
         android:focusable="true"
         android:focusableInTouchMode="true">
 
-        <com.yzx.floatlabelededittext.FloatLabeledEditText
-            android:id="@+id/inner_edit_wrapper"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="20dp"
-            android:layout_marginStart="15dp"
-            android:layout_toStartOf="@+id/button_send_comment">
+
 
             <EditText
+                android:layout_toStartOf="@+id/button_send_comment"
+                android:layout_marginEnd="20dp"
+                android:layout_marginStart="15dp"
                 android:id="@+id/edit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="不说点什么吗"
                 android:maxLines="6" />
-        </com.yzx.floatlabelededittext.FloatLabeledEditText>
+
 
         <com.facebook.drawee.view.SimpleDraweeView
             android:id="@+id/button_send_comment"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:layout_alignBottom="@id/inner_edit_wrapper"
+            android:layout_alignBottom="@id/edit"
             android:layout_alignParentEnd="true"
             android:layout_marginBottom="5dp"
             android:layout_marginEnd="10dp"
