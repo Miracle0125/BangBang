@@ -1,1 +1,1 @@
-include ':app', ':floatlabelededittext'
+include ':app'

@@ -10,15 +10,15 @@ import android.view.MotionEvent;
 import com.facebook.drawee.view.SimpleDraweeView;
 import java.lang.ref.WeakReference;
 
-public class Portrait extends SimpleDraweeView {
+public class PortraitDeprecated extends SimpleDraweeView {
     GestureDetectorCompat detector;
     Object obj;
     WeakReference<Handler> handlerRef;
     int what,arg1,arg2;
-    public Portrait(Context context) {
+    public PortraitDeprecated(Context context) {
         this(context, null, 0);
     }
-    public Portrait(Context context, AttributeSet attrs) {
+    public PortraitDeprecated(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
     }
 
@@ -53,7 +53,7 @@ public void setHandler(Handler handler){
         return detector.onTouchEvent(event);
         //return super.onTouchEvent(event);
     }
-    public Portrait(Context context, AttributeSet attrs, int defStyle) {
+    public PortraitDeprecated(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
 
         detector = new GestureDetectorCompat(context, new GestureDetector.OnGestureListener() {

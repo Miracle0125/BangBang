@@ -7,12 +7,14 @@ import android.os.IBinder;
 import android.os.RemoteCallbackList;
 import android.os.RemoteException;
 import android.support.annotation.Nullable;
+
+import com.yzx.bangbang.utils.netWork.NotifyManager;
 import com.yzx.bangbang.utils.netWork.WebSocketManager;
 import okhttp3.Response;
 import okhttp3.WebSocket;
 import okhttp3.WebSocketListener;
 
-
+//remote process
 public class NetworkService extends Service {
 
     @Nullable
@@ -23,7 +25,7 @@ public class NetworkService extends Service {
 
     @Override
     public boolean onUnbind(Intent intent) {
-        WebSocketManager.close();
+        WebSocketManager.close_socket(WebSocketManager.NOTIFY_SOCKET);
         return super.onUnbind(intent);
     }
 
@@ -36,15 +38,16 @@ public class NetworkService extends Service {
         @Override
         public void onMessage(WebSocket webSocket, String text) {
             super.onMessage(webSocket, text);
-            int n = listeners.beginBroadcast();
-            for (int i = 0; i < n; i++) {
-                try {
-                    listeners.getBroadcastItem(i).on_message(text);
-                } catch (RemoteException e) {
-                    e.printStackTrace();
-                }
-            }
-            listeners.finishBroadcast();
+            NotifyManager.on_new_notify(text);
+//            int n = listeners.beginBroadcast();
+//            for (int i = 0; i < n; i++) {
+//                try {
+//                    listeners.getBroadcastItem(i).on_message(text);
+//                } catch (RemoteException e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//            listeners.finishBroadcast();
         }
     };
 
@@ -53,12 +56,12 @@ public class NetworkService extends Service {
 
         @Override
         public void connect(int user_id) throws RemoteException {
-            WebSocketManager.connect(user_id, webSocketListener);
+            WebSocketManager.connect_socket(user_id,WebSocketManager.NOTIFY_SOCKET, webSocketListener);
         }
 
         @Override
         public void disconnect() throws RemoteException {
-            WebSocketManager.close();
+            WebSocketManager.close_socket(WebSocketManager.NOTIFY_SOCKET);
         }
 
         @Override
@@ -75,7 +78,7 @@ public class NetworkService extends Service {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        WebSocketManager.close();
+        WebSocketManager.close_socket(WebSocketManager.NOTIFY_SOCKET);
     }
     //Messenger messenger = new Messenger(binder);
 

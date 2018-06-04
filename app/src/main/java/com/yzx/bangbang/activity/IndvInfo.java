@@ -21,10 +21,8 @@ import com.yzx.bangbang.model.UserRecord;
 import com.yzx.bangbang.R;
 import com.yzx.bangbang.utils.FrMetro;
 import com.yzx.bangbang.utils.netWork.OkHttpUtil;
-import com.yzx.bangbang.utils.Params;
 import com.yzx.bangbang.utils.netWork.UniversalImageDownloader;
 import com.yzx.bangbang.utils.sql.SpUtil;
-import com.yzx.bangbang.utils.util;
 
 
 public class IndvInfo extends AppCompatActivity implements View.OnClickListener {
@@ -269,7 +267,7 @@ public class IndvInfo extends AppCompatActivity implements View.OnClickListener 
     }
 
     private void startChatActivity() {
-        Intent i = new Intent(this, ChatActivity.class);
+        Intent i = new Intent(this, ChatActivityDeprecated.class);
         i.putExtra("info", info);
         startActivity(i);
     }

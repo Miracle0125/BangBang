@@ -16,7 +16,7 @@
 //
 //import com.facebook.drawee.view.SimpleDraweeView;
 //import com.yzx.bangbang.activity.AssignmentDetail;
-//import com.yzx.bangbang.activity.ChatActivity;
+//import com.yzx.bangbang.activity.ChatActivityDeprecated;
 //import com.yzx.bangbang.model.ReplierInfo;
 //import com.yzx.bangbang.model.SimpleIndividualInfo;
 //import com.yzx.bangbang.R;
@@ -113,7 +113,7 @@
 //            case R.id.btn_message:
 //                info = (ReplierInfo) ((View) view.getParent()).getTag();
 //                if (info == null) return;
-//                Intent i = new Intent(getActivity(), ChatActivity.class);
+//                Intent i = new Intent(getActivity(), ChatActivityDeprecated.class);
 //                i.putExtra("info", new SimpleIndividualInfo(info.user_id, info.user_name));
 //                getActivity().startActivity(i);
 //                break;

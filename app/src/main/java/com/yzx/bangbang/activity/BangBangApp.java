@@ -3,7 +3,6 @@ package com.yzx.bangbang.activity;
 import android.app.Application;
 import android.content.res.Resources;
 import android.os.AsyncTask;
-import android.util.Log;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.squareup.leakcanary.LeakCanary;
@@ -40,8 +39,8 @@ public class BangBangApp extends Application {
     @Override
     public void onTerminate() {
         super.onTerminate();
-        Log.e("ss", "ws closed in app");
-        WebSocketManager.close();
+       // Log.e("ss", "ws closed in app");
+        WebSocketManager.close_socket(WebSocketManager.NOTIFY_SOCKET);
     }
 
 }

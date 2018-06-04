@@ -1,4 +1,4 @@
-package com.yzx.bangbang.view.indvInfo;
+package com.yzx.bangbang.view.personal_homepage;
 
 import android.content.Context;
 import android.support.annotation.Nullable;
@@ -21,12 +21,15 @@ public class CircleWithNumber extends LinearLayout {
     public CircleWithNumber(Context context, @Nullable AttributeSet attrs) {
         this(context, attrs, 0);
     }
-
     public CircleWithNumber(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        ButterKnife.bind(this, this);
     }
 
+    @Override
+    protected void onFinishInflate() {
+        super.onFinishInflate();
+        ButterKnife.bind(this, this);
+    }
 
     public void set_number(int i) {
         if (i == -1) return;
@@ -44,6 +47,6 @@ public class CircleWithNumber extends LinearLayout {
 
     @BindView(R.id.text_number)
     TextView text_number;
-    @BindView(R.id.text_spec)
+    @BindView(R.id.text_special)
     TextView text_spec;
 }

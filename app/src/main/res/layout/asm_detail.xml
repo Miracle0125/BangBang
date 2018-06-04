@@ -32,7 +32,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true">
 
-        <com.facebook.drawee.view.SimpleDraweeView
+        <com.yzx.bangbang.widget.Portrait
             android:id="@+id/host_portrait"
             android:layout_width="35dp"
             android:layout_height="35dp"

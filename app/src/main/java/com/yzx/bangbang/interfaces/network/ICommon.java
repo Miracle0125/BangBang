@@ -14,4 +14,7 @@ import retrofit2.http.Query;
 public interface ICommon {
     @GET("get_user_record")
     Flowable<UserRecord> get_user_record(@Query("id") int id);
+
+    @GET("get_username_by_id")
+    Flowable<String> get_username_by_id(@Query("user_id") int id);
 }

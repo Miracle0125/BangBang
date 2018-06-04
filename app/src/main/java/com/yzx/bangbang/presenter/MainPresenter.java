@@ -1,6 +1,7 @@
 package com.yzx.bangbang.presenter;
 
 
+import android.annotation.SuppressLint;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.content.ComponentName;
@@ -38,7 +39,7 @@ import java.util.List;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
-
+@SuppressLint("CheckResult")
 public class MainPresenter {
     private Main main;
     private int user_id;
@@ -54,35 +55,35 @@ public class MainPresenter {
         //testPush();
     }
 
-    public void check_notify() {
-        AsyncTask.execute(() -> begin_check_notify(r -> {
-            DAO.insert(r, DAO.TYPE_NOTIFIES);
-            show_notify(r);
-        }));
-    }
-
-    private void begin_check_notify(Consumer<List<Notify>> consumer) {
-        Retro.list().create(IMain.class)
-                .get_notify(user_id)
-//                .subscribeOn(Schedulers.io())
-//                .observeOn(AndroidSchedulers.mainThread())
-                .compose(main.bindUntilEvent(ActivityEvent.DESTROY))
-                .subscribe(consumer);
-    }
-
-    private void show_notify(List<Notify> notifies) {
-        int not_read = 0;
-        for (int i = 0; i < notifies.size(); i++)
-            if (notifies.get(i).read == 0) not_read++;
-        if (not_read == 0) return;
-        Notification notification = new Notification.Builder(main)
-                .setSmallIcon(R.drawable.main_icon_portrait)
-                .setContentTitle(not_read + "条新消息")
-                .build();
-        NotificationManager manager = (NotificationManager) main.getSystemService(Context.NOTIFICATION_SERVICE);
-        if (manager != null)
-            manager.notify(1, notification);
-    }
+//    public void check_notify() {
+//        AsyncTask.execute(() -> begin_check_notify(r -> {
+//            DAO.insert(r, DAO.TYPE_NOTIFIES);
+//            show_notify(r);
+//        }));
+//    }
+//
+//    private void begin_check_notify(Consumer<List<Notify>> consumer) {
+//        Retro.list().create(IMain.class)
+//                .get_notify(user_id)
+////                .subscribeOn(Schedulers.io())
+////                .observeOn(AndroidSchedulers.mainThread())
+//                .compose(main.bindUntilEvent(ActivityEvent.DESTROY))
+//                .subscribe(consumer);
+//    }
+//
+//    private void show_notify(List<Notify> notifies) {
+//        int not_read = 0;
+//        for (int i = 0; i < notifies.size(); i++)
+//            if (notifies.get(i).read == 0) not_read++;
+//        if (not_read == 0) return;
+//        Notification notification = new Notification.Builder(main)
+//                .setSmallIcon(R.drawable.main_icon_portrait)
+//                .setContentTitle(not_read + "条新消息")
+//                .build();
+//        NotificationManager manager = (NotificationManager) main.getSystemService(Context.NOTIFICATION_SERVICE);
+//        if (manager != null)
+//            manager.notify(1, notification);
+//    }
 
     private void online_user() {
         connection = new ServiceConnection() {
@@ -116,13 +117,14 @@ public class MainPresenter {
     private INetworkObserver iNetworkObserver = new INetworkObserver.Stub() {
         @Override
         public void on_message(String s) throws RemoteException {
-            if (util.isNumeric(s)) {
-                if (s.equals(Params.NOTIFY_ARRIVE)) {
-                    check_notify();
-                }
-            }
+//            if (util.isNumeric(s)) {
+//                if (s.equals(Params.NOTIFY_ARRIVE)) {
+//                    check_notify();
+//                }
+//            }
         }
     };
+
 
     public void get_contacts(int user_id, Consumer<List<Contact>> consumer) {
         Retro.list().create(IMain.class)

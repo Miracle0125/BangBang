@@ -8,7 +8,7 @@ import android.view.MotionEvent;
 import android.widget.FrameLayout;
 import android.widget.Toast;
 
-import com.yzx.bangbang.activity.ChatActivity;
+import com.yzx.bangbang.activity.ChatActivityDeprecated;
 import com.yzx.bangbang.utils.Params;
 import com.yzx.bangbang.utils.util;
 
@@ -19,7 +19,7 @@ import java.util.Date;
  * Created by Administrator on 2016/12/12.
  */
 public class RecordSound extends FrameLayout {
-    ChatActivity chatActivity;
+    ChatActivityDeprecated chatActivity;
 
 
     public RecordSound(Context context) {
@@ -32,7 +32,7 @@ public class RecordSound extends FrameLayout {
 
     public RecordSound(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        chatActivity = (ChatActivity) context;
+        chatActivity = (ChatActivityDeprecated) context;
     }
 
     @Override
@@ -94,7 +94,7 @@ public class RecordSound extends FrameLayout {
 
     private void postSendMessage() {
         Message message = Message.obtain();
-        message.what = ChatActivity.ACTION_SEND_SOUND_RECORD;
+        message.what = ChatActivityDeprecated.ACTION_SEND_SOUND_RECORD;
         message.obj = path;
         message.arg1 = (int) length / 1000;
         chatActivity.handler.sendMessage(message);

@@ -20,14 +20,6 @@ import butterknife.ButterKnife;
 
 public class FrMain extends Fragment {
 
-    @Nullable
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        v = inflater.inflate(R.layout.main_fr_main, container, false);
-        init();
-        return v;
-    }
-
     public void init() {
         ButterKnife.bind(this, v);
         initScrollView();
@@ -51,6 +43,14 @@ public class FrMain extends Fragment {
 
     public Main context() {
         return (Main) super.getActivity();
+    }
+
+    @Nullable
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        v = inflater.inflate(R.layout.main_fr_main, container, false);
+        init();
+        return v;
     }
 
     @BindView(R.id.scroll_content)

@@ -19,6 +19,9 @@ import android.view.animation.Interpolator;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
+import com.yzx.bangbang.model.User;
+import com.yzx.bangbang.utils.sql.DAO;
+
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -342,4 +345,9 @@ public class util {
     public static void toast_binary(Context context,int i) {
         Toast.makeText(context, i == 1 ? "操作成功" : "操作失败", Toast.LENGTH_SHORT).show();
     }
+
+    public static int get_user_id(){
+        return ((User) DAO.query(DAO.TYPE_USER)).getId();
+    }
+
 }

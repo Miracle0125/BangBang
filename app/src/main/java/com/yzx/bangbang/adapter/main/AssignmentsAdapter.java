@@ -2,24 +2,15 @@ package com.yzx.bangbang.adapter.main;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
-import com.amap.api.maps.AMapUtils;
-import com.amap.api.maps.model.LatLng;
-import com.facebook.drawee.view.SimpleDraweeView;
 import com.yzx.bangbang.activity.BrowseAssignment;
-import com.yzx.bangbang.fragment.Main.FrMain;
 import com.yzx.bangbang.R;
-import com.yzx.bangbang.activity.Main;
-import com.yzx.bangbang.utils.netWork.Retro;
-import com.yzx.bangbang.utils.sql.SpUtil;
 import com.yzx.bangbang.utils.util;
-
 import java.util.List;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import model.Assignment;
@@ -39,6 +30,7 @@ public class AssignmentsAdapter extends RecyclerView.Adapter<AssignmentsAdapter.
 
     int layout[] = {R.layout.main_list_item, R.layout.main_list_item_with_images};
 
+    @NonNull
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
         View v = context.getLayoutInflater().inflate(R.layout.browse_assignment_item, viewGroup, false);

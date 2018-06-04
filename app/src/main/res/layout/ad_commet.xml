@@ -9,7 +9,7 @@
         android:id="@+id/ad_comment_body"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        <com.yzx.bangbang.view.mainView.Portrait
+        <com.yzx.bangbang.view.mainView.PortraitDeprecated
             android:id="@+id/ad_comment_portrait"
             android:layout_width="32dp"
             android:layout_height="32dp"

@@ -6,119 +6,55 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <RelativeLayout
+    <android.support.v7.widget.Toolbar
+        android:background="#ECECEC"
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="@color/colorPrimary">
-
-        <com.facebook.drawee.view.SimpleDraweeView
-            android:id="@+id/button_back"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="20dp"
-            android:clickable="true"
-            fresco:placeholderImage="@drawable/icon_back" />
-
+        android:layout_height="?attr/actionBarSize">
+        <ImageView
+            android:id="@+id/toolbar_back"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/icon_cancel" />
         <TextView
-            android:id="@+id/toolbar_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:text="私信"
-            android:textColor="@color/white"
-            android:textSize="18sp" />
+            android:textSize="22sp"
+            android:text="username"
+            android:layout_marginStart="40dp"
+            />
+    </android.support.v7.widget.Toolbar>
 
-
-    </RelativeLayout>
-
-    <ScrollView
-        android:id="@id/scrollView"
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/list"
+        android:layout_below="@id/toolbar"
+        android:layout_marginBottom="?attr/actionBarSize"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_above="@+id/bottom_bar"
-        android:layout_below="@+id/toolbar">
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <LinearLayout
-                android:id="@+id/scroll_view_container"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
-
-            </LinearLayout>
-
-            <FrameLayout
-                android:id="@+id/bottom_bar_place_holder"
-                android:layout_width="match_parent"
-                android:layout_height="45dp"
-                android:layout_alignParentBottom="true" />
-        </RelativeLayout>
-
-    </ScrollView>
+        android:layout_height="match_parent" />
 
     <RelativeLayout
-        android:id="@+id/bottom_bar"
-        android:layout_width="match_parent"
-        android:layout_height="45dp"
+        android:id="@+id/edit_bar"
+        android:background="#ECECEC"
         android:layout_alignParentBottom="true"
-        android:background="#FFFFFFFF"
-        android:focusable="true"
-        android:focusableInTouchMode="true">
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize">
 
-        <com.facebook.drawee.view.SimpleDraweeView
-            android:id="@+id/btn_send"
-            android:layout_width="60dp"
-            android:layout_height="45dp"
-            android:layout_alignBottom="@+id/edit"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:padding="7dp"
-            fresco:placeholderImage="@drawable/icon_send" />
-
-        <com.yzx.bangbang.view.ChatActivity.RecordSound
-            android:id="@+id/btn_record_sound_container"
-            android:layout_toLeftOf="@+id/btn_send"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-            <com.facebook.drawee.view.SimpleDraweeView
-                android:id="@+id/btn_record_sound"
-                android:layout_width="45dp"
-                android:layout_height="45dp"
-                android:padding="7dp"
-                fresco:placeholderImage = "@drawable/icon_microphone"/>
-        </com.yzx.bangbang.view.ChatActivity.RecordSound>
         <EditText
+            android:layout_marginStart="8dp"
             android:id="@+id/edit"
-            style="?android:attr/textViewStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="45dp"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_marginBottom="0dp"
-            android:layout_marginLeft="5dp"
-            android:layout_toLeftOf="@+id/btn_record_sound_container"
-            android:layout_toStartOf="@+id/btn_record_sound_container"
-            android:background="#FFDCDCDC"
-            android:hint="    点击输入信息"
-            android:inputType="textMultiLine"
-            android:lines="4"
-            android:maxLength="120"
-            android:maxLines="4" />
+            android:hint="请输入内容"
+            android:layout_toLeftOf="@id/button_send"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+        <ImageView
 
-        <TextView
-            android:id="@+id/edit_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="20dp"
-            android:layout_alignParentBottom="true"
-            android:layout_alignRight="@+id/edit"
-            android:layout_marginBottom="5dp"
-            android:text="还能输入120字"
-            android:visibility="invisible" />
+            android:layout_margin="8dp"
+            android:src="@drawable/icon_send"
+            android:id="@+id/button_send"
+            android:layout_alignParentEnd="true"
+            android:layout_width="50dp"
+            android:layout_height="wrap_content" />
+
     </RelativeLayout>
+
 </RelativeLayout>

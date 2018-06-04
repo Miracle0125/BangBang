@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:fresco="http://schemas.android.com/apk/res-auto">
-    <com.yzx.bangbang.view.mainView.Portrait
+    <com.yzx.bangbang.view.mainView.PortraitDeprecated
         android:clickable="true"
         android:id="@+id/host_portrait"
         android:layout_marginLeft="20dp"

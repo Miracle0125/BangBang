@@ -31,6 +31,7 @@ import com.yzx.bangbang.utils.netWork.Retro;
 import com.yzx.bangbang.utils.sql.DAO;
 import com.yzx.bangbang.utils.util;
 import com.yzx.bangbang.widget.EvaluateView;
+import com.yzx.bangbang.widget.Portrait;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -108,7 +109,8 @@ public class AssignmentDetail extends RxAppCompatActivity {
         sr.setOnRefreshListener(this::refresh);
 
         host_name.setText(assignment.getEmployer_name());
-        host_portrait.setImageURI(Retro.get_portrait_uri(assignment.getEmployer_id()));
+        host_portrait.setData(assignment.getEmployer_id());
+        //host_portrait.setImageURI(Retro.get_portrait_uri(assignment.getEmployer_id()));
         RetroFunctions.get_user_record(this, assignment.getEmployer_id(),
                 r -> evaluate_view.setEvaluate(r.evaluate));
 
@@ -294,7 +296,7 @@ public class AssignmentDetail extends RxAppCompatActivity {
     @BindView(R.id.button_bid)
     Button button_bid;
     @BindView(R.id.host_portrait)
-    SimpleDraweeView host_portrait;
+    Portrait host_portrait;
     @BindView(R.id.host_name)
     TextView host_name;
     @BindView(R.id.evaluate_view)

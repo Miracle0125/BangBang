@@ -1,12 +1,12 @@
 package com.yzx.bangbang.model.Mysql;
 
-public class ChatRecord {
+public class ChatRecordDeprecated {
     public String user_name, obj_user_name, message,convr_id;
     public int user_id, obj_user_id, id,type,record_time;
     public long date;
 
-    public ChatRecord(String user_name, String obj_user_name, String message, int user_id, int obj_user_id, int id,
-                      long date,String convr_id,int type,int record_time) {
+    public ChatRecordDeprecated(String user_name, String obj_user_name, String message, int user_id, int obj_user_id, int id,
+                                long date, String convr_id, int type, int record_time) {
         this.user_name = user_name;
         this.obj_user_name = obj_user_name;
         this.message = message;

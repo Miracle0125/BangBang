@@ -13,7 +13,7 @@
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:layout_centerInParent="true"
-        android:background="@drawable/round_rect_letter"
+        android:background="@drawable/round_rect_gray"
         android:gravity="center"
         android:text="M"
         android:textColor="@color/white"

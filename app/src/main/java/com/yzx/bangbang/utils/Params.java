@@ -24,7 +24,7 @@ import java.lang.ref.WeakReference;
  */
 public class Params {
     //public static String ip = "192.168.23.1";
-    public static String ip = "222.210.1.131";
+    public static String ip = "222.210.1.105";
     public static boolean use_default_account = true;
     public static final String DATABASE = "DateBase";
     public static int screenHeight, screenWidth, statusHeight;

@@ -31,7 +31,7 @@ public class Main extends RxAppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        presenter.check_notify();
+       // presenter.check_notify();
     }
 
     public void init() {
@@ -56,17 +56,13 @@ public class Main extends RxAppCompatActivity {
             startActivityForResult(intent, msg.what);
     };
 
-    private long exit_time_record = System.currentTimeMillis();
-
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
             if (System.currentTimeMillis() - exit_time_record < 2000)
                 exit();
-                //util.exit_app();
             else {
                 Toast.makeText(Main.this, "再点一次退出", Toast.LENGTH_SHORT).show();
-
                 exit_time_record = System.currentTimeMillis();
             }
         }
@@ -100,4 +96,5 @@ public class Main extends RxAppCompatActivity {
     public static final int ACTION_NEW_ASSIGNMENT = 3;
     public static final int RESULT_UPLOAD_SUCCESS = 4;
     public MainPresenter presenter = new MainPresenter(this);
+    private long exit_time_record = System.currentTimeMillis();
 }

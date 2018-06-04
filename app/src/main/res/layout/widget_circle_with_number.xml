@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.yzx.bangbang.view.indvInfo.CircleWithNumber xmlns:android="http://schemas.android.com/apk/res/android"
+<com.yzx.bangbang.view.personal_homepage.CircleWithNumber xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:orientation="vertical">
@@ -21,9 +21,10 @@
     </FrameLayout>
 
     <TextView
-        android:id="@+id/text_spec"
+        android:text="spec"
+        android:id="@+id/text_special"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal" />
 
-</com.yzx.bangbang.view.indvInfo.CircleWithNumber>
+</com.yzx.bangbang.view.personal_homepage.CircleWithNumber>
