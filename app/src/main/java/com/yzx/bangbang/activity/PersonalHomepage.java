@@ -12,7 +12,9 @@ import android.widget.TextView;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
 import com.yzx.bangbang.R;
+import com.yzx.bangbang.presenter.HomepageProxy;
 import com.yzx.bangbang.utils.netWork.RetroFunctions;
+import com.yzx.bangbang.utils.util;
 import com.yzx.bangbang.widget.Portrait;
 
 import butterknife.BindView;
@@ -23,7 +25,7 @@ import butterknife.OnClick;
 /**
  * person_id is required
  */
-public class PersonalHomepage extends RxAppCompatActivity {
+public class PersonalHomepage extends HomepageProxy {
 
     private void init() {
         setContentView(R.layout.homepage_layout);
@@ -31,7 +33,7 @@ public class PersonalHomepage extends RxAppCompatActivity {
         person_id = getIntent().getIntExtra("person_id", -1);
         if (person_id == -1) return;
         portrait.setData(person_id);
-        //RetroFunctions.get_username_by_id(this, person_id, r -> name.setText(r));
+        RetroFunctions.get_username_by_id(this, person_id, r -> name.setText(r));
     }
 
     @OnClick({R.id.button_chat, R.id.button_add_contact, R.id.toolbar_back})
@@ -46,6 +48,10 @@ public class PersonalHomepage extends RxAppCompatActivity {
                 intent = new Intent(this, ChatActivity.class);
                 intent.putExtra("other_id", person_id);
                 break;
+            case R.id.button_add_contact:
+                if (person_id == -1) return;
+                add_to_contact(util.get_user_id(),person_id,r-> util.toast_binary(this,r));
+                break;
             default:
                 break;
         }
@@ -53,6 +59,7 @@ public class PersonalHomepage extends RxAppCompatActivity {
             startActivity(intent);
         }
     }
+
 
 
     @Override

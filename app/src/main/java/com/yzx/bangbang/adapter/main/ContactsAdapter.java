@@ -33,6 +33,7 @@ import io.reactivex.schedulers.Schedulers;
 public class ContactsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
 
+    public View.OnClickListener onClickListener;
     private List<Contact> contacts = new ArrayList<>();
     private Main main;
     private int divider_count;
@@ -60,6 +61,8 @@ public class ContactsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int i) {
         if (holder instanceof ContactHolder) {
             ContactHolder h = (ContactHolder) holder;
+            h.v.setTag(contacts.get(data_pos[i]).person_id);
+            h.v.setOnClickListener(onClickListener);
             h.host_name.setText(contacts.get(data_pos[i]).person_name);
             h.host_portrait.setImageURI(Retro.get_portrait_uri(contacts.get(data_pos[i]).person_id));
         } else if (holder instanceof DividerHolder) {
@@ -108,7 +111,8 @@ public class ContactsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
     //初始化的时候+1,现在-1。因为要处理默认值的情况
     public int get_scroll_pos(int first_letter) {
-      //  Log.e("contact", "first_letter " + String.valueOf((char) ('A' + first_letter)) + " get " + divider_pos[first_letter]);
+        if (divider_pos == null) return -1;
+        //  Log.e("contact", "first_letter " + String.valueOf((char) ('A' + first_letter)) + " get " + divider_pos[first_letter]);
         return divider_pos[first_letter] == 0 ? -1 : divider_pos[first_letter] - 1;
     }
 
@@ -125,9 +129,11 @@ public class ContactsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     public class ContactHolder extends RecyclerView.ViewHolder {
         private ContactHolder(View itemView) {
             super(itemView);
+            v = itemView;
             ButterKnife.bind(this, itemView);
         }
 
+        View v;
         @BindView(R.id.host_portrait)
         SimpleDraweeView host_portrait;
         @BindView(R.id.host_name)

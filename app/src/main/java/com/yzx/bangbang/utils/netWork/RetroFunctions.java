@@ -28,7 +28,7 @@ public class RetroFunctions {
     }
 
     public static void get_username_by_id(RxAppCompatActivity context,int id,Consumer<String> consumer){
-        Retro.single().create(ICommon.class)
+        Retro.str().create(ICommon.class)
                 .get_username_by_id(id)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

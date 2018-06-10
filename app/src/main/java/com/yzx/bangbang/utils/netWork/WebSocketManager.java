@@ -4,6 +4,7 @@ package com.yzx.bangbang.utils.netWork;
 import android.util.SparseArray;
 
 import com.yzx.bangbang.utils.Params;
+
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.WebSocket;
@@ -15,8 +16,8 @@ public class WebSocketManager {
     private static SparseArray<WebSocket> socket_map = new SparseArray<>();
     private static final int CODE_NORMAL_CLOSE = 1000;
 
-    public static WebSocket connect_socket(int user_id, int what, WebSocketListener listener) {
-        Request request = buildRequest(user_id,what);
+    public static WebSocket connect_socket(WebSocketListener listener,int what, int... p) {
+        Request request = buildRequest(what,p);
         WebSocket webSocket = new OkHttpClient().newWebSocket(request, listener);
         socket_map.put(what, webSocket);
         return webSocket;
@@ -30,10 +31,13 @@ public class WebSocketManager {
         }
     }
 
-    private static Request buildRequest(int user_id, int what) {
+    private static Request buildRequest(int what, int... p) {
         String ws_servlet[] = {"notify", "chat"};
+        StringBuilder sb = new StringBuilder("ws://" + Params.ip + ":8080/BangBang/" + ws_servlet[what]);
+        for (int i : p)
+            sb.append("/").append(i);
         return new Request.Builder()
-                .url("ws://" + Params.ip + ":8080/BangBang/" + ws_servlet[what] + "/" + user_id)
+                .url(sb.toString())
                 .build();
     }
 }

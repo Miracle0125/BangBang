@@ -39,6 +39,8 @@ import java.util.List;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
+import model.ChatRecord;
+
 @SuppressLint("CheckResult")
 public class MainPresenter {
     private Main main;
@@ -131,9 +133,20 @@ public class MainPresenter {
                 .get_contacts(user_id)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .compose(main.<List<Contact>>bindUntilEvent(ActivityEvent.DESTROY))
+                .compose(main.bindUntilEvent(ActivityEvent.DESTROY))
                 .subscribe(consumer);
     }
+
+    public void get_recent_conversations(int user_id, Consumer<List<ChatRecord>> consumer){
+        Retro.list().create(IMain.class)
+                .get_recent_conversations(user_id)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .compose(main.bindUntilEvent(ActivityEvent.DESTROY))
+                .subscribe(consumer);
+    }
+
+
 
 
     public MainPresenter(Main main) {

@@ -1,5 +1,5 @@
 ﻿<resources>
-    <string name="app_name">BangBang</string>
+    <string name="app_name">帮帮</string>
     <string name="action_settings">Settings</string>
     <string name="offline_string">{"num":7,"list":[{"date":"2016-07-16 14:00:00","bidders":"0","price":"50","employer_name":"Tom","id":"9","title":"Hello Wrold","content":"什么?"},{"date":"2016-07-16 14:00:00","bidders":"0","price":"50","employer_name":"Tom","id":"8","title":"Hello Wrold","content":"什么?"},{"date":"2016-07-16 14:00:00","bidders":"0","price":"50","employer_name":"Tom","id":"7","title":"Hello Wrold","content":"什么?"},{"date":"2016-07-16 14:00:00","bidders":"0","price":"50","employer_name":"Tom","id":"6","title":"Hello Wrold","content":"什么?"},{"date":"2016-07-16 14:00:00","bidders":"0","price":"50","employer_name":"Tom","id":"5","title":"Hello Wrold","content":"什么?"},{"date":"2016-04-26 13:02:00","bidders":"0","price":"50","employer_name":"Tom","id":"4","title":"我想要","content":"什么？"},{"date":"2016-04-11 16:00:00","bidders":"0","price":"30","employer_name":"Tom","id":"3","title":"Hello","content":"Geek"}]}</string>
     <string name="key_user">user</string>

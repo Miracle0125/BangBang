@@ -1,14 +1,19 @@
 package com.yzx.bangbang.presenter;
 
 import android.annotation.SuppressLint;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.widget.EditText;
 
 import com.google.gson.Gson;
 import com.trello.rxlifecycle2.android.ActivityEvent;
 import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
+import com.yzx.bangbang.activity.ChatActivity;
 import com.yzx.bangbang.adapter.chat.ChatAdapter;
 import com.yzx.bangbang.interfaces.network.IChat;
 import com.yzx.bangbang.utils.netWork.Retro;
 import com.yzx.bangbang.utils.netWork.WebSocketManager;
+import com.yzx.bangbang.utils.util;
 
 import java.util.List;
 
@@ -26,12 +31,10 @@ import okhttp3.WebSocketListener;
 @SuppressLint({"Registered", "CheckResult"})
 public class ChatProxy extends RxAppCompatActivity {
 
-    private static final String code_200 = "///200";
-
     @Override
     protected void onResume() {
         super.onResume();
-        webSocket = WebSocketManager.connect_socket(user_id, WebSocketManager.CHAT_SOCKET, webSocketListener);
+        webSocket = WebSocketManager.connect_socket(webSocketListener, WebSocketManager.CHAT_SOCKET, user_id, other_id);
         refresh();
     }
 
@@ -68,6 +71,7 @@ public class ChatProxy extends RxAppCompatActivity {
         if (s.charAt(0) != '/') return false;
         if (s.equals(code_200)) {
             refresh();
+            chatActivity.clear_edit();
             return true;
         }
         return false;
@@ -86,7 +90,9 @@ public class ChatProxy extends RxAppCompatActivity {
                 .subscribe(consumer);
     }
 
-    public int user_id, other_id;
+    private static final String code_200 = "///200";
+    public ChatActivity chatActivity;
+    public int user_id = util.get_user_id(), other_id;
     public ChatAdapter adapter;
     WebSocket webSocket;
 }

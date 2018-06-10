@@ -21,6 +21,12 @@ public class TestUtils {
             "Eddard “Ned” Stark ", "Robert Baratheon ", "Tyrion Lannister ", "Cersei Lannister ", "Jaime Lannister ", "Daenerys Targaryen ", "Jon Snow ", "Sansa Stark ", "Bran Stark ", "Petyr Baelish ", "Sandor Clegane"
     };
 
+    /**
+     *
+     * @param signIn
+     * @param onClickListener
+     * @return  return accounts for test
+     */
     public static AlertDialog show_test_account(SignIn signIn, View.OnClickListener onClickListener) {
 
         View v = signIn.getLayoutInflater().inflate(R.layout.scroll_layout0, null);

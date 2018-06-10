@@ -46,7 +46,7 @@ public class ChatPresenter {
     }
 
     public void onResume() {
-        WebSocketManager.connect_socket(user_id, WebSocketManager.CHAT_SOCKET, webSocketListener);
+      //  WebSocketManager.connect_socket(user_id, WebSocketManager.CHAT_SOCKET, webSocketListener);
 
     }
 

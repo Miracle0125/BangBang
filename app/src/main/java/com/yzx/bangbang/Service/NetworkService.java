@@ -56,7 +56,7 @@ public class NetworkService extends Service {
 
         @Override
         public void connect(int user_id) throws RemoteException {
-            WebSocketManager.connect_socket(user_id,WebSocketManager.NOTIFY_SOCKET, webSocketListener);
+            WebSocketManager.connect_socket(webSocketListener,WebSocketManager.NOTIFY_SOCKET,user_id);
         }
 
         @Override

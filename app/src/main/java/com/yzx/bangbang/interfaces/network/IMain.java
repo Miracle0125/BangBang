@@ -9,6 +9,7 @@ import java.util.List;
 
 import io.reactivex.Flowable;
 import model.Assignment;
+import model.ChatRecord;
 import okhttp3.MultipartBody;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
@@ -32,6 +33,13 @@ public interface IMain {
     Flowable<Integer> read_notify(@Query("id") int id);
 
     @GET("get_contacts")
-    Flowable<List<Contact>> get_contacts(@Query("user_id") int user_id);
+    Flowable<List<Contact>> get_contacts(@Query("owner") int user_id);
+
+    @POST("add_to_contact")
+    Flowable<Integer> add_to_contact(@Query("owner") int owner,@Query("person_id") int person_id);
+
+    @GET("get_recent_conversations")
+    Flowable<List<ChatRecord>> get_recent_conversations(@Query("user_id") int user_id);
+
 }
 

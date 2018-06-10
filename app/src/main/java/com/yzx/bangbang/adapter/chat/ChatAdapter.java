@@ -86,7 +86,7 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     @Override
     public int getItemViewType(int position) {
-        return messages.get(position).getPoster() == user_id ? TYPE_TEXT_LEFT : TYPE_TEXT_RIGHT;
+        return messages.get(position).getPoster() == user_id ? TYPE_TEXT_RIGHT : TYPE_TEXT_LEFT;
     }
 
     public static final int TYPE_TEXT_LEFT = 0;

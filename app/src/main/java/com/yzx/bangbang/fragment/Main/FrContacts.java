@@ -1,6 +1,7 @@
 package com.yzx.bangbang.fragment.Main;
 
 import android.app.Fragment;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
@@ -12,9 +13,12 @@ import android.widget.TextView;
 
 import com.yzx.bangbang.R;
 import com.yzx.bangbang.activity.Main;
+import com.yzx.bangbang.activity.PersonalHomepage;
 import com.yzx.bangbang.adapter.main.ContactsAdapter;
 import com.yzx.bangbang.fragment.sign_in.TestUtils;
 import com.yzx.bangbang.model.Contact;
+import com.yzx.bangbang.presenter.MainPresenter;
+import com.yzx.bangbang.utils.util;
 import com.yzx.bangbang.view.mainView.AlphabetView;
 
 import java.util.ArrayList;
@@ -35,15 +39,32 @@ public class FrContacts extends Fragment {
         return v;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        refresh();
+    }
+
     private void init() {
+        presenter = context().presenter;
         adapter = new ContactsAdapter(context());
+        adapter.onClickListener=onClickListener;
         //context().presenter.get_contacts(context().user.getId(), r -> adapter.setContacts(r));
-        adapter.setContacts(TestUtils.get_test_contacts());
+        // adapter.setContacts(TestUtils.get_test_contacts());
         recyclerView.setLayoutManager(new LinearLayoutManager(context()));
         recyclerView.setAdapter(adapter);
-
         alphabet_view.listener = onTouchListener;
     }
+
+    private void refresh(){
+        presenter.get_contacts(util.get_user_id(), r -> adapter.setContacts(r));
+    }
+
+    View.OnClickListener onClickListener = v->{
+        Intent intent = new Intent(context(), PersonalHomepage.class);
+        intent.putExtra("person_id",(int)v.getTag());
+        startActivity(intent);
+    };
 
     AlphabetView.OnTouchListener onTouchListener = new AlphabetView.OnTouchListener() {
         @Override
@@ -84,5 +105,6 @@ public class FrContacts extends Fragment {
     @BindView(R.id.text_big_letter)
     TextView text_big_letter;
 
+    MainPresenter presenter;
     ContactsAdapter adapter;
 }
