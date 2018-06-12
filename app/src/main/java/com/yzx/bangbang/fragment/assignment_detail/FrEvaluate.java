@@ -19,6 +19,7 @@ import com.yzx.bangbang.model.User;
 import com.yzx.bangbang.presenter.AssignmentDetailPresenter;
 import com.yzx.bangbang.utils.util;
 import com.yzx.bangbang.widget.EvaluateSeekBar;
+import com.yzx.bangbang.widget.Portrait;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -26,7 +27,7 @@ import butterknife.OnClick;
 import model.Assignment;
 
 public class FrEvaluate extends Fragment {
-    View v;
+
 
     @Nullable
     @Override
@@ -40,7 +41,12 @@ public class FrEvaluate extends Fragment {
     private void init() {
         assignment = context().assignment;
         presenter = context().presenter;
-        presenter.get_on_going_bid(assignment.getId(), r -> on_going_bid = r);
+        presenter.get_on_going_bid(assignment.getId(), r -> {
+            on_going_bid = r;
+            target_portrait.setData(on_going_bid.host_id);
+            target_name.setText(on_going_bid.host_name);
+        });
+
     }
 
     private Evaluate build_evaluate_entity(Bid bid, Assignment assignment) {
@@ -78,10 +84,14 @@ public class FrEvaluate extends Fragment {
         context().startActivity(intent);
     }
 
+
+
     private AssignmentDetail context() {
         return (AssignmentDetail) getActivity();
     }
 
+
+    View v;
     Assignment assignment;
     Bid on_going_bid;
     AssignmentDetailPresenter presenter;
@@ -90,7 +100,7 @@ public class FrEvaluate extends Fragment {
     @BindView(R.id.target_name)
     TextView target_name;
     @BindView(R.id.target_portrait)
-    SimpleDraweeView target_portrait;
+    Portrait target_portrait;
     @BindView(R.id.evaluate_seek_bar)
     EvaluateSeekBar evaluate_seek_bar;
 

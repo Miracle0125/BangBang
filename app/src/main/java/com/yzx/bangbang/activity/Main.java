@@ -6,6 +6,7 @@ import android.os.Message;
 import android.view.KeyEvent;
 import android.view.Window;
 import android.widget.Toast;
+
 import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
 import com.yzx.bangbang.model.SimpleIndividualInfo;
 import com.yzx.bangbang.R;
@@ -13,6 +14,7 @@ import com.yzx.bangbang.model.User;
 import com.yzx.bangbang.utils.sql.DAO;
 import com.yzx.bangbang.presenter.MainPresenter;
 import com.yzx.bangbang.view.mainView.MainLayout;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.reactivex.functions.Consumer;
@@ -31,7 +33,7 @@ public class Main extends RxAppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-       // presenter.check_notify();
+        // presenter.check_notify();
     }
 
     public void init() {
@@ -91,6 +93,7 @@ public class Main extends RxAppCompatActivity {
     MainLayout mainLayout;
     public boolean exit_sign_in_flag;
     public User user = (User) DAO.query(DAO.TYPE_USER);
+    public int user_id = user.getId();
     public static final int ACTION_SHOW_DETAIL = 1;
     public static final int ACTION_CLICK_PORTRAIT = 2;
     public static final int ACTION_NEW_ASSIGNMENT = 3;

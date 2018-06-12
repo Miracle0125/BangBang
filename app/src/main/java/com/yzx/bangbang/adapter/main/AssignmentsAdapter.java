@@ -1,6 +1,7 @@
 package com.yzx.bangbang.adapter.main;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -19,13 +20,13 @@ import model.Assignment;
 public class AssignmentsAdapter extends RecyclerView.Adapter<AssignmentsAdapter.ViewHolder> {
 
     private List<Assignment> data;
-    private BrowseAssignment context;
+    private Activity context;
     private static int pos = 0;
     private static final int TYPE_DEFAULT = 0;
     private static final int TYPE_WITH_IMAGE = 1;
 
     public AssignmentsAdapter(Context context) {
-        this.context = (BrowseAssignment) context;
+        this.context = (Activity) context;
     }
 
     int layout[] = {R.layout.main_list_item, R.layout.main_list_item_with_images};

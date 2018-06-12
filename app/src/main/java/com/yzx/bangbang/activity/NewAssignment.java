@@ -1,5 +1,6 @@
 package com.yzx.bangbang.activity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
@@ -9,8 +10,10 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.widget.AdapterView;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.amap.api.maps.model.LatLng;
@@ -39,6 +42,7 @@ import io.reactivex.schedulers.Schedulers;
 import model.Assignment;
 
 //按照事件发生的顺序写的，顺着看函数名就能知道大概做了什么。舒服
+@SuppressLint("CheckResult")
 public class NewAssignment extends RxAppCompatActivity {
     public static final int PICK_IMAGE = 1;
 
@@ -50,9 +54,23 @@ public class NewAssignment extends RxAppCompatActivity {
 
     private void init() {
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        setContentView(R.layout.new_asm_layout);
+        setContentView(R.layout.new_assignment_layout);
         ButterKnife.bind(this);
+
+        assignment_types = getResources().getStringArray(R.array.assignment_types);
+        spinner_assignment_types.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                assignment_type = position;
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
     }
+
 
     private void pickLocalImage() {
         Intent intent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
@@ -151,6 +169,7 @@ public class NewAssignment extends RxAppCompatActivity {
         return true;
     }
 
+
     private void prepare_data() {
         //User user = (User) SpUtil.getObject(SpUtil.USER);
         // User user = new Gson().fromJson(SqlUtil.queryString(SqlUtil.TABLE_JSON, "user"), User.class);
@@ -169,7 +188,7 @@ public class NewAssignment extends RxAppCompatActivity {
                 0,
                 latLng == null ? 0 : latLng.latitude,
                 latLng == null ? 0 : latLng.longitude,
-                0));
+                assignment_type));
         List<File> image_files = new ArrayList<>();
         Flowable.fromIterable(paths).map(File::new)
                 .doOnComplete(() -> upload(assignment, image_files))
@@ -186,11 +205,11 @@ public class NewAssignment extends RxAppCompatActivity {
         flowable.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .compose(this.bindUntilEvent(ActivityEvent.DESTROY))
-                .subscribe(this::res);
+                .subscribe(this::toast);
 
     }
 
-    private void res(int code) {
+    private void toast(int code) {
         if (code == 1) {
             toast("上传成功");
             setResult(Main.RESULT_UPLOAD_SUCCESS);
@@ -210,8 +229,10 @@ public class NewAssignment extends RxAppCompatActivity {
         Toast.makeText(NewAssignment.this, toShow, Toast.LENGTH_SHORT).show();
     }
 
+    private String[] assignment_types;
     private List<String> paths = new ArrayList<>();
     private int num_images = 0;
+    private int assignment_type;
     @BindView(R.id.main_fr_new_asm_checkbox)
     CheckBox isLocationEnable;
     @BindView(R.id.new_asm_title)
@@ -231,4 +252,6 @@ public class NewAssignment extends RxAppCompatActivity {
     SimpleDraweeView[] vector_image_view;
     @BindView(R.id.new_asm_send)
     View btn_send;
+    @BindView(R.id.spinner_assignment_types)
+    Spinner spinner_assignment_types;
 }

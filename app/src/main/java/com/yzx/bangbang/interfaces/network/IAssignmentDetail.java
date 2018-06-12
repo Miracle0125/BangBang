@@ -25,6 +25,9 @@ public interface IAssignmentDetail {
     @GET("get_bids")
     Flowable<List<Bid>> get_bids(@Query("id") int id);
 
+    @GET("check_if_bade")
+    Flowable<Integer> check_if_bade(@Query("user_id") int user_id,@Query("asm_id") int asm_id);
+
     @POST("post_bid")
     Flowable<Integer> post_bid(@Query("bid") String bid);
 

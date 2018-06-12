@@ -39,6 +39,7 @@ import java.util.List;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
+import model.Assignment;
 import model.ChatRecord;
 
 @SuppressLint("CheckResult")
@@ -127,6 +128,15 @@ public class MainPresenter {
         }
     };
 
+
+    public void get_user_assignment(int user_id, Consumer<List<Assignment>> consumer) {
+        Retro.list().create(IMain.class)
+                .get_user_assignment(user_id)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .compose(main.bindUntilEvent(ActivityEvent.DESTROY))
+                .subscribe(consumer);
+    }
 
     public void get_contacts(int user_id, Consumer<List<Contact>> consumer) {
         Retro.list().create(IMain.class)

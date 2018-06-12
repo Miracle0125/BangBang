@@ -1,5 +1,7 @@
 package com.yzx.bangbang.presenter;
 
+import android.annotation.SuppressLint;
+
 import com.google.gson.Gson;
 import com.trello.rxlifecycle2.android.ActivityEvent;
 import com.yzx.bangbang.interfaces.network.IAssignmentDetail;
@@ -20,7 +22,7 @@ import model.Assignment;
 /**
  * Created by Administrator on 2018/3/14.
  */
-
+@SuppressLint("CheckResult")
 public class AssignmentDetailPresenter {
 
     private AssignmentDetail context;
@@ -74,6 +76,15 @@ public class AssignmentDetailPresenter {
                 .subscribe(consumer);
     }
 
+    public void check_if_bade(int user_id,int asm_id,Consumer<Integer> consumer){
+        Retro.single().create(IAssignmentDetail.class)
+                .check_if_bade(user_id, asm_id)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .compose(context.bindUntilEvent(ActivityEvent.DESTROY))
+                .subscribe(consumer);
+    }
+
     public void post_bid(Bid bid, Consumer<Integer> consumer) {
         Retro.single().create(IAssignmentDetail.class)
                 .post_bid(new Gson().toJson(bid))
@@ -83,8 +94,9 @@ public class AssignmentDetailPresenter {
                 .subscribe(consumer);
     }
 
+
     public void get_on_going_bid(int asm_id, Consumer<Bid> consumer) {
-        Retro.list().create(IAssignmentDetail.class)
+        Retro.single().create(IAssignmentDetail.class)
                 .get_on_going_bid(asm_id)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

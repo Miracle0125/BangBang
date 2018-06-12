@@ -32,7 +32,7 @@ public class WebSocketManager {
     }
 
     private static Request buildRequest(int what, int... p) {
-        String ws_servlet[] = {"notify", "chat"};
+        String ws_servlet[] = {"notify", "social"};
         StringBuilder sb = new StringBuilder("ws://" + Params.ip + ":8080/BangBang/" + ws_servlet[what]);
         for (int i : p)
             sb.append("/").append(i);

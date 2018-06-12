@@ -29,7 +29,6 @@ public class BrowseAssignment extends RxAppCompatActivity {
         init();
     }
 
-
     public void init() {
         ButterKnife.bind(this);
         assignment_what = getIntent().getIntExtra("what", -1);

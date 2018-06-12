@@ -18,4 +18,16 @@
         <item>按价格升序</item>
         <item>按价格降序</item>
     </string-array>
+    <string-array name="assignment_types">
+        <item>网页,IT &#038; 软件</item>
+        <item>写作 &#038; 文案</item>
+        <item>设计 &#038; 架构</item>
+        <item>数据录入 &#038; 管理</item>
+        <item>工程 &#038; 科学</item>
+        <item>销售</item>
+        <item>商业,会计,HR &#038; 法律</item>
+        <item>产品采购 &#038; 制造</item>
+        <item>语言 &#038; 翻译</item>
+        <item>其它</item>
+    </string-array>
 </resources>

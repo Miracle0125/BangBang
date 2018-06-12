@@ -228,8 +228,15 @@ public class AssignmentDetail extends RxAppCompatActivity {
             case R.id.button_bid:
                 if (IS_USER_SAME_WITH_HOST)
                     fm.goToFragment(FrBids.class);
-                else
-                    show_bid_dialog();
+                else{
+                    presenter.check_if_bade(user.getId(),assignment.getId(),r->{
+                        if (r==1){
+                            toast("已经投标过啦");
+                        }else{
+                            show_bid_dialog();
+                        }
+                    });
+                }
                 break;
         }
     }
@@ -259,6 +266,9 @@ public class AssignmentDetail extends RxAppCompatActivity {
             if (assignment.getStatus() != 1 && fm != null) {
                 if (fm.getCurrent() != null) {
                     fm.removeCurrent();
+                    if (fm.getCurrent()==null){
+                        finish();
+                    }
                     return false;
                 }
             }

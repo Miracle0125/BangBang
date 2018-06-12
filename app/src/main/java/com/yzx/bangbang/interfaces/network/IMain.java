@@ -26,6 +26,9 @@ public interface IMain {
     @POST("new_assignment")
     Flowable<Integer> new_assignment(@Query("assignment") String s);
 
+    @GET("get_user_assignment")
+    Flowable<List<Assignment>> get_user_assignment(@Query("user_id") int user_id);
+
     @GET("get_notify")
     Flowable<List<Notify>> get_notify(@Query("user_id") int user_id);
 

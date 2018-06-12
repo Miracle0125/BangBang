@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.yzx.bangbang.activity.BrowseAssignment;
 import com.yzx.bangbang.activity.Main;
 import com.yzx.bangbang.R;
+import com.yzx.bangbang.utils.Params;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -50,12 +51,14 @@ public class FrMain extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         v = inflater.inflate(R.layout.main_fr_main, container, false);
         init();
+
         return v;
     }
 
     @BindView(R.id.scroll_content)
     LinearLayout scroll_content;
     private View v;
+
     public static final String[] classification = new String[]{
             "网页,IT & 软件",
             "写作 & 文案",
