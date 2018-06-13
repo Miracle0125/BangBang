@@ -1,6 +1,7 @@
 package com.yzx.bangbang.fragment.assignment_detail;
 
 import android.app.Fragment;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -25,10 +26,6 @@ import model.Assignment;
 
 
 public class FrOnGoing extends Fragment {
-    View v;
-    Assignment assignment;
-    Bid bid;
-    AssignmentDetailPresenter presenter;
 
     @Nullable
     @Override
@@ -38,24 +35,13 @@ public class FrOnGoing extends Fragment {
         return v;
     }
 
-
     private void init() {
         ButterKnife.bind(this, v);
         assignment = context().assignment;
         presenter = context().presenter;
-        presenter.get_on_going_bid(assignment.getId(), r -> {
-            bid = r;
-            freelancer_name.setText(bid.host_name);
-            freelancer_portrait.setImageURI(Retro.get_portrait_uri(bid.host_id));
-            init_buttons();
-        });
         title.setText(assignment.getTitle());
         content.setText(assignment.getContent());
-        presenter.get_on_going_remain_time(assignment.getId(), r -> {
-            if (r.substring(0, 2).equals("超出"))
-                text_remain_time.setText("超出时间");
-            remain_time.setText(r.substring(2, r.length()));
-        });
+        refresh();
     }
 
     private void init_buttons() {
@@ -73,7 +59,7 @@ public class FrOnGoing extends Fragment {
         } else {
             if (assignment.getStatus() == Assignment.STATUS_CHECKING) {
                 status = 0;
-                text_button_main.setText("是否满意成果？");
+                text_button_main.setText("即将付款给对方，是否满意成果？");
                 button_main.setText("验收");
                 vice_button_container.setVisibility(View.VISIBLE);
                 text_button_vice.setText("我不满意这个成果");
@@ -85,6 +71,27 @@ public class FrOnGoing extends Fragment {
         }
     }
 
+    private void refresh() {
+        presenter.get_on_going_bid(assignment.getId(), r -> {
+            bid = r;
+            freelancer_name.setText(bid.host_name);
+            freelancer_portrait.setImageURI(Retro.get_portrait_uri(bid.host_id));
+            init_buttons();
+        });
+        presenter.get_on_going_remain_time(assignment.getId(), r -> {
+            if (r.substring(0, 2).equals("超出"))
+                text_remain_time.setText("超出时间");
+            remain_time.setText(r.substring(2, r.length()));
+        });
+    }
+
+    private void refresh_activity() {
+        context().FINISH_WHEN_STOP = true;
+        Intent intent = new Intent(context(), AssignmentDetail.class);
+        intent.putExtra("asm_id", context().assignment.getId());
+        startActivity(intent);
+    }
+
     private AssignmentDetail context() {
         return (AssignmentDetail) getActivity();
     }
@@ -94,28 +101,43 @@ public class FrOnGoing extends Fragment {
     void click(View v) {
         if (v.getId() == R.id.button_main) {
             if (status == 0) {
-                presenter.check_qualified(assignment.getId(), this::toast);
+                presenter.check_qualified(assignment.getId(), r -> {
+                    if (r == 0) {
+                        toast("您的余额不足，请充值！");
+                    } else refresh_activity();
+                });
             } else if (status == 2) {
-                presenter.apply_for_checking(assignment.getId(), this::toast);
+                presenter.apply_for_checking(assignment.getId(), this::handle_result);
             }
         } else {
             if (status == 0) {
-                presenter.check_unqualified(assignment.getId(), this::toast);
+                presenter.check_unqualified(assignment.getId(), this::handle_result);
             } else if (status == 2) {
-                presenter.apply_for_checking(assignment.getId(), this::toast);
+                presenter.apply_for_checking(assignment.getId(), this::handle_result);
             }
         }
     }
 
-    private void toast(int res) {
+    private void handle_result(int res) {
         Toast.makeText(context(), res == 1 ? "操作成功" : "未知错误", Toast.LENGTH_SHORT).show();
+        if (res == 1) refresh();
     }
+
+    private void toast(String s) {
+        Toast.makeText(context(), s, Toast.LENGTH_SHORT).show();
+    }
+
 
     @OnClick(R.id.toolbar_back)
     void back() {
         context().finish();
     }
 
+
+    View v;
+    Assignment assignment;
+    Bid bid;
+    AssignmentDetailPresenter presenter;
     private int status = 0;
     @BindView(R.id.freelancer_portrait)
     SimpleDraweeView freelancer_portrait;

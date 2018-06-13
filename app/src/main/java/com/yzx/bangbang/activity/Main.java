@@ -11,14 +11,14 @@ import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
 import com.yzx.bangbang.model.SimpleIndividualInfo;
 import com.yzx.bangbang.R;
 import com.yzx.bangbang.model.User;
-import com.yzx.bangbang.utils.sql.DAO;
+import com.yzx.bangbang.utils.FrMetro;
+import com.yzx.bangbang.utils.sql.SA;
 import com.yzx.bangbang.presenter.MainPresenter;
 import com.yzx.bangbang.view.mainView.MainLayout;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.reactivex.functions.Consumer;
-import model.Assignment;
 
 
 public class Main extends RxAppCompatActivity {
@@ -26,7 +26,6 @@ public class Main extends RxAppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        setContentView(R.layout.main_layout);
         init();
     }
 
@@ -37,6 +36,8 @@ public class Main extends RxAppCompatActivity {
     }
 
     public void init() {
+        fm = new FrMetro(getFragmentManager(), R.id.main_fr_container);
+        setContentView(R.layout.main_layout);
         ButterKnife.bind(this);
         presenter.init(user.getId());
     }
@@ -91,8 +92,9 @@ public class Main extends RxAppCompatActivity {
 
     @BindView(R.id.main_layout)
     MainLayout mainLayout;
+    public FrMetro fm;
     public boolean exit_sign_in_flag;
-    public User user = (User) DAO.query(DAO.TYPE_USER);
+    public User user = (User) SA.query(SA.TYPE_USER);
     public int user_id = user.getId();
     public static final int ACTION_SHOW_DETAIL = 1;
     public static final int ACTION_CLICK_PORTRAIT = 2;

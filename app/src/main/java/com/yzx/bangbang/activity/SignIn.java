@@ -14,7 +14,7 @@ import com.yzx.bangbang.fragment.sign_in.TestUtils;
 import com.yzx.bangbang.interfaces.network.ISignIn;
 import com.yzx.bangbang.model.User;
 import com.yzx.bangbang.R;
-import com.yzx.bangbang.utils.sql.DAO;
+import com.yzx.bangbang.utils.sql.SA;
 import com.yzx.bangbang.utils.FrMetro;
 import com.yzx.bangbang.utils.netWork.Retro;
 import com.yzx.bangbang.utils.Params;
@@ -146,7 +146,7 @@ public class SignIn extends RxAppCompatActivity {
         if (state == SIGN_UP_SUCCESS) {
             post(new String[]{inputs[1], inputs[2]}, ACTION_SIGN_IN);
         } else if (state == SIGN_IN_SUCCESS) {
-            DAO.insert(user, DAO.TYPE_USER);
+            SA.insert(user, SA.TYPE_USER);
             startActivity(new Intent(this, Main.class));
         }
     }

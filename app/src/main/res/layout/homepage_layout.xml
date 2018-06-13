@@ -10,31 +10,30 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <android.support.v7.widget.Toolbar
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize">
-
-            <ImageView
-                android:id="@+id/toolbar_back"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:src="@drawable/icon_back_blue" />
-        </android.support.v7.widget.Toolbar>
-
         <com.facebook.drawee.view.SimpleDraweeView
             android:id="@+id/background"
             android:layout_width="match_parent"
             android:layout_height="200dp"
             android:background="#ECECEC" />
 
-        <com.yzx.bangbang.widget.Portrait
+        <android.support.v7.widget.Toolbar
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize">
+
+            <ImageView
+
+                android:id="@+id/toolbar_back"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/icon_back_blue" />
+        </android.support.v7.widget.Toolbar>
+
+        <ImageView
             android:layout_width="76dp"
             android:layout_height="76dp"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="162dp"
-            android:background="@color/white"
-            app:placeholderImage="@drawable/main_icon_portrait"
-            app:roundAsCircle="true" />
+            android:src="@drawable/white" />
 
         <com.yzx.bangbang.widget.Portrait
             android:id="@+id/portrait"
@@ -59,6 +58,7 @@
 
 
     <LinearLayout
+        android:id="@+id/rates"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginEnd="40dp"

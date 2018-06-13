@@ -7,7 +7,7 @@ import android.os.AsyncTask;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.squareup.leakcanary.LeakCanary;
 import com.yzx.bangbang.utils.netWork.WebSocketManager;
-import com.yzx.bangbang.utils.sql.DAO;
+import com.yzx.bangbang.utils.sql.SA;
 import com.yzx.bangbang.utils.sql.SpUtil;
 
 public class BangBangApp extends Application {
@@ -24,7 +24,7 @@ public class BangBangApp extends Application {
     private void init() {
         r = getResources();
         SpUtil.init(this);
-        DAO.init();
+        SA.init();
         //SqlUtil.connect();
     }
 

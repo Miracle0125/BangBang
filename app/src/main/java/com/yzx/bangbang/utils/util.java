@@ -9,7 +9,6 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Matrix;
 import android.graphics.Rect;
-import android.net.Uri;
 import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v4.view.ViewCompat;
@@ -20,7 +19,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
 import com.yzx.bangbang.model.User;
-import com.yzx.bangbang.utils.sql.DAO;
+import com.yzx.bangbang.utils.sql.SA;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -347,7 +346,7 @@ public class util {
     }
 
     public static int get_user_id(){
-        return ((User) DAO.query(DAO.TYPE_USER)).getId();
+        return ((User) SA.query(SA.TYPE_USER)).getId();
     }
 
 }

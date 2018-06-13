@@ -72,6 +72,8 @@
         <activity
             android:name=".activity.ChatActivity"
             android:screenOrientation="portrait" />
+        <activity android:name=".activity.FrActivity"
+            android:screenOrientation="portrait" />
 
 
         <service android:name=".Service.DeprecatedService" />

@@ -8,7 +8,6 @@ import android.widget.TextView;
 
 import com.yzx.bangbang.R;
 import com.yzx.bangbang.activity.ChatActivity;
-import com.yzx.bangbang.utils.sql.DAO;
 import com.yzx.bangbang.utils.util;
 
 import java.util.ArrayList;

@@ -7,10 +7,12 @@ import model.Assignment;
 
 
 //不完善
-public class DAO {
+public class SA {
     public static final int TYPE_USER = 0;
     public static final int TYPE_ASSIGNMENT = 1;
     public static final int TYPE_NOTIFIES = 2;
+    public static final int TYPE_FRACTIVITY_FRAGMENT = 3;
+    public static final int TYPE_ASSIGNMENT_FILTER = 4;
     //public static final int TYPE_NOTIFY_FLAG = 1;
 
     //  private static Map<Class, Integer> map;

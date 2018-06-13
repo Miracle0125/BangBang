@@ -2,8 +2,6 @@ package com.yzx.bangbang.presenter;
 
 
 import android.annotation.SuppressLint;
-import android.app.Notification;
-import android.app.NotificationManager;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
@@ -20,19 +18,14 @@ import com.tencent.android.tpush.XGIOperateCallback;
 import com.tencent.android.tpush.XGPushConfig;
 import com.tencent.android.tpush.XGPushManager;
 import com.trello.rxlifecycle2.android.ActivityEvent;
-import com.yzx.bangbang.R;
 import com.yzx.bangbang.Service.INetworkObserver;
 import com.yzx.bangbang.Service.INetworkService;
 import com.yzx.bangbang.Service.NetworkService;
 import com.yzx.bangbang.activity.Main;
 import com.yzx.bangbang.interfaces.network.IMain;
 import com.yzx.bangbang.model.Contact;
-import com.yzx.bangbang.model.Notify;
-import com.yzx.bangbang.utils.Params;
 import com.yzx.bangbang.utils.netWork.Retro;
-import com.yzx.bangbang.utils.sql.DAO;
 import com.yzx.bangbang.utils.sql.SpUtil;
-import com.yzx.bangbang.utils.util;
 
 import java.util.List;
 
@@ -60,7 +53,7 @@ public class MainPresenter {
 
 //    public void check_notify() {
 //        AsyncTask.execute(() -> begin_check_notify(r -> {
-//            DAO.insert(r, DAO.TYPE_NOTIFIES);
+//            SA.insert(r, SA.TYPE_NOTIFIES);
 //            show_notify(r);
 //        }));
 //    }
@@ -129,9 +122,9 @@ public class MainPresenter {
     };
 
 
-    public void get_user_assignment(int user_id, Consumer<List<Assignment>> consumer) {
+    public void get_user_assignment(int user_id,int filter, Consumer<List<Assignment>> consumer) {
         Retro.list().create(IMain.class)
-                .get_user_assignment(user_id)
+                .get_user_assignment(user_id,filter)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .compose(main.bindUntilEvent(ActivityEvent.DESTROY))
@@ -150,6 +143,15 @@ public class MainPresenter {
     public void get_recent_conversations(int user_id, Consumer<List<ChatRecord>> consumer){
         Retro.list().create(IMain.class)
                 .get_recent_conversations(user_id)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .compose(main.bindUntilEvent(ActivityEvent.DESTROY))
+                .subscribe(consumer);
+    }
+
+    public void get_balance(int user_id, Consumer<Integer> consumer){
+        Retro.single().create(IMain.class)
+                .get_balance(user_id)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .compose(main.bindUntilEvent(ActivityEvent.DESTROY))

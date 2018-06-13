@@ -30,4 +30,11 @@
         <item>语言 &#038; 翻译</item>
         <item>其它</item>
     </string-array>
+    <string-array name="personal_homepage_rates_spec">
+        <item>已完成的需求</item>
+        <item>预算内</item>
+        <item>准时率</item>
+        <item>重复雇佣率</item>
+    </string-array>
+
 </resources>

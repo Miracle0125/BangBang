@@ -13,7 +13,6 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.facebook.drawee.view.SimpleDraweeView;
 import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
 import com.yzx.bangbang.adapter.assignment_detail.AssignmentDetailAdapter;
 import com.yzx.bangbang.fragment.assignment_detail.FrBids;
@@ -27,14 +26,12 @@ import com.yzx.bangbang.presenter.AssignmentDetailPresenter;
 import com.yzx.bangbang.utils.FrMetro;
 import com.yzx.bangbang.utils.Params;
 import com.yzx.bangbang.utils.netWork.RetroFunctions;
-import com.yzx.bangbang.utils.netWork.Retro;
-import com.yzx.bangbang.utils.sql.DAO;
+import com.yzx.bangbang.utils.sql.SA;
 import com.yzx.bangbang.utils.util;
 import com.yzx.bangbang.widget.EvaluateView;
 import com.yzx.bangbang.widget.Portrait;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -287,7 +284,7 @@ public class AssignmentDetail extends RxAppCompatActivity {
     public Assignment assignment;
     public List<Bid> bids = new ArrayList<>();
     public List<Comment> comments = new ArrayList<>();
-    public User user = (User) DAO.query(DAO.TYPE_USER);
+    public User user = (User) SA.query(SA.TYPE_USER);
     private AlertDialog bid_dialog;
     public AssignmentDetailPresenter presenter = new AssignmentDetailPresenter(this);
     AssignmentDetailAdapter adapter = new AssignmentDetailAdapter(this);

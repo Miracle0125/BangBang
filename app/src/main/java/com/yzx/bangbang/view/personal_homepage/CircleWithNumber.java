@@ -5,7 +5,9 @@ import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
 import com.yzx.bangbang.R;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -21,6 +23,7 @@ public class CircleWithNumber extends LinearLayout {
     public CircleWithNumber(Context context, @Nullable AttributeSet attrs) {
         this(context, attrs, 0);
     }
+
     public CircleWithNumber(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
     }
@@ -31,14 +34,14 @@ public class CircleWithNumber extends LinearLayout {
         ButterKnife.bind(this, this);
     }
 
-    public void set_number(int i) {
-        if (i == -1) return;
-        text_number.setText(i + "");
+    public void set_rate(int i) {
+        if (i < 0 || i > 100) return;
+        text_number.setText(i + "%");
     }
 
-    public void set_number(float i) {
-        if (i == -1) return;
-        text_number.setText(i + "");
+    public void set_rate(float i) {
+        if (i < 0 || i > 1) return;
+        text_number.setText(i * 100 + "%");
     }
 
     public void set_spec(String s) {

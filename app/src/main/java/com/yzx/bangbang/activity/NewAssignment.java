@@ -24,7 +24,7 @@ import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
 import com.yzx.bangbang.interfaces.network.IMain;
 import com.yzx.bangbang.model.User;
 import com.yzx.bangbang.R;
-import com.yzx.bangbang.utils.sql.DAO;
+import com.yzx.bangbang.utils.sql.SA;
 import com.yzx.bangbang.utils.netWork.Retro;
 import com.yzx.bangbang.utils.sql.SpUtil;
 import com.yzx.bangbang.utils.util;
@@ -173,7 +173,7 @@ public class NewAssignment extends RxAppCompatActivity {
     private void prepare_data() {
         //User user = (User) SpUtil.getObject(SpUtil.USER);
         // User user = new Gson().fromJson(SqlUtil.queryString(SqlUtil.TABLE_JSON, "user"), User.class);
-        User user = (User) DAO.query(DAO.TYPE_USER);
+        User user = (User) SA.query(SA.TYPE_USER);
         final LatLng latLng = isLocationEnable.isChecked() ? null : (LatLng) SpUtil.getObject(SpUtil.LATLNG);
         String assignment = new Gson().toJson(new Assignment(0,
                 title.getText().toString(),

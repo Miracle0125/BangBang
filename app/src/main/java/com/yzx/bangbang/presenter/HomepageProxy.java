@@ -14,11 +14,6 @@ import io.reactivex.schedulers.Schedulers;
 @SuppressLint({"Registered","CheckResult"})
 public class HomepageProxy extends RxAppCompatActivity {
 
-
-
-
-
-
     public void add_to_contact(int owner, int person_id, Consumer<Integer> consumer) {
         Retro.list().create(IMain.class)
                 .add_to_contact(owner,person_id)

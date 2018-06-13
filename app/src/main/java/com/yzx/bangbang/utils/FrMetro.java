@@ -3,7 +3,11 @@ package com.yzx.bangbang.utils;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.Intent;
+import android.util.Pair;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Stack;
 
 //用于快速跳转管理FRAGMENT的工具类
@@ -13,6 +17,7 @@ public class FrMetro {
     private Stack<Fragment> old;
     private int container;
     private IFrMetro iFrMetro;
+    private Map<Class, Integer[]> fragment_anim = new HashMap<>();
 
     public FrMetro(FragmentManager fm, int container) {
         this.fm = fm;
@@ -45,6 +50,10 @@ public class FrMetro {
             if (current != null) {
                 ft.hide(current);
                 old.add(current);
+            }
+            if (fragment_anim.get(cls) != null) {
+                Integer[] anim = fragment_anim.get(cls);
+                ft.setCustomAnimations(anim[0], anim[1]);
             }
             if (fragment == null) {
                 fragment = (Fragment) cls.newInstance();
@@ -79,6 +88,10 @@ public class FrMetro {
 
     public Fragment findFragmentByClass(Class<?> cls) {
         return fm.findFragmentByTag(cls.toString());
+    }
+
+    public void setAnim(Class fragment, int anim_enter, int anim_exit) {
+        fragment_anim.put(fragment, new Integer[]{anim_enter, anim_exit});
     }
 
     public Fragment getCurrent() {

@@ -17,7 +17,7 @@ import com.yzx.bangbang.adapter.main.NotifyAdapter;
 import com.yzx.bangbang.interfaces.network.IMain;
 import com.yzx.bangbang.model.Notify;
 import com.yzx.bangbang.utils.netWork.Retro;
-import com.yzx.bangbang.utils.sql.DAO;
+import com.yzx.bangbang.utils.sql.SA;
 
 import java.util.List;
 
@@ -56,7 +56,7 @@ public class FrNotify extends Fragment {
 
     @SuppressWarnings("all")
     private void refresh() {
-        notifies = (List<Notify>) DAO.query(DAO.TYPE_NOTIFIES);
+        notifies = (List<Notify>) SA.query(SA.TYPE_NOTIFIES);
         if (notifies == null)
             return;
         adapter.setNotifies(notifies);

@@ -7,12 +7,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
 import com.facebook.drawee.view.SimpleDraweeView;
+import com.yzx.bangbang.activity.FrActivity;
 import com.yzx.bangbang.activity.PersonalHomepage;
 import com.yzx.bangbang.activity.Main;
 import com.yzx.bangbang.R;
 import com.yzx.bangbang.activity.SignIn;
 import com.yzx.bangbang.utils.netWork.Retro;
+import com.yzx.bangbang.utils.sql.SA;
+import com.yzx.bangbang.utils.util;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -35,6 +40,17 @@ public class FrUser extends Fragment {
         }
     }
 
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        refresh();
+    }
+
+    private void refresh() {
+        context().presenter.get_balance(util.get_user_id(), r -> text_balance.setText("¥"+String.valueOf(r)+"CNY"));
+    }
+
     @OnClick({R.id.button_exit_sign_in,
             R.id.button_recent_explore,
             R.id.individual_info_bar,
@@ -46,7 +62,13 @@ public class FrUser extends Fragment {
                 context().startActivity(new Intent(context(), SignIn.class));
                 break;
             case R.id.individual_info_bar:
-                context().startActivity(new Intent(context(), PersonalHomepage.class));
+                Intent intent = new Intent(context(), PersonalHomepage.class);
+                intent.putExtra("person_id", util.get_user_id());
+                context().startActivity(intent);
+                break;
+            case R.id.button_balance:
+                SA.insert(FrCharge.class, SA.TYPE_FRACTIVITY_FRAGMENT);
+                startActivity(new Intent(context(), FrActivity.class));
                 break;
         }
     }
@@ -59,4 +81,6 @@ public class FrUser extends Fragment {
     SimpleDraweeView host_portrait;
     @BindView(R.id.host_name)
     TextView host_name;
+    @BindView(R.id.text_balance)
+    TextView text_balance;
 }

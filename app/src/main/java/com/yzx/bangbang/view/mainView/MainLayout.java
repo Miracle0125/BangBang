@@ -66,7 +66,7 @@ public class MainLayout extends RelativeLayout {
     void init() {
         ButterKnife.bind(this);
         initSelector();
-        metro = new FrMetro(context.getFragmentManager(), R.id.main_fr_container);
+        metro = context.fm;
         metro.goToFragment(FrMain.class);
     }
 
@@ -93,7 +93,7 @@ public class MainLayout extends RelativeLayout {
 //        for (ImageView imageView : selector)
 //            imageView.setClickable(true);
         selector[0].setColorFilter(getResources().getColor(R.color.blue_button));
-       // changeFocus(current_index);
+        // changeFocus(current_index);
     }
 
     //改变颜色

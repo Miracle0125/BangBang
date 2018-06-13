@@ -21,13 +21,13 @@ public interface IMain {
     Flowable<List<Assignment>> get_assignment(@Query("mode") int mode, @Query("what") int what);
 
     @POST("new_assignment")
-    Flowable<Integer> new_assignment(@Query("assignment") String s,@Body MultipartBody body);
+    Flowable<Integer> new_assignment(@Query("assignment") String s, @Body MultipartBody body);
 
     @POST("new_assignment")
     Flowable<Integer> new_assignment(@Query("assignment") String s);
 
     @GET("get_user_assignment")
-    Flowable<List<Assignment>> get_user_assignment(@Query("user_id") int user_id);
+    Flowable<List<Assignment>> get_user_assignment(@Query("user_id") int user_id, @Query("filter") int filter);
 
     @GET("get_notify")
     Flowable<List<Notify>> get_notify(@Query("user_id") int user_id);
@@ -39,10 +39,17 @@ public interface IMain {
     Flowable<List<Contact>> get_contacts(@Query("owner") int user_id);
 
     @POST("add_to_contact")
-    Flowable<Integer> add_to_contact(@Query("owner") int owner,@Query("person_id") int person_id);
+    Flowable<Integer> add_to_contact(@Query("owner") int owner, @Query("person_id") int person_id);
 
     @GET("get_recent_conversations")
     Flowable<List<ChatRecord>> get_recent_conversations(@Query("user_id") int user_id);
+
+    @POST("charge")
+    Flowable<Integer> charge(@Query("user_id") int user_id, @Query("amount") int amount);
+
+    @GET("get_balance")
+    Flowable<Integer> get_balance(@Query("user_id") int user_id);
+
 
 }
 
