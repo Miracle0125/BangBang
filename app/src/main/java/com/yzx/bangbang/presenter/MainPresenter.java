@@ -2,6 +2,8 @@ package com.yzx.bangbang.presenter;
 
 
 import android.annotation.SuppressLint;
+import android.app.Notification;
+import android.app.NotificationManager;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
@@ -18,13 +20,16 @@ import com.tencent.android.tpush.XGIOperateCallback;
 import com.tencent.android.tpush.XGPushConfig;
 import com.tencent.android.tpush.XGPushManager;
 import com.trello.rxlifecycle2.android.ActivityEvent;
+import com.yzx.bangbang.R;
 import com.yzx.bangbang.Service.INetworkObserver;
 import com.yzx.bangbang.Service.INetworkService;
 import com.yzx.bangbang.Service.NetworkService;
 import com.yzx.bangbang.activity.Main;
 import com.yzx.bangbang.interfaces.network.IMain;
 import com.yzx.bangbang.model.Contact;
+import com.yzx.bangbang.model.Notify;
 import com.yzx.bangbang.utils.netWork.Retro;
+import com.yzx.bangbang.utils.sql.SA;
 import com.yzx.bangbang.utils.sql.SpUtil;
 
 import java.util.List;
@@ -40,46 +45,46 @@ public class MainPresenter {
     private Main main;
     private int user_id;
     private boolean is_service_bind;
-
+    public static final int DEFAULT_MORE = 4;
     public void init(int user_id) {
         this.user_id = user_id;
         AsyncTask.execute(() -> {
             online_user();
             getLocation();
-            //check_notify();
+            check_notify();
         });
         //testPush();
     }
 
-//    public void check_notify() {
-//        AsyncTask.execute(() -> begin_check_notify(r -> {
-//            SA.insert(r, SA.TYPE_NOTIFIES);
-//            show_notify(r);
-//        }));
-//    }
-//
-//    private void begin_check_notify(Consumer<List<Notify>> consumer) {
-//        Retro.list().create(IMain.class)
-//                .get_notify(user_id)
-////                .subscribeOn(Schedulers.io())
-////                .observeOn(AndroidSchedulers.mainThread())
-//                .compose(main.bindUntilEvent(ActivityEvent.DESTROY))
-//                .subscribe(consumer);
-//    }
-//
-//    private void show_notify(List<Notify> notifies) {
-//        int not_read = 0;
-//        for (int i = 0; i < notifies.size(); i++)
-//            if (notifies.get(i).read == 0) not_read++;
-//        if (not_read == 0) return;
-//        Notification notification = new Notification.Builder(main)
-//                .setSmallIcon(R.drawable.main_icon_portrait)
-//                .setContentTitle(not_read + "条新消息")
-//                .build();
-//        NotificationManager manager = (NotificationManager) main.getSystemService(Context.NOTIFICATION_SERVICE);
-//        if (manager != null)
-//            manager.notify(1, notification);
-//    }
+    public void check_notify() {
+        AsyncTask.execute(() -> begin_check_notify(r -> {
+            SA.insert(r, SA.TYPE_NOTIFIES);
+            show_notify(r);
+        }));
+    }
+
+    private void begin_check_notify(Consumer<List<Notify>> consumer) {
+        Retro.list().create(IMain.class)
+                .get_notify(user_id)
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+                .compose(main.bindUntilEvent(ActivityEvent.DESTROY))
+                .subscribe(consumer);
+    }
+
+    private void show_notify(List<Notify> notifies) {
+        int not_read = 0;
+        for (int i = 0; i < notifies.size(); i++)
+            if (notifies.get(i).read == 0) not_read++;
+        if (not_read == 0) return;
+        Notification notification = new Notification.Builder(main)
+                .setSmallIcon(R.drawable.main_icon_portrait)
+                .setContentTitle(not_read + "条新消息")
+                .build();
+        NotificationManager manager = (NotificationManager) main.getSystemService(Context.NOTIFICATION_SERVICE);
+        if (manager != null)
+            manager.notify(1, notification);
+    }
 
     private void online_user() {
         connection = new ServiceConnection() {

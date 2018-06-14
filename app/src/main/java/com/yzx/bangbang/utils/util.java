@@ -3,6 +3,7 @@ package com.yzx.bangbang.utils;
 
 import android.app.Activity;
 import android.app.ActivityManager;
+import android.app.Application;
 import android.content.ComponentName;
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -18,6 +19,7 @@ import android.view.animation.Interpolator;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
+import com.yzx.bangbang.R;
 import com.yzx.bangbang.model.User;
 import com.yzx.bangbang.utils.sql.SA;
 
@@ -43,6 +45,7 @@ import java.util.regex.Pattern;
 
 
 public class util {
+    private static Application context;
     public static Interpolator interpolator;
     public static final int VERTICAL = 0;
     public static final int HORIZONTAL = 1;
@@ -50,6 +53,10 @@ public class util {
     public static final int DATA_CHANGED = 0;
     public static final int DATA_NOT_CHANGED = 1;
 
+
+    public static void init(Application application){
+        context=application;
+    }
     //移动view
     public static void Animate(View v, float translation, int mode, int duration) {
         if (interpolator == null) interpolator = new DecelerateInterpolator();
@@ -347,6 +354,10 @@ public class util {
 
     public static int get_user_id(){
         return ((User) SA.query(SA.TYPE_USER)).getId();
+    }
+
+    public static String[] get_str_array(int id){
+        return context.getResources().getStringArray(id);
     }
 
 }

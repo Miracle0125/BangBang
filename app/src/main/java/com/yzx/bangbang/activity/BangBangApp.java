@@ -9,6 +9,7 @@ import com.squareup.leakcanary.LeakCanary;
 import com.yzx.bangbang.utils.netWork.WebSocketManager;
 import com.yzx.bangbang.utils.sql.SA;
 import com.yzx.bangbang.utils.sql.SpUtil;
+import com.yzx.bangbang.utils.util;
 
 public class BangBangApp extends Application {
     public static Resources r;
@@ -25,6 +26,7 @@ public class BangBangApp extends Application {
         r = getResources();
         SpUtil.init(this);
         SA.init();
+        util.init(this);
         //SqlUtil.connect();
     }
 
@@ -39,7 +41,7 @@ public class BangBangApp extends Application {
     @Override
     public void onTerminate() {
         super.onTerminate();
-       // Log.e("ss", "ws closed in app");
+        // Log.e("ss", "ws closed in app");
         WebSocketManager.close_socket(WebSocketManager.NOTIFY_SOCKET);
     }
 

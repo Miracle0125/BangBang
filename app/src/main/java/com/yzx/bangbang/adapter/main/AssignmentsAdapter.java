@@ -8,10 +8,13 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
 import com.yzx.bangbang.activity.BrowseAssignment;
 import com.yzx.bangbang.R;
 import com.yzx.bangbang.utils.util;
+
 import java.util.List;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import model.Assignment;
@@ -87,6 +90,18 @@ public class AssignmentsAdapter extends RecyclerView.Adapter<AssignmentsAdapter.
 
     public void setData(List<Assignment> data) {
         this.data = data;
+    }
+
+    public void appendData(List<Assignment> new_data) {
+        if (new_data == null) {
+            return;
+        }
+        data.addAll(new_data);
+    }
+
+    public int get_last_id() {
+        if (data.isEmpty()) return -1;
+        return data.get(data.size() - 1).getId();
     }
 
     public void setOnClickListener(View.OnClickListener listener) {

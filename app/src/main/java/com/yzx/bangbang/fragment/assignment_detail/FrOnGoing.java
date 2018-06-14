@@ -16,8 +16,12 @@ import com.facebook.drawee.view.SimpleDraweeView;
 import com.yzx.bangbang.R;
 import com.yzx.bangbang.activity.AssignmentDetail;
 import com.yzx.bangbang.model.Bid;
+import com.yzx.bangbang.model.User;
 import com.yzx.bangbang.presenter.AssignmentDetailPresenter;
 import com.yzx.bangbang.utils.netWork.Retro;
+import com.yzx.bangbang.utils.sql.SA;
+import com.yzx.bangbang.utils.util;
+import com.yzx.bangbang.widget.Portrait;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -73,9 +77,22 @@ public class FrOnGoing extends Fragment {
 
     private void refresh() {
         presenter.get_on_going_bid(assignment.getId(), r -> {
+            //int user_id = util.get_user_id();
             bid = r;
-            freelancer_name.setText(bid.host_name);
-            freelancer_portrait.setImageURI(Retro.get_portrait_uri(bid.host_id));
+            User user = (User) SA.query(SA.TYPE_USER);
+            int person_id;
+            String person_name;
+            if (user.getId() == bid.host_id) {
+                person_id = assignment.getEmployer_id();
+                person_name = assignment.getEmployer_name();
+            } else {
+                person_id = bid.host_id;
+                person_name = bid.host_name;
+                price.setText("¥ " + bid.price);
+            }
+            freelancer_name.setText(person_name);
+            freelancer_portrait.setData(person_id);
+            //  freelancer_portrait.setImageURI(Retro.get_portrait_uri(bid.host_id));
             init_buttons();
         });
         presenter.get_on_going_remain_time(assignment.getId(), r -> {
@@ -89,7 +106,7 @@ public class FrOnGoing extends Fragment {
         context().FINISH_WHEN_STOP = true;
         Intent intent = new Intent(context(), AssignmentDetail.class);
         intent.putExtra("asm_id", context().assignment.getId());
-        startActivity(intent);
+        context().startActivity(intent);
     }
 
     private AssignmentDetail context() {
@@ -120,7 +137,9 @@ public class FrOnGoing extends Fragment {
 
     private void handle_result(int res) {
         Toast.makeText(context(), res == 1 ? "操作成功" : "未知错误", Toast.LENGTH_SHORT).show();
-        if (res == 1) refresh();
+        if (res == 1) {
+            refresh_activity();
+        }
     }
 
     private void toast(String s) {
@@ -140,7 +159,7 @@ public class FrOnGoing extends Fragment {
     AssignmentDetailPresenter presenter;
     private int status = 0;
     @BindView(R.id.freelancer_portrait)
-    SimpleDraweeView freelancer_portrait;
+    Portrait freelancer_portrait;
     @BindView(R.id.freelancer_name)
     TextView freelancer_name;
     @BindView(R.id.title)
@@ -161,4 +180,6 @@ public class FrOnGoing extends Fragment {
     TextView button_vice;
     @BindView(R.id.text_button_vice)
     TextView text_button_vice;
+    @BindView(R.id.price)
+    TextView price;
 }

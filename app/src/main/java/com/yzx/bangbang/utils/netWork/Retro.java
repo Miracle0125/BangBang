@@ -31,7 +31,7 @@ public class Retro {
 
     private static Retrofit.Builder getBaseBuilder() {
         return new Retrofit.Builder()
-                .baseUrl("http://" + Params.ip + ":8080/BangBang/")
+                .baseUrl("http://" + Params.ip + "BangBang/")
                 .client(new OkHttpClient.Builder()
                         .connectTimeout(30, TimeUnit.SECONDS)
                         .readTimeout(30, TimeUnit.SECONDS).build());
@@ -57,7 +57,7 @@ public class Retro {
     }
 
     public static Uri get_image_uri(String name, int type) {
-        return Uri.parse("http://" + Params.ip + ":8080/server/image/" + image_dir[type] + name + ".jpg");
+        return Uri.parse("http://" + Params.ip + "server/image/" + image_dir[type] + name + ".jpg");
     }
 
     public static Uri get_image_uri(String name) {

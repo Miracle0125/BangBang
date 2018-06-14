@@ -20,6 +20,9 @@ public interface IMain {
     @GET("get_assignment")
     Flowable<List<Assignment>> get_assignment(@Query("mode") int mode, @Query("what") int what);
 
+    @GET("get_assignment")
+    Flowable<List<Assignment>> get_assignment(@Query("mode") int mode, @Query("what") int what,@Query("last_id") int last_id);
+
     @POST("new_assignment")
     Flowable<Integer> new_assignment(@Query("assignment") String s, @Body MultipartBody body);
 
@@ -49,7 +52,6 @@ public interface IMain {
 
     @GET("get_balance")
     Flowable<Integer> get_balance(@Query("user_id") int user_id);
-
 
 }
 

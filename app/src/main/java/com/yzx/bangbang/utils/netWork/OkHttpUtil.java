@@ -80,11 +80,11 @@ public class OkHttpUtil {
     }
 
     private String getUrl(String servlet) {
-        return "http://" + Params.ip + ":8080/BangBang/" + servlet;
+        return "http://" + Params.ip + "BangBang/" + servlet;
     }
 
     private String get_ws_url(String... params) {
-        StringBuilder sb = new StringBuilder("ws://" + Params.ip + ":8080/BangBang/ws");
+        StringBuilder sb = new StringBuilder("ws://" + Params.ip + "BangBang/ws");
         for (String p : params)
             sb.append("/").append(p);
         return sb.toString();

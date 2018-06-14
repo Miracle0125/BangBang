@@ -76,6 +76,7 @@ public class AssignmentDetailAdapter extends RecyclerView.Adapter<ViewHolder> {
         } else if (holder instanceof BidHolder) {
             BidHolder h = (BidHolder) holder;
             h.bind(bids.get(i - 1), context.IS_USER_SAME_WITH_HOST, assignment.getStatus());
+            h.button_choose.setVisibility(View.INVISIBLE);
         } else if (holder instanceof AboveCommentHolder) {
             AboveCommentHolder h = (AboveCommentHolder) holder;
             if (comments.size() > MAX_COMMENT_SHOWED)
